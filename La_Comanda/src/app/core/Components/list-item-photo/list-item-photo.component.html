@@ -1,0 +1,13 @@
+<ion-item [lines]="'inlined'" button (click)="this.onClickEvent()">
+    <ion-thumbnail id="thumbnail" slot="start">
+        <img [src]="this.photoUrl">
+    </ion-thumbnail>
+    <ion-label>
+        <h3>
+            {{this.title}}
+        </h3>
+        <p>
+            {{this.content}}
+        </p>
+    </ion-label>
+</ion-item>

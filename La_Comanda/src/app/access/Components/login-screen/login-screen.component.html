@@ -1,0 +1,17 @@
+<ion-grid fixed>
+    <ion-row>
+        <ion-col size="12" class="ion-no-padding">
+            <app-login-form></app-login-form>
+        </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="6" class="ion-padding" id="usersCol">
+            <ion-button (click)="displayUserList()" expand="block" fill="outline">Elegir usuario</ion-button>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+<ion-footer mode="ios" class="ion-text-center">
+    <ion-toolbar>
+        <ion-title color="secondary" size="small">{{this.author}} - {{this.appName}} (v{{this.version}})</ion-title>
+    </ion-toolbar>
+</ion-footer>

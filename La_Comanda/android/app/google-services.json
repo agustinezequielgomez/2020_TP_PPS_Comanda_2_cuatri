@@ -1,0 +1,32 @@
+{
+    "project_info": {
+        "project_number": "566180884125",
+        "firebase_url": "https://comanda-pps.firebaseio.com",
+        "project_id": "comanda-pps",
+        "storage_bucket": "comanda-pps.appspot.com"
+    },
+    "client": [{
+        "client_info": {
+            "mobilesdk_app_id": "1:566180884125:android:bd7dc65b56299984402e74",
+            "android_client_info": {
+                "package_name": "la.comanda"
+            }
+        },
+        "oauth_client": [{
+            "client_id": "566180884125-itutbfcs3v4m568v991oebrnkrsmta51.apps.googleusercontent.com",
+            "client_type": 3
+        }],
+        "api_key": [{
+            "current_key": "AIzaSyD-3oXuov7grIK5vCEQbxu44dwc2beCTqI"
+        }],
+        "services": {
+            "appinvite_service": {
+                "other_platform_oauth_client": [{
+                    "client_id": "566180884125-itutbfcs3v4m568v991oebrnkrsmta51.apps.googleusercontent.com",
+                    "client_type": 3
+                }]
+            }
+        }
+    }],
+    "configuration_version": "1"
+}

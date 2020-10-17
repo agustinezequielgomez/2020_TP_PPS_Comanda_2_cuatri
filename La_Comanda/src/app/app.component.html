@@ -1,0 +1,4 @@
+<ion-app>
+    <app-splash-screen *ngIf="!this.hideSplashAnimation" (destroyComponent)="this.hideSplashAnimation = true"></app-splash-screen>
+    <ion-router-outlet [animation]="this.RoutingAnimation"></ion-router-outlet>
+</ion-app>

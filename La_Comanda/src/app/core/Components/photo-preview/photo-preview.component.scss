@@ -1,0 +1,18 @@
+#container {
+    display: grid;
+    grid-template-areas: "photo";
+    grid-template-rows: 95%;
+    background-color: black;
+    width: 100%;
+    padding-bottom: 50%;
+}
+
+#photo-container {
+    grid-area: photo;
+}
+
+ion-haeder,
+ion-toolbar {
+    --background: black;
+    --color: white;
+}

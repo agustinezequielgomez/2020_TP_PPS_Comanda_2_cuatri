@@ -1,0 +1,65 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+
+/* Core CSS required for Ionic components to work properly */
+
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+.baseAlertClass {
+    --background: red;
+    .alert-title {
+        color: greenyellow !important;
+    }
+    .alert-head {
+        background: blueviolet !important;
+    }
+    .alert-message {
+        background: coral;
+    }
+    .alert-button-group {
+        background: cyan;
+    }
+}
+
+.baseToastClass {
+    --border-color: yellow;
+    --border-style: 'dotted';
+    --border-radius: 1.5rem;
+    --border-width: thick;
+    // --end: 15rem;
+    // --start: 15rem;
+    --color: red;
+}
+
+.ion-users-popover {
+    --background: var(--ion-color-primary);
+}
+
+.ion-loader {
+    --background: var(--ion-color-primary);
+    --spinner-color: var(--ion-color-secondary);
+    color: white;
+}

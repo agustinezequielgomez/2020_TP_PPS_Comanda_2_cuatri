@@ -1,0 +1,18 @@
+/////////////////////////////////////////
+@import "~@angular/material/theming";
+@include mat-core();
+$md-primary: ( 50: #e1f3fc, 100: #b3e0f6, 200: #81ccf1, 300: #4fb8eb, 400: #29a8e6, 500: #0399e2, 600: #0391df, 700: #0286da, 800: #027cd6, 900: #016bcf, A100: #f6faff, A200: #c3dfff, A400: #90c3ff, A700: #77b5ff, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$md-secondary: ( 50: #fff9e8, 100: #fff0c6, 200: #ffe6a0, 300: #ffdc79, 400: #ffd55d, 500: #ffcd40, 600: #ffc83a, 700: #ffc132, 800: #ffba2a, 900: #ffae1c, A100: #ffffff, A200: #ffffff, A400: #ffeccd, A700: #ffe2b3, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #000000, 900: #000000, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$md-success: ( 50: #e6faee, 100: #c0f2d4, 200: #96e9b7, 300: #6ce09a, 400: #4dda85, 500: #2dd36f, 600: #28ce67, 700: #22c85c, 800: #1cc252, 900: #11b740, A100: #e6ffec, A200: #b3ffc6, A400: #80ff9f, A700: #67ff8c, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #000000, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$md-warn: ( 50: #fde9eb, 100: #f9c7ce, 200: #f5a2ad, 300: #f17c8c, 400: #ee6073, 500: #eb445a, 600: #e93e52, 700: #e53548, 800: #e22d3f, 900: #dd1f2e, A100: #ffffff, A200: #ffe0e2, A400: #ffadb3, A700: #ff949b, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$dynamic-primary: mat-palette($md-primary);
+$dynamic-accent: mat-palette($md-secondary);
+$dynamic-warn: mat-palette($md-warn);
+$dynamic-success: mat-palette($md-warn);
+@function dynamic-theme( $primary: $md-primary, $secondary: $md-secondary, $warn: $md-warn, $success: $md-success) {
+    @return map-merge( mat-light-theme($primary, $secondary, $warn), ( success: $success, ));
+}
+
+$dynamic-theme: dynamic-theme($dynamic-primary, $dynamic-accent, $dynamic-warn, $dynamic-success);
+@include angular-material-theme($dynamic-theme);
+/////////////////////////////////////////
