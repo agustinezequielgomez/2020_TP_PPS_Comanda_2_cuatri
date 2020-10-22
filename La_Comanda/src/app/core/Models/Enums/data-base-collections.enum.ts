@@ -1,5 +1,6 @@
 export enum DataBaseCollections {
     config = 'config',
     users = 'users',
-    devices = 'devices'
+    devices = 'devices',
+    clients = 'clients'
 }

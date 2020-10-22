@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AccessRoutingModule } from './access-routing.module';
+import { CoreModule } from '../core/core.module';
 
 
 
@@ -22,7 +23,8 @@ import { AccessRoutingModule } from './access-routing.module';
     ReactiveFormsModule,
     FormsModule,
     IonicModule.forRoot(),
-    AccessRoutingModule
+    AccessRoutingModule,
+    CoreModule
   ],
   exports: [
     SplashScreenComponent

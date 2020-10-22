@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Photo, Photos } from '../Models/Classes/photo';
 import { TestUsers, TestUser } from '../Models/Classes/test-user';
 import { User } from '../Models/Classes/user';
+import { Client } from '../Models/Classes/client';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +84,36 @@ export class DataStoreService {
 
     public set NotificationData(data: T) {
       this.NotificationDataSubject.next(data);
+    }
+  }();
+
+  static Client = new class {
+    private RegisteredClientSubject: BehaviorSubject<Client> = new BehaviorSubject(null);
+    public RegisteredClientObservable: Observable<Client> = this.RegisteredClientSubject.asObservable();
+
+    public get RegisteredClient(): Client {
+      return this.RegisteredClientSubject.value;
+    }
+
+    public set RegisteredClient(client: Client) {
+      this.RegisteredClientSubject.next(client);
+    }
+  }();
+
+  static Various = new class {
+    private CapturedPhotosSubject: BehaviorSubject<Photos> = new BehaviorSubject([]);
+    public CapturedPhotosObservable: Observable<Photos> = this.CapturedPhotosSubject.asObservable();
+
+    public set CapturedPhotos(photos: Photos) {
+      this.CapturedPhotosSubject.next(photos);
+    }
+
+    public set AddCapturedPhoto(photo: Photo) {
+      this.CapturedPhotosSubject.next([...this.CapturedPhotosSubject.value, photo]);
+    }
+
+    public get CapturedPhotos(): Photos {
+      return this.CapturedPhotosSubject.value;
     }
   }();
 }

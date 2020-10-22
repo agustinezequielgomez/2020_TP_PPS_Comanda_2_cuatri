@@ -1,47 +1,36 @@
 <ion-grid fixed>
     <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="6">
-            <ion-card id="loginCard" color="primary" mode="ios">
-                <ion-card-header mode="ios">
-                    <ion-card-title mode="ios" class="ion-text-center" color="secondary">LOGIN</ion-card-title>
+            <ion-card id="loginCard" mode="md">
+                <ion-card-header mode="md">
+                    <ion-card-title mode="md" class="ion-text-center" color="primary">La Comanda</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
                     <ion-row>
                         <ion-col size="12">
                             <form id="loginForm" [formGroup]="loginForm">
-                                <mat-form-field class="form-field" appearance="outline" color="accent">
-                                    <mat-label>Nombre de usuario
-                                    </mat-label>
-                                    <input matInput required formControlName="userName" type="email" />
-                                </mat-form-field>
-                                <mat-form-field class="form-field" appearance="outline" color="accent">
-                                    <mat-label>Contraseña
-                                    </mat-label>
-                                    <input matInput required formControlName="password" [type]="this.passwordInputType" />
-                                </mat-form-field>
+                                <ion-item mode="md" class='form-field'>
+                                    <ion-label color="primary" class="input-label" position="floating">Correo electrónico
+                                        <ion-text color="danger">*</ion-text>
+                                    </ion-label>
+                                    <ion-input required formControlName="userName" type="email" mode="md"></ion-input>
+                                </ion-item>
+                                <app-password-input (passwordChanged)='this.loginForm.get("password").setValue($event)'></app-password-input>
                             </form>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col size="12">
-                            <ion-item color="primary">
-                                <ion-label>Mostrar contraseña</ion-label>
-                                <ion-toggle color="secondary" slot="start" mode="md" (ionChange)="this.togglePasswordInput()"></ion-toggle>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col size="12">
-                            <ion-item color="primary">
+                            <ion-item id='toggle' class='form-field' lines='none'>
                                 <ion-label id="labelCheck">Recordar contraseña</ion-label>
-                                <ion-checkbox id="check" color="secondary" slot="start" mode="md" [checked]="this.rememberUser" (ionChange)="this.toggleRememberUser()"></ion-checkbox>
+                                <ion-toggle id="check" color="primary" slot="start" mode="md" [checked]="this.rememberUser" (ionChange)="this.toggleRememberUser()"></ion-toggle>
                             </ion-item>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col>
                             <ion-button id="submitButton" block color="secondary" type="submit" (click)="this.login()" [disabled]="loginForm.invalid">
-                                Login
+                                Ingresar
                             </ion-button>
                         </ion-col>
                     </ion-row>

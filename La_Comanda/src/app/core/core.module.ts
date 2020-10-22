@@ -14,6 +14,9 @@ import { ListItemPhotoComponent } from './Components/list-item-photo/list-item-p
 import { ListItemSkeletonComponent } from './Components/list-item-skeleton/list-item-skeleton.component';
 import { PhotoPreviewComponent } from './Components/photo-preview/photo-preview.component';
 import { IonicModule } from '@ionic/angular';
+import { AvatarUploaderComponent } from './Components/avatar-uploader/avatar-uploader.component';
+import { PasswordInputComponent } from './Components/password-input/password-input.component';
+import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.component';
 
 
 
@@ -24,7 +27,10 @@ import { IonicModule } from '@ionic/angular';
     ListItemPhotoComponent,
     ListItemSkeletonComponent,
     PhotoPreviewComponent,
-    QRScannerComponent
+    QRScannerComponent,
+    AvatarUploaderComponent,
+    PasswordInputComponent,
+    DNIFormInputComponent
   ],
   imports: [
     CommonModule,
@@ -40,5 +46,16 @@ import { IonicModule } from '@ionic/angular';
     AndroidPermissions,
     QRScanner,
   ],
+  exports: [
+    QRScannerComponent,
+    BarChartComponent,
+    ListItemPhotoComponent,
+    ListItemSkeletonComponent,
+    PhotoPreviewComponent,
+    QRScannerComponent,
+    AvatarUploaderComponent,
+    PasswordInputComponent,
+    DNIFormInputComponent
+  ]
 })
 export class CoreModule { }

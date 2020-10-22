@@ -19,7 +19,6 @@ import { StorageService } from '../../../core/Services/storage.service';
 export class LoginFormComponent implements OnInit {
 
   public loginForm: FormGroup;
-  public passwordInputType: 'text' | 'password' = 'password';
   public rememberUser = false;
 
   public set SetUser(user: TestUser) {
@@ -54,10 +53,6 @@ export class LoginFormComponent implements OnInit {
     } catch (err) {
       console.log(err);
     }
-  }
-
-  togglePasswordInput(): void {
-    (this.passwordInputType === 'text') ? this.passwordInputType = 'password' : this.passwordInputType = 'text';
   }
 
   toggleRememberUser(): void {

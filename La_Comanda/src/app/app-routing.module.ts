@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./access/access.module').then(m => m.AccessModule)
   },
   {
+    path: 'alta',
+    loadChildren: () => import('./altas/altas-routing.module').then(m => m.AltasRoutingModule)
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'

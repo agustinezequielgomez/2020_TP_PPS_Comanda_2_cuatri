@@ -12,7 +12,7 @@ export class SplashScreenComponent implements OnInit, AfterViewInit {
 
   @Output() destroyComponent = new EventEmitter<void>();
   constructor(private router: Router) {
-    setTimeout(() => this.router.navigate(['login']), 5000);
+    // setTimeout(() => this.router.navigate(['login']), 5000);
    }
 
    async ngAfterViewInit() {

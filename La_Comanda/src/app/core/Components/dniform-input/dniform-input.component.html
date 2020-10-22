@@ -1,0 +1,7 @@
+<ion-item mode="md" class='form-field'>
+    <ion-label color="primary" class="input-label" position="floating">Documento
+        <ion-text color="danger">*</ion-text>
+    </ion-label>
+    <ion-input class="input" required [type]="'number'" inputmode="numeric" [debounce]='5' (ionChange)='this.dniRegistered.emit($event)'></ion-input>
+    <ion-icon id="icon" slot="end" [name]="'qr-code'"></ion-icon>
+</ion-item>

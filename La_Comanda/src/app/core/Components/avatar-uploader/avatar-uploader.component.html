@@ -1,0 +1,8 @@
+<ion-avatar>
+    <ng-container *ngIf="this.photoString !== null; else icon">
+        <img [src]="this.photoString" />
+    </ng-container>
+    <ng-template #icon>
+        <ion-icon (click)='this.click()' name="camera"></ion-icon>
+    </ng-template>
+</ion-avatar>

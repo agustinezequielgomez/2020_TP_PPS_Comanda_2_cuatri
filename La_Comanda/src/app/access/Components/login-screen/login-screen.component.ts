@@ -14,6 +14,8 @@ export class LoginScreenComponent implements OnInit {
   public author: string = packageJson.author;
   public appName: string = packageJson.name;
   public version: string = packageJson.version;
+  public width: number = window.innerWidth;
+  public height: number = window.innerHeight;
   constructor(private creator: ComponentCreatorService) { }
 
   ngOnInit() {}
