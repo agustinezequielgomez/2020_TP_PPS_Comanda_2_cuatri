@@ -1,6 +1,6 @@
 # La Comanda - The Developers
 
-
+![enter image description here](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/WhatsApp%20Image%202020-10-26%20at%2022.44.01.jpeg?alt=media&token=c71c16b2-7967-42b7-8fdc-0fa519c99955)
 
 **Integrantes** 👨🏻‍💻👨🏻‍💻:
 Agustín Gómez - Alpha
