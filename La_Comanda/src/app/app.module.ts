@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material.module';
 import { AltasModule } from './altas/altas.module';
+import { TitleCasePipe } from '@angular/common';
 
 
 
@@ -41,6 +42,7 @@ import { AltasModule } from './altas/altas.module';
   providers: [
     StatusBar,
     SplashScreen,
+    TitleCasePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

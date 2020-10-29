@@ -5,20 +5,20 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { NavigationBar } from '@ionic-native/navigation-bar/ngx';
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-import { QRScannerComponent } from './Components/qrscanner/qrscanner.component';
+import { IonicModule } from '@ionic/angular';
 import { ChartsModule } from 'ng2-charts';
+import { AvatarUploaderComponent } from './Components/avatar-uploader/avatar-uploader.component';
 import { BarChartComponent } from './Components/bar-chart/bar-chart.component';
+import { BarCodeScannerComponent } from './Components/bar-code-scanner/bar-code-scanner.component';
+import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.component';
 import { ListItemPhotoComponent } from './Components/list-item-photo/list-item-photo.component';
 import { ListItemSkeletonComponent } from './Components/list-item-skeleton/list-item-skeleton.component';
-import { PhotoPreviewComponent } from './Components/photo-preview/photo-preview.component';
-import { IonicModule } from '@ionic/angular';
-import { AvatarUploaderComponent } from './Components/avatar-uploader/avatar-uploader.component';
 import { PasswordInputComponent } from './Components/password-input/password-input.component';
-import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.component';
-
-
+import { PhotoPreviewComponent } from './Components/photo-preview/photo-preview.component';
+import { QRScannerComponent } from './Components/qrscanner/qrscanner.component';
+import { CoreRoutingModule } from './core-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,10 +30,12 @@ import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.
     QRScannerComponent,
     AvatarUploaderComponent,
     PasswordInputComponent,
-    DNIFormInputComponent
+    DNIFormInputComponent,
+    BarCodeScannerComponent
   ],
   imports: [
     CommonModule,
+    CoreRoutingModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
     IonicModule.forRoot(),
@@ -44,7 +46,7 @@ import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.
     AppVersion,
     NavigationBar,
     AndroidPermissions,
-    QRScanner,
+    BarcodeScanner,
   ],
   exports: [
     QRScannerComponent,
@@ -55,7 +57,8 @@ import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.
     QRScannerComponent,
     AvatarUploaderComponent,
     PasswordInputComponent,
-    DNIFormInputComponent
+    DNIFormInputComponent,
+    BarCodeScannerComponent
   ]
 })
 export class CoreModule { }

@@ -12,8 +12,6 @@ import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum'
 import { DataStoreService } from './data-store.service';
 import { DatabaseService } from './database.service';
 import { DBUserDocument } from '../Models/Classes/user';
-import { timer } from 'rxjs';
-
 
 const { PushNotifications } = Plugins;
 
@@ -41,7 +39,7 @@ export class NotificationService {
         message = message.concat(' ❌');
         break;
     }
-    const CANCELLATION_BUTTON: string[] | undefined = (duration === 0) ? ['Cancelar'] : undefined;
+    const CANCELLATION_BUTTON: string[] | undefined = (duration === 0) ? ['Cerrar'] : undefined;
 
     const TOAST: HTMLIonToastElement = await this.toast.create({
       animated: true,
@@ -108,6 +106,14 @@ export class NotificationService {
       return (response.success === 1) ? true : false;
     } catch (error) {
       console.log(`ERROR: ${error}`);
+    }
+  }
+
+  async sendEmail(to: string, subject: string, reject: boolean) {
+    try {
+      return await this.http.get(`https://us-central1-comanda-pps.cloudfunctions.net/sendMail?dest=${to}&subject=${subject}&reject=${reject}`).toPromise();
+    } catch(err) {
+      console.log(err);
     }
   }
 }

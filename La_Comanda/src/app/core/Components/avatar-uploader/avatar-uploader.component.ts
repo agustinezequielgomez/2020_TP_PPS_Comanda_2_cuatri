@@ -14,9 +14,13 @@ export class AvatarUploaderComponent implements OnInit {
   constructor(public sanitizer: DomSanitizer, private camera: CameraService) { }
 
   ngOnInit() {
-    if (DataStoreService.Various.CapturedPhotos.length > 0) {
-      this.photoString = this.sanitizer.bypassSecurityTrustResourceUrl(DataStoreService.Various.CapturedPhotos[0].photoUrl);
-    }
+    DataStoreService.Various.CapturedPhotosObservable.subscribe((photos) => {
+      if (photos.length > 0) {
+        this.photoString = this.sanitizer.bypassSecurityTrustResourceUrl(photos[0].photoUrl);
+      } else {
+        this.photoString = null;
+      }
+    });
   }
 
   async click() {

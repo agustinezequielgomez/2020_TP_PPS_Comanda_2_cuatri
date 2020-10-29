@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AltasRoutingModule } from './altas-routing.module';
-import { MaterialModule } from '../material.module';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ClienteComponent } from './Components/cliente/cliente.component';
 import { CoreModule } from '../core/core.module';
+import { MaterialModule } from '../material.module';
+import { AltasRoutingModule } from './altas-routing.module';
+import { ClienteComponent } from './Components/cliente/cliente.component';
+import { ClienteAnonimoComponent } from './Components/cliente-anonimo/cliente-anonimo.component';
+
 
 
 @NgModule({
   declarations: [
-    ClienteComponent
+    ClienteComponent,
+    ClienteAnonimoComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,11 @@ import { CoreModule } from '../core/core.module';
     FormsModule,
     CoreModule,
     IonicModule.forRoot(),
+  ],
+  providers: [ ],
+  exports: [
+    ClienteComponent,
+    ClienteAnonimoComponent
   ]
 })
 export class AltasModule { }

@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./altas/altas-routing.module').then(m => m.AltasRoutingModule)
   },
   {
+    path: 'core',
+    loadChildren: () => import('./core/core-routing.module').then(m => m.CoreRoutingModule)
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'

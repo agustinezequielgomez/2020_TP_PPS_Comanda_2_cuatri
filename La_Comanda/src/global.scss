@@ -63,3 +63,28 @@
     --spinner-color: var(--ion-color-secondary);
     color: white;
 }
+
+#errorMessage {
+    color: var(--ion-color-danger);
+    font-weight: 700;
+    font-size: 10px;
+    margin: 0;
+    text-align: left !important;
+}
+
+.form-field {
+    width: 100%;
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    --highlight-color-valid: var(--ion-color-secondary-shade);
+    --highlight-color-invalid: red;
+    --padding-start: 0;
+}
+
+.scroll-content {
+    display: flex;
+    flex-direction: column;
+    ion-slides {
+        display: flex;
+    }
+}

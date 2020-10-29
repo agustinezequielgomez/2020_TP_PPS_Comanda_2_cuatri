@@ -1,2 +1,36 @@
-<app-avatar-uploader></app-avatar-uploader>
-<app-dniform-input></app-dniform-input>
+<form [formGroup]='form'>
+    <div id="container">
+        <app-avatar-uploader [ngStyle]="{'grid-area': 'avatar'}"></app-avatar-uploader>
+        <ion-item mode="md" class='form-field'>
+            <ion-label color="primary" class="input-label" position="floating">Nombre
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input class="input" formControlName='name' required [type]="'text'" inputmode="text" [maxlength]='25'></ion-input>
+        </ion-item>
+        <ion-item mode="md" class='form-field'>
+            <ion-label color="primary" class="input-label" position="floating">Apellido
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input class="input" formControlName='lastName' required [type]="'text'" inputmode="text" [maxlength]='25'></ion-input>
+        </ion-item>
+        <app-dniform-input [dni]='this.form.get("dni").value' (dniRegistered)='this.form.get("dni").setValue($event)' [ngStyle]="{width: '100%'}"></app-dniform-input>
+        <ion-item mode="md" class='form-field'>
+            <ion-label color="primary" class="input-label" position="floating">Correo electrónico
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input class="input" formControlName='email' required [type]="'email'" inputmode="email"></ion-input>
+        </ion-item>
+        <p id='errorMessage' [ngStyle]="{'justify-self': 'start'}" *ngIf='!this.form.get("email").valid && this.form.get("email").value.length > 0'>El correo electrónico ingresado no es válido.</p>
+        <app-password-input [password]='this.form.get("password").value' (passwordChange)='this.form.get("password").setValue($event)' [ngStyle]="{width: '100%'}"></app-password-input>
+    </div>
+    <ion-button [disabled]='!this.enabled' (click)="this.signUp()" [ngStyle]="{'margin-top': '10%'}" expand="block" fill="solid" color="secondary">
+        Registrarse
+    </ion-button>
+</form>
+<ion-row class="ion-text-center ion-padding-top">
+    <ion-col size="12">
+        <ion-text color="primary">
+            <p [ngStyle]="{'font-size': '15px', 'margin': 0}" (click)='this.toLogin.emit()'>¿Ya tenés usuario? Inicia sesión</p>
+        </ion-text>
+    </ion-col>
+</ion-row>
