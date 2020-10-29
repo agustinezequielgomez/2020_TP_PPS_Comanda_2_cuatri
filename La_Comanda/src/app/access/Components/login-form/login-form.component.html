@@ -1,41 +1,37 @@
-<ion-grid fixed>
-    <ion-row class="ion-justify-content-center">
-        <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="6">
-            <ion-card id="loginCard" mode="md">
-                <ion-card-header mode="md">
-                    <ion-card-title mode="md" class="ion-text-center" color="primary">La Comanda</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-row>
-                        <ion-col size="12">
-                            <form id="loginForm" [formGroup]="loginForm">
-                                <ion-item mode="md" class='form-field'>
-                                    <ion-label color="primary" class="input-label" position="floating">Correo electrónico
-                                        <ion-text color="danger">*</ion-text>
-                                    </ion-label>
-                                    <ion-input required formControlName="userName" type="email" mode="md"></ion-input>
-                                </ion-item>
-                                <app-password-input (passwordChanged)='this.loginForm.get("password").setValue($event)'></app-password-input>
-                            </form>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col size="12">
-                            <ion-item id='toggle' class='form-field' lines='none'>
-                                <ion-label id="labelCheck">Recordar contraseña</ion-label>
-                                <ion-toggle id="check" color="primary" slot="start" mode="md" [checked]="this.rememberUser" (ionChange)="this.toggleRememberUser()"></ion-toggle>
-                            </ion-item>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col>
-                            <ion-button id="submitButton" block color="secondary" type="submit" (click)="this.login()" [disabled]="loginForm.invalid">
-                                Ingresar
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-card-content>
-            </ion-card>
-        </ion-col>
-    </ion-row>
-</ion-grid>
+<ion-row>
+    <ion-col size="12">
+        <form id="loginForm" [formGroup]="loginForm">
+            <ion-item mode="md" class='form-field'>
+                <ion-label color="primary" class="input-label" position="floating">Correo electrónico
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input required formControlName="userName" type="email" mode="md"></ion-input>
+            </ion-item>
+            <app-password-input [password]='this.loginForm.get("password").value' (passwordChange)='this.loginForm.get("password").setValue($event)'></app-password-input>
+        </form>
+    </ion-col>
+</ion-row>
+<ion-row>
+    <ion-col size="12">
+        <ion-item id='toggle' class='form-field' lines='none'>
+            <ion-label id="labelCheck">Recordar contraseña</ion-label>
+            <ion-toggle id="check" color="primary" slot="start" mode="md" [checked]="this.rememberUser" (ionChange)="this.toggleRememberUser()"></ion-toggle>
+        </ion-item>
+    </ion-col>
+</ion-row>
+<ion-row>
+    <ion-col>
+        <ion-button id="submitButton" block color="secondary" type="submit" (click)="this.login()" [disabled]="loginForm.invalid">
+            Ingresar
+        </ion-button>
+    </ion-col>
+</ion-row>
+<ion-row class="ion-text-center ion-padding-top">
+    <ion-col size="12">
+        <ion-text color="primary">
+            <p [ngStyle]="{'font-size': '15px', 'margin': 0}" (click)='this.toSignUp.emit()'>¿No tenés usuario? Registrate acá</p>
+            <hr [ngStyle]="{ 'border-top': '3px solid var(--ion-color-secondary)', 'width': '50%'}">
+            <p [ngStyle]="{'font-size': '15px', 'margin': 0}" (click)='this.toSignAnonymousLogIn.emit()'>Ingresá como usuario anónimo</p>
+        </ion-text>
+    </ion-col>
+</ion-row>

@@ -33,7 +33,8 @@ export class AppComponent {
     private initService: InitService,
     private storage: StorageService,
     private database: DatabaseService,
-    private router: Router
+    private router: Router,
+    private notif: NotificationService
   ) {
     this.initializeApp();
   }
@@ -45,6 +46,7 @@ export class AppComponent {
                                              await this.storage.getStorage(StorageKeys.UID))).user;
         // this.router.navigate(['']);
       }
+      // this.router.navigate(['alta/cliente']);
       this.initService.init();
       this.statusBar.styleDefault();
       await SplashScreen.hide();

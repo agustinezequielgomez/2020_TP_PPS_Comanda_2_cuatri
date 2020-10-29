@@ -10,3 +10,13 @@
 ion-toolbar {
     --background: transparent;
 }
+
+#loginCard {
+    margin: 16px 3px;
+    --background: rgba(255, 255, 255, 0.732);
+}
+
+ion-card-title {
+    font-weight: 700;
+    font-size: 24px !important;
+}

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChangeType, DocumentData, QueryFn } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum';
 
 
 @Injectable({
@@ -57,6 +58,21 @@ export class DatabaseService {
    */
   public getDataStream<T>(collectionName: string, query?: QueryFn): Observable<T[]> {
     return this.getCollection<T>(collectionName, query).valueChanges();
+  }
+
+  /**
+   * Gets every document on the collection that fullfils the query
+   * @param collectionName Name of the collection to query
+   * @param query Query to execute on the collection
+   */
+  public async queryCollection<T>(collectionName: DataBaseCollections, query: QueryFn): Promise<{id: string, data: T}[]> {
+    const queryResult = await this.getCollection<T>(collectionName, query).get().toPromise();
+    const result: {id: string, data: T}[] = [];
+    for (const document of queryResult.docs) {
+      result.push({id: document.id, data: document.data() as T});
+    }
+
+    return result;
   }
 
   /**

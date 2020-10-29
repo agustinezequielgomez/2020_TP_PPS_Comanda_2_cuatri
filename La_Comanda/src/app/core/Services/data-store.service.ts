@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Photo, Photos } from '../Models/Classes/photo';
-import { TestUsers, TestUser } from '../Models/Classes/test-user';
-import { User } from '../Models/Classes/user';
 import { Client } from '../Models/Classes/client';
+import { Photo, Photos } from '../Models/Classes/photo';
+import { ScannedUser, User } from '../Models/Classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -29,24 +28,15 @@ export class DataStoreService {
   }();
 
   static Access = new class {
-    private TestUserSubject: BehaviorSubject<TestUser> = new BehaviorSubject(null);
-    public TestUserObservable: Observable<TestUser> = this.TestUserSubject.asObservable();
+    public QuickUserSelectedSubject: BehaviorSubject<User> = new BehaviorSubject(null);
+    public QuickUserSelectedObservable: Observable<User> = this.QuickUserSelectedSubject.asObservable();
 
-    public get TestUser(): TestUser {
-      return this.TestUserSubject.value;
-    }
-    public set TestUser(user: TestUser) {
-      this.TestUserSubject.next(user);
+    public get QuickUser(): User {
+      return this.QuickUserSelectedSubject.value;
     }
 
-    public get TestUsers(): TestUsers {
-      return [
-        {id: 1, correo: 'admin@admin.com', clave: 111111, perfil: 'admin', sexo: 'femenino'},
-        {id: 2, correo: 'invitado@invitado.com', clave: 222222, perfil: 'invitado', sexo: 'femenino'},
-        {id: 3, correo: 'usuario@usuario.com', clave: 333333, perfil: 'usuario', sexo: 'masculino'},
-        {id: 4, correo: 'anonimo@anonimo.com', clave: 444444, perfil: 'usuario', sexo: 'masculino'},
-        {id: 5, correo: 'tester@tester.com', clave: 555555, perfil: 'tester', sexo: 'femenino'}
-      ];
+    public set QuickUser(user: User) {
+      this.QuickUserSelectedSubject.next(user);
     }
   }();
 
@@ -54,12 +44,23 @@ export class DataStoreService {
     private CurrentUserSubject: BehaviorSubject<User> = new BehaviorSubject(null);
     public CurrentUserObservable: Observable<User> = this.CurrentUserSubject.asObservable();
 
+    private ScannedUserSubject: BehaviorSubject<ScannedUser> = new BehaviorSubject(null);
+    public ScannedUserObservable: Observable<ScannedUser> = this.ScannedUserSubject.asObservable();
+
     public get CurrentUser(): User {
       return this.CurrentUserSubject.value;
     }
 
     public set CurrentUser(user: User) {
       this.CurrentUserSubject.next(user);
+    }
+
+    public get ScannedUser(): ScannedUser {
+      return this.ScannedUserSubject.value;
+    }
+
+    public set ScannedUser(user: ScannedUser) {
+      this.ScannedUserSubject.next(user);
     }
   }();
 
@@ -105,10 +106,12 @@ export class DataStoreService {
     public CapturedPhotosObservable: Observable<Photos> = this.CapturedPhotosSubject.asObservable();
 
     public set CapturedPhotos(photos: Photos) {
+      console.log('photo added');
       this.CapturedPhotosSubject.next(photos);
     }
 
     public set AddCapturedPhoto(photo: Photo) {
+      console.log('photo added');
       this.CapturedPhotosSubject.next([...this.CapturedPhotosSubject.value, photo]);
     }
 

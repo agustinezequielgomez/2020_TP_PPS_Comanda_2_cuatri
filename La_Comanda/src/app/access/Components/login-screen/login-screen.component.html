@@ -28,10 +28,31 @@
 <ion-grid fixed>
     <ion-row>
         <ion-col size="12" class="ion-no-padding">
-            <app-login-form></app-login-form>
+            <ion-row class="ion-justify-content-center">
+                <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="6">
+                    <ion-card id="loginCard" mode="md">
+                        <ion-card-header mode="md">
+                            <ion-card-title mode="md" class="ion-text-center" color="primary">La Comanda</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-slides mode="md" #slider>
+                                <ion-slide>
+                                    <app-cliente-anonimo (toLogin)='this.toLogIn()'></app-cliente-anonimo>
+                                </ion-slide>
+                                <ion-slide>
+                                    <app-login-form (toSignUp)='this.toSignUp()' (toSignAnonymousLogIn)='this.toAnonymousLogin()'></app-login-form>
+                                </ion-slide>
+                                <ion-slide>
+                                    <app-cliente [isAccess]='true' (toLogin)='toLogIn()'></app-cliente>
+                                </ion-slide>
+                            </ion-slides>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
         </ion-col>
     </ion-row>
-    <ion-row class="ion-justify-content-center">
+    <ion-row *ngIf="this.index === 1" class="ion-justify-content-center">
         <ion-col size="12" size-sm="12" size-md="10" size-lg="8" size-xl="6" class="ion-padding" id="usersCol">
             <ion-button (click)="displayUserList()" expand="block" color="secondary" fill="outline">Elegir usuario</ion-button>
         </ion-col>

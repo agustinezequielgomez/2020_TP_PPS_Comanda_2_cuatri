@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Client } from 'src/app/core/Models/Classes/client';
 import { TestUser } from 'src/app/core/Models/Classes/test-user';
-import { DBUserDocument } from '../../../core/Models/Classes/user';
+import { UserRoles } from 'src/app/core/Models/Enums/user-roles.enum';
+import { DBUserDocument, User } from '../../../core/Models/Classes/user';
 import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collections.enum';
 import { StorageKeys } from '../../../core/Models/Enums/storage-keys.enum';
 import { AuthService } from '../../../core/Services/auth.service';
@@ -20,11 +22,12 @@ export class LoginFormComponent implements OnInit {
 
   public loginForm: FormGroup;
   public rememberUser = false;
-
-  public set SetUser(user: TestUser) {
+  @Output() toSignUp = new EventEmitter<void>();
+  @Output() toSignAnonymousLogIn = new EventEmitter<void>();
+  public set SetUser(user: User) {
     this.loginForm.setValue({
-      userName: user.correo,
-      password: user.clave
+      userName: user.email,
+      password: user.password
     });
   }
 
@@ -44,9 +47,8 @@ export class LoginFormComponent implements OnInit {
         await this.storage.deleteStorage(StorageKeys.TOKEN);
       }
 
-      DataStoreService.Access.TestUserObservable.subscribe((user) => {
+      DataStoreService.Access.QuickUserSelectedObservable.subscribe((user) => {
         if (user !== null) {
-          console.log(`SELECTED USER ${JSON.stringify(user)}`);
           this.SetUser = user;
         }
       });
@@ -63,14 +65,20 @@ export class LoginFormComponent implements OnInit {
     try {
       const USER = await this.auth.signInWithEmail(this.loginForm.controls['userName'].value,
                          this.loginForm.controls['password'].value.toString());
-                         console.log(USER.uid);
-      DataStoreService.User.CurrentUser = (await this.dataBase.getDocumentData<DBUserDocument>(DataBaseCollections.users, USER.uid)).user;
+
+      const userData = DataStoreService.User.CurrentUser = (await this.dataBase.getDocumentData<DBUserDocument>
+                                                            (DataBaseCollections.users, USER.uid)).user;
       if (this.rememberUser) {
         await this.storage.setStorage(StorageKeys.TOKEN, USER.refreshToken);
         await this.storage.setStorage(StorageKeys.UID, USER.uid);
       }
       await this.notification.pushNotificationsInit();
-      // this.router.navigate(['']);
+      switch (userData.data.role) {
+        case UserRoles.CLIENTE:
+          DataStoreService.Client.RegisteredClient = userData as Client;
+          // this.router.navigate(['']);
+          break;
+      }
     } catch (ex) {
       const ERROR: {a: any, code: string, message: string, stack: string} = ex;
       let errorMessage = '';

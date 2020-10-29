@@ -1,4 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { DataStoreService } from '../../Services/data-store.service';
+import { CameraService } from '../../Services/camera.service';
 
 @Component({
   selector: 'app-dniform-input',
@@ -7,9 +10,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class DNIFormInputComponent implements OnInit {
 
-  @Output() dniRegistered = new EventEmitter<string>();
-  constructor() { }
+  @Input() dni: number;
+  @Output() dniRegistered = new EventEmitter<number>();
+  constructor(public camera: CameraService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    DataStoreService.User.ScannedUserObservable.subscribe(user => {
+      if (user !== null) {
+        console.log(`DNI ${user.DNI}`);
+        this.dni = user.DNI;
+      }
+    });
+  }
 
+  toBarCode = async () => await this.camera.scanBarCode();
+
+  onDniChanged(dni: number) {
+    this.dniRegistered.emit(dni);
+    this.dni = dni;
+  }
 }

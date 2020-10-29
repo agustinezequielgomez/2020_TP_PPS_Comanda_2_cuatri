@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -11,16 +11,11 @@ export class QRScannerComponent implements OnInit {
 
   @Output() qrScanned = new EventEmitter<string>();
   private qrScannerSubscription: Subscription;
-  constructor(private qrScanner: QRScanner) { }
+  constructor(private qrScanner: BarcodeScanner) { }
 
   async ngOnInit() {
-    await this.qrScanner.prepare();
-    this.qrScannerSubscription = this.qrScanner.scan().subscribe(async (qrCode: string) => {
-      this.qrScannerSubscription.unsubscribe();
-      await this.qrScanner.pausePreview();
-      this.qrScanned.emit(qrCode);
-    });
-    await this.qrScanner.show();
+    const qr = (await this.qrScanner.scan({ formats: 'QR_CODE', showFlipCameraButton: true, prompt: 'Por favor, situa el código QR en el centro de la pantalla.', resultDisplayDuration: 0})).text;
+    this.qrScanned.emit(qr);
   }
 
 }

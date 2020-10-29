@@ -2,6 +2,7 @@
     <ion-label color="primary" class="input-label" position="floating">Documento
         <ion-text color="danger">*</ion-text>
     </ion-label>
-    <ion-input class="input" required [type]="'number'" inputmode="numeric" [debounce]='5' (ionChange)='this.dniRegistered.emit($event)'></ion-input>
-    <ion-icon id="icon" slot="end" [name]="'qr-code'"></ion-icon>
+    <ion-input class="input" required [type]="'number'" [value]="this.dni" [maxlength]='8' inputmode="numeric" [debounce]='5' (ionChange)='this.onDniChanged($event.detail.value)'></ion-input>
+    <ion-icon id="icon" slot="end" [name]="'qr-code'" (click)='this.toBarCode()'></ion-icon>
 </ion-item>
+<p id="errorMessage" *ngIf="this.dni && this.dni.toString().length > 8">El DNI no puede tener mas de 8 cifras.</p>

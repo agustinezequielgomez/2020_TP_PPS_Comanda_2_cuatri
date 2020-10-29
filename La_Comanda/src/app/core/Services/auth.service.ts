@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Client } from '../Models/Classes/client';
+import { DBUserDocument } from '../Models/Classes/user';
+import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum';
+import { FirebaseStorageFolders } from '../Models/Enums/firebase-storage-folders.enum';
 import { StorageKeys } from '../Models/Enums/storage-keys.enum';
-import { StorageService } from './storage.service';
+import { UserRoles } from '../Models/Enums/user-roles.enum';
+import { CameraService } from './camera.service';
 import { DataStoreService } from './data-store.service';
+import { DatabaseService } from './database.service';
+import { NotificationService } from './notification.service';
+import { StorageService } from './storage.service';
 
 
 @Injectable({
@@ -10,7 +18,8 @@ import { DataStoreService } from './data-store.service';
 })
 export class AuthService {
 
-  constructor(private auth: AngularFireAuth, private storage: StorageService) { }
+  constructor(private auth: AngularFireAuth, private storage: StorageService, private dataBase: DatabaseService,
+              private camera: CameraService, private notification: NotificationService) { }
 
   async signInWithEmail(email: string, password: string): Promise<firebase.User> {
     try {
@@ -23,13 +32,56 @@ export class AuthService {
         UID: USER.uid,
         email,
         password,
-        token: await USER.getIdToken(),
-        refreshToken: USER.refreshToken
+        // token: await USER.getIdToken(),
+        // refreshToken: USER.refreshToken,
+        photoUrl: ''
       };
       return USER;
     } catch (error) {
       console.error(error);
       throw error;
+    }
+  }
+
+  async signUp(userData: {email: string, password: string, DNI: number, role: UserRoles,
+                          name: string, lastName: string, CUIL?: number}): Promise<boolean> {
+    try {
+      const existingDni = await this.dataBase.queryCollection<DBUserDocument>(DataBaseCollections.users, x =>
+                                                                              x.where('user.data.DNI', '==', userData.DNI));
+      if (existingDni.length > 0) {
+        await this.notification.presentToast('danger', 'Lo sentimos, pero ya hay un usuario registrado con ese DNI.', 0, 'md', 'bottom');
+        return false;
+      }
+      const { email, password, role, DNI, name, lastName } = userData;
+      const UID = (await this.auth.createUserWithEmailAndPassword(email, password)).user.uid;
+      switch (role) {
+        case UserRoles.CLIENTE:
+          DataStoreService.Various.CapturedPhotos[0].takenBy = email;
+          DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]}`;
+          const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
+          const client: Client = { email, password, photoUrl, UID, enabled: false, isAnonymous: false, data: { role, DNI, name, lastName,
+            deviceToken: DataStoreService.Notification.NotificationToken }};
+          this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, UID, { user: client });
+          break;
+      }
+      return true;
+    } catch (ex) {
+      console.log(ex);
+      const err: {a: any, code: string, message: string, stack: string} = ex;
+      let errorMessage: string;
+      switch (err.code) {
+        case 'auth/email-already-in-use':
+          errorMessage = 'Lo sentimos, pero ya hay una cuenta asociada al correo electrónico ingresado';
+          break;
+        case 'auth/invalid-email':
+          errorMessage = 'Lo sentimos, pero el correo electrónico ingresado no es válido';
+          break;
+        case 'auth/weak-password':
+          errorMessage = 'Lo sentimos, pero la contraseña no es lo suficientemente fuerte';
+          break;
+      }
+      await this.notification.presentToast('danger', errorMessage, 0, 'md', 'bottom');
+      return false;
     }
   }
 
