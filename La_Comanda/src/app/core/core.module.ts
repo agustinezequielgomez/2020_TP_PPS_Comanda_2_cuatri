@@ -59,7 +59,7 @@ import { HomeScreenCardComponent } from './Components/home-screen-card/home-scre
     QRScannerComponent,
     AvatarUploaderComponent,
     PasswordInputComponent,
-    DNIFormInputComponent
+    DNIFormInputComponent,
   ]
 })
 export class CoreModule { }
