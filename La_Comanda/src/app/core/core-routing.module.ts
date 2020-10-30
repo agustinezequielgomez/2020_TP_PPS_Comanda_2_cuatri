@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeScreenComponent } from './Components/home-screen/home-screen.component';
 import { QRScannerComponent } from './Components/qrscanner/qrscanner.component';
-import { BarCodeScannerComponent } from './Components/bar-code-scanner/bar-code-scanner.component';
 
 const routes: Routes = [
     {
-        path: 'barcode',
-        component: BarCodeScannerComponent
+        path: 'home',
+        component: HomeScreenComponent
     },
     {
         path: 'qr',

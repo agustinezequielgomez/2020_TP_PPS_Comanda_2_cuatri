@@ -76,10 +76,11 @@ export class LoginFormComponent implements OnInit {
       switch (userData.data.role) {
         case UserRoles.CLIENTE:
           DataStoreService.Client.RegisteredClient = userData as Client;
-          // this.router.navigate(['']);
           break;
-      }
+        }
+      this.router.navigate(['home']);
     } catch (ex) {
+      console.log(ex);
       const ERROR: {a: any, code: string, message: string, stack: string} = ex;
       let errorMessage = '';
       switch (ERROR.code) {
