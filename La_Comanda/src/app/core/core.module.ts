@@ -11,14 +11,15 @@ import { IonicModule } from '@ionic/angular';
 import { ChartsModule } from 'ng2-charts';
 import { AvatarUploaderComponent } from './Components/avatar-uploader/avatar-uploader.component';
 import { BarChartComponent } from './Components/bar-chart/bar-chart.component';
-import { BarCodeScannerComponent } from './Components/bar-code-scanner/bar-code-scanner.component';
 import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.component';
+import { HomeScreenComponent } from './Components/home-screen/home-screen.component';
 import { ListItemPhotoComponent } from './Components/list-item-photo/list-item-photo.component';
 import { ListItemSkeletonComponent } from './Components/list-item-skeleton/list-item-skeleton.component';
 import { PasswordInputComponent } from './Components/password-input/password-input.component';
 import { PhotoPreviewComponent } from './Components/photo-preview/photo-preview.component';
 import { QRScannerComponent } from './Components/qrscanner/qrscanner.component';
 import { CoreRoutingModule } from './core-routing.module';
+import { HomeScreenCardComponent } from './Components/home-screen-card/home-screen-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CoreRoutingModule } from './core-routing.module';
     AvatarUploaderComponent,
     PasswordInputComponent,
     DNIFormInputComponent,
-    BarCodeScannerComponent
+    HomeScreenComponent,
+    HomeScreenCardComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +60,6 @@ import { CoreRoutingModule } from './core-routing.module';
     AvatarUploaderComponent,
     PasswordInputComponent,
     DNIFormInputComponent,
-    BarCodeScannerComponent
   ]
 })
 export class CoreModule { }

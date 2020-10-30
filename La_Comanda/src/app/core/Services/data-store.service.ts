@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Client } from '../Models/Classes/client';
+import { HomeScreenCards } from '../Models/Classes/home-screen-card';
 import { Photo, Photos } from '../Models/Classes/photo';
 import { ScannedUser, User } from '../Models/Classes/user';
+import { UserRoles } from '../Models/Enums/user-roles.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -117,6 +119,72 @@ export class DataStoreService {
 
     public get CapturedPhotos(): Photos {
       return this.CapturedPhotosSubject.value;
+    }
+  }();
+
+  static Cards = new class {
+    private SupervisorCards: HomeScreenCards = [
+      {
+        title: 'Aceptar usuarios',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      },
+      {
+        title: 'Aceptar usuarios',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      },
+      {
+        title: 'Aceptar usuarios',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      },
+      {
+        title: 'Aceptar usuarios',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      }
+    ];
+
+    private ClientCards: HomeScreenCards = [
+      {
+        title: 'TEST CARD',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      },
+      {
+        title: 'TEST CARD',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      },
+      {
+        title: 'TEST CARD',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      },
+      {
+        title: 'TEST CARD',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/accept_user.png',
+        redirectTo: ''
+      }
+    ];
+
+    public GetCards(role: UserRoles): HomeScreenCards {
+      switch (role) {
+        case UserRoles.SUPERVISOR:
+          return this.SupervisorCards;
+
+        case UserRoles.CLIENTE:
+          return this.ClientCards;
+      }
     }
   }();
 }
