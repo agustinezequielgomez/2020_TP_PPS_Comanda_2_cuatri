@@ -44,9 +44,8 @@ export class AppComponent {
       if (await this.storage.storageIsSet(StorageKeys.UID) && await this.storage.storageIsSet(StorageKeys.TOKEN)) {
         DataStoreService.User.CurrentUser = (await this.database.getDocumentData<DBUserDocument>(DataBaseCollections.users,
                                              await this.storage.getStorage(StorageKeys.UID))).user;
-        // this.router.navigate(['']);
+        this.router.navigate(['home']);
       }
-      // this.router.navigate(['alta/cliente']);
       this.initService.init();
       this.statusBar.styleDefault();
       await SplashScreen.hide();

@@ -24,6 +24,7 @@ export class LoginFormComponent implements OnInit {
   public rememberUser = false;
   @Output() toSignUp = new EventEmitter<void>();
   @Output() toSignAnonymousLogIn = new EventEmitter<void>();
+  @Output() logingIn = new EventEmitter<boolean>();
   public set SetUser(user: User) {
     this.loginForm.setValue({
       userName: user.email,
@@ -62,6 +63,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   public async login() {
+    this.logingIn.emit(true);
     try {
       const USER = await this.auth.signInWithEmail(this.loginForm.controls['userName'].value,
                          this.loginForm.controls['password'].value.toString());
@@ -79,7 +81,9 @@ export class LoginFormComponent implements OnInit {
           break;
         }
       this.router.navigate(['home']);
+      this.logingIn.emit(false);
     } catch (ex) {
+      this.logingIn.emit(false);
       console.log(ex);
       const ERROR: {a: any, code: string, message: string, stack: string} = ex;
       let errorMessage = '';

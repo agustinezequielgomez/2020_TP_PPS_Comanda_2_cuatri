@@ -1,0 +1,164 @@
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0399e2;
+    font-family: 'Montserrat';
+}
+
+p {
+    font-size: 2.5rem;
+    animation: menu 5s ease;
+}
+
+p:nth-child(1) {
+    position: absolute;
+    top: 0;
+    margin-top: 10%;
+}
+
+p:nth-child(2) {
+    position: absolute;
+    top: 0;
+    margin-top: 25%;
+}
+
+#comanda {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20%;
+    font-size: 3.5rem;
+}
+
+#svg_12,
+#svg_11,
+#svg_10,
+#svg_6,
+#svg_5,
+#svg_4,
+#svg_3 {
+    fill: #ffcd40;
+}
+
+#svg_33,
+#svg_32,
+#svg_31,
+#svg_30,
+#svg_29,
+#svg_28,
+#svg_13,
+#svg_12,
+#svg_11,
+#svg_10,
+#svg_9,
+#svg_8 {
+    animation: moverseIz 2s ease;
+}
+
+#svg_26,
+#svg_25,
+#svg_24,
+#svg_23,
+#svg_22,
+#svg_21,
+#svg_7,
+#svg_6,
+#svg_5,
+#svg_2,
+#svg_1 {
+    animation: moverseDe 2s ease;
+}
+
+#svg_37,
+#svg_36,
+#svg_35,
+#svg_18,
+#svg_17,
+#svg_16 {
+    transform-origin: 50% 0%;
+    animation: lampara 2s ease 1.5s;
+}
+
+#svg_19 {
+    transform-origin: 50% 0%;
+    animation: titilarLuz 2s ease 1.5s, lampara 2s ease 1.5s;
+}
+
+img:nth-child(1) {
+    position: absolute;
+    top: 42%;
+    left: 24%;
+    animation: menu 5s ease;
+}
+
+img:nth-child(2) {
+    position: absolute;
+    top: 42%;
+    left: 62%;
+    animation: menu 5s ease;
+}
+
+@keyframes moverseIz {
+    0% {
+        transform: translateX(200px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes moverseDe {
+    0% {
+        transform: translateX(-200px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes lampara {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(15deg);
+    }
+    50% {
+        transform: rotate(-15deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes titilarLuz {
+    0% {
+        fill: rgb(255, 221, 0);
+    }
+    25% {
+        fill: rgb(255, 102, 0);
+    }
+    50% {
+        fill: rgb(255, 0, 0);
+    }
+    75% {
+        fill: rgb(255, 102, 0);
+    }
+    100% {
+        fill: rgb(255, 220, 0);
+    }
+}
+
+@keyframes menu {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
