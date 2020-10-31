@@ -14,13 +14,13 @@ División de las tareas con multiples check-in del progreso realizado a través 
 |:--|:--:|:--:|
 | Setup inicial del proyecto | Agustín Gómez | Completado ✅ |
 | Setup de push notifications | Agustín Gómez | Completado ✅ |
-| Inicio de sesión | Agustín Gómez | En progreso 🚧 |
-| Registro de usuario | Agustín Gómez | En progreso 🚧 |
-| Ingreso de usuarios anónimos | Agustín Gómez | En progreso 🚧 |
+| Inicio de sesión | Agustín Gómez | Completado ✅ |
+| Registro de usuario | Agustín Gómez | Completado ✅ |
+| Ingreso de usuarios anónimos | Agustín Gómez | Completado ✅ |
 | Creación de Cloud Function para envio de mail | Nicolas Ferrero | Completado ✅ |
 | Creación de templates de email (aceptación y rechazo) | Nicolas Ferrero | Completado ✅ |
 | Diseño de logo y splash screen | Nicolas Ferrero | Completado ✅  |
-| Creación de Splash Screen animado | Nicolas Ferrero | En progreso 🚧  |
-| Creación de mesas | Nicolas Ferrero | En progreso 🚧  |
-| Creación de comidas y bebidas | Nicolas Ferrero | En progreso 🚧  |
+| Creación de Splash Screen animado | Nicolas Ferrero | Completado ✅ |
+| Creación de mesas | Nicolas Ferrero | Completado ✅ |
+| Creación de comidas y bebidas | Nicolas Ferrero | Completado ✅ |
 

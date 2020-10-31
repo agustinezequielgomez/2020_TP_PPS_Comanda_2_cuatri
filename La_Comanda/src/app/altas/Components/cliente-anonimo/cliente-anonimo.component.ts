@@ -50,7 +50,7 @@ export class ClienteAnonimoComponent implements OnInit {
         }
       };
       this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
-      // this.nav.navigateForward('')
+      this.nav.navigateForward('home')
     } catch (err) {
     }
   }
