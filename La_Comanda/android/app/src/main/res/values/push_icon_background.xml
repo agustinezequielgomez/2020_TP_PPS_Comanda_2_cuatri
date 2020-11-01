@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="push_icon_background">#FFCD40</color>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="push_icon_background">#DC0002</color>
+>>>>>>> origin/main
 </resources>

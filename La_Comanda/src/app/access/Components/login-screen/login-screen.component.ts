@@ -82,4 +82,14 @@ export class LoginScreenComponent implements OnInit, AfterViewInit {
     await this.slider.slideTo(0);
     this.index = await this.slider.getActiveIndex();
   }
+
+  async loading(loading: boolean) {
+    if (loading) {
+      this.loader = await this.creator.createLoader('md', 'Cargando', true, true, 'crescent', false, 'ion-loader');
+      this.loader.present();
+    } else {
+      await this.loader.dismiss();
+      this.loader = null;
+    }
+  }
 }

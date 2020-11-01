@@ -27,6 +27,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   public rememberUser = false;
   @Output() toSignUp = new EventEmitter<void>();
   @Output() toSignAnonymousLogIn = new EventEmitter<void>();
+  @Output() logingIn = new EventEmitter<boolean>();
   public set SetUser(user: User) {
     this.loginForm.setValue({
       userName: user.email.trim(),
@@ -116,6 +117,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       }
       this.nav.navigate(['home']);
     } catch (ex) {
+      this.logingIn.emit(false);
       console.log(ex);
       const ERROR: {a: any, code: string, message: string, stack: string} = ex;
       let errorMessage = '';

@@ -40,7 +40,7 @@
                                     <app-cliente-anonimo (toLogin)='this.toLogIn()'></app-cliente-anonimo>
                                 </ion-slide>
                                 <ion-slide>
-                                    <app-login-form (toSignUp)='this.toSignUp()' (toSignAnonymousLogIn)='this.toAnonymousLogin()'></app-login-form>
+                                    <app-login-form (logingIn)='this.loading($event)' (toSignUp)='this.toSignUp()' (toSignAnonymousLogIn)='this.toAnonymousLogin()'></app-login-form>
                                 </ion-slide>
                                 <ion-slide>
                                     <app-cliente [isAccess]='true' (toLogin)='toLogIn()'></app-cliente>
