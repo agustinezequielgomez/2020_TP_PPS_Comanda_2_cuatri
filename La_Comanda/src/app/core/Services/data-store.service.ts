@@ -5,6 +5,8 @@ import { HomeScreenCards } from '../Models/Classes/home-screen-card';
 import { Photo, Photos } from '../Models/Classes/photo';
 import { ScannedUser, User } from '../Models/Classes/user';
 import { UserRoles } from '../Models/Enums/user-roles.enum';
+import { Employee } from '../Models/Classes/employee';
+import { SideMenuItems } from '../Models/Classes/side-menu-item';
 
 @Injectable({
   providedIn: 'root'
@@ -91,17 +93,31 @@ export class DataStoreService {
   }();
 
   static Client = new class {
-    private RegisteredClientSubject: BehaviorSubject<Client> = new BehaviorSubject(null);
-    public RegisteredClientObservable: Observable<Client> = this.RegisteredClientSubject.asObservable();
+    private CurrentClientSubject: BehaviorSubject<Client> = new BehaviorSubject(null);
+    public CurrentClientObservable: Observable<Client> = this.CurrentClientSubject.asObservable();
 
-    public get RegisteredClient(): Client {
-      return this.RegisteredClientSubject.value;
+    public get CurrentClient(): Client {
+      return this.CurrentClientSubject.value;
     }
 
-    public set RegisteredClient(client: Client) {
-      this.RegisteredClientSubject.next(client);
+    public set CurrentClient(client: Client) {
+      this.CurrentClientSubject.next(client);
     }
   }();
+
+  static Employee = new class {
+    private CurrentEmployeeSubject: BehaviorSubject<Employee> = new BehaviorSubject(null);
+    public CurrentEmployeeObservable: Observable<Employee> = this.CurrentEmployeeSubject.asObservable();
+
+    public get CurrentEmployee(): Employee {
+      return this.CurrentEmployeeSubject.value;
+    }
+
+    public set CurrentEmployee(employee: Employee) {
+      this.CurrentEmployeeSubject.next(employee);
+    }
+  }();
+
 
   static Various = new class {
     private CapturedPhotosSubject: BehaviorSubject<Photos> = new BehaviorSubject([]);
@@ -128,25 +144,7 @@ export class DataStoreService {
         title: 'Aceptar usuarios',
         color: 'primary',
         imgPath: 'assets/home-screen-cards/accept_user.png',
-        redirectTo: ''
-      },
-      {
-        title: 'Aceptar usuarios',
-        color: 'primary',
-        imgPath: 'assets/home-screen-cards/accept_user.png',
-        redirectTo: ''
-      },
-      {
-        title: 'Aceptar usuarios',
-        color: 'primary',
-        imgPath: 'assets/home-screen-cards/accept_user.png',
-        redirectTo: ''
-      },
-      {
-        title: 'Aceptar usuarios',
-        color: 'primary',
-        imgPath: 'assets/home-screen-cards/accept_user.png',
-        redirectTo: ''
+        redirectTo: 'userAdmin'
       }
     ];
 
@@ -177,13 +175,133 @@ export class DataStoreService {
       }
     ];
 
-    public GetCards(role: UserRoles): HomeScreenCards {
-      switch (role) {
+    public GetCards(): HomeScreenCards {
+      switch (DataStoreService.User.CurrentUser.data.role) {
         case UserRoles.SUPERVISOR:
           return this.SupervisorCards;
 
         case UserRoles.CLIENTE:
           return this.ClientCards;
+
+        case UserRoles.BARTENDER:
+          break;
+
+        case UserRoles.MOZO:
+          break;
+
+        case UserRoles.METRE:
+          break;
+
+        case UserRoles.COCINERO:
+          break;
+
+        case UserRoles.DUEÑO:
+          break;
+      }
+    }
+  }();
+
+  static SideMenu = new class {
+    private DisplayMenuSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public DisplayMenuObservable: Observable<boolean> = this.DisplayMenuSubject.asObservable();
+
+    public set DisplayMenuHeader(display: boolean) {
+      if (display !== this.DisplayMenuSubject.value) {
+        this.DisplayMenuSubject.next(display);
+      }
+    }
+
+    private SupervisorSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      },
+      {
+        id: 1,
+        label: 'Aceptar usuarios',
+        redirectTo: 'userAdmin',
+        icon: 'clipboard'
+      }
+    ];
+
+    private ClientSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      }
+    ];
+
+    private BartenderSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      }
+    ];
+
+    private MozoSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      }
+    ];
+
+    private MetreSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      }
+    ];
+
+    private CocineroSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      }
+    ];
+
+    private DueñoSideMenu: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home'
+      }
+    ];
+
+    public GetSideMenuItems(userRole: UserRoles): SideMenuItems {
+      switch (userRole) {
+        case UserRoles.SUPERVISOR:
+          return this.SupervisorSideMenu;
+
+        case UserRoles.CLIENTE:
+          return this.ClientSideMenu;
+
+        case UserRoles.BARTENDER:
+          return this.BartenderSideMenu;
+
+        case UserRoles.MOZO:
+          return this.MozoSideMenu;
+
+        case UserRoles.METRE:
+          return this.MetreSideMenu;
+
+        case UserRoles.COCINERO:
+          return this.CocineroSideMenu;
+
+        case UserRoles.DUEÑO:
+          return this.DueñoSideMenu;
       }
     }
   }();

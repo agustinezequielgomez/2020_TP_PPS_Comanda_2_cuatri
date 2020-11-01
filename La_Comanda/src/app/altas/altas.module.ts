@@ -24,7 +24,6 @@ import { ClienteAnonimoComponent } from './Components/cliente-anonimo/cliente-an
     CoreModule,
     IonicModule.forRoot(),
   ],
-  providers: [ ],
   exports: [
     ClienteComponent,
     ClienteAnonimoComponent

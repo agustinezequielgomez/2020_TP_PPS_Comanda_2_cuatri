@@ -10,15 +10,19 @@ export class PasswordInputComponent implements OnInit {
 
   public passwordInputType: 'text' | 'password' = 'password';
   @Input() password = '';
+  @Input() login: boolean;
   @Output() passwordChange = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
-    DataStoreService.Access.QuickUserSelectedObservable.subscribe(user => {
-      if (user !== null) {
-        this.password = user.password;
-      }
-    });
+    if (this.login) {
+      DataStoreService.Access.QuickUserSelectedObservable.subscribe(user => {
+        if (user !== null) {
+          this.password = user.password;
+        }
+      });
+    }
+
   }
 
   togglePasswordInput(): void {

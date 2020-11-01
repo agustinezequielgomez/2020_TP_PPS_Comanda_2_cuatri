@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { timer } from 'rxjs';
+import { UserRoles } from 'src/app/core/Models/Enums/user-roles.enum';
 import { DBUserDocument, User } from '../../../core/Models/Classes/user';
 import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collections.enum';
 import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
 import { DataStoreService } from '../../../core/Services/data-store.service';
 import { DatabaseService } from '../../../core/Services/database.service';
+import { Client } from '../../../core/Models/Classes/client';
+import { filter, map, pluck, reduce, toArray } from 'rxjs/operators';
+import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore';
+
 const packageJson = require('../../../../../package.json');
 
 @Component({
@@ -30,11 +35,12 @@ export class LoginScreenComponent implements OnInit, AfterViewInit {
   constructor(private creator: ComponentCreatorService, private dataBase: DatabaseService) { }
 
   async ngOnInit() {
-    const users = await this.dataBase.getCollection<DBUserDocument>(DataBaseCollections.users).get().toPromise();
-    console.log(users.docs);
-    for (const user of users.docs) {
-      this.users.push((user.data() as DBUserDocument).user);
-    }
+    this.users = (await this.dataBase.getCollection<DBUserDocument>(DataBaseCollections.users).get().pipe(
+        pluck('docs'),
+        map<QueryDocumentSnapshot<DocumentData>[], User[]>(docs => docs.map(doc => (doc.data() as DBUserDocument).user)))
+      .toPromise())
+    .filter(user => user.data.role !== UserRoles.CLIENTE ||
+    (user.data.role === UserRoles.CLIENTE && ((user as Client).enabled && !(user as Client).isAnonymous)))
   }
 
   async ngAfterViewInit() {
@@ -54,28 +60,26 @@ export class LoginScreenComponent implements OnInit, AfterViewInit {
   }
 
   async toLogIn() {
-    DataStoreService.Various.CapturedPhotos = [];
-    await this.slider.slideTo(1);
-    this.index = await this.slider.getActiveIndex();
+    try {
+      DataStoreService.Various.CapturedPhotos = [];
+      await this.slider.slideTo(1);
+      this.index = await this.slider.getActiveIndex();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async toSignUp() {
-    await this.slider.slideTo(2);
-    this.index = await this.slider.getActiveIndex();
+    try {
+      await this.slider.slideTo(2);
+      this.index = await this.slider.getActiveIndex();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async toAnonymousLogin() {
     await this.slider.slideTo(0);
     this.index = await this.slider.getActiveIndex();
-  }
-
-  async loading(loading: boolean) {
-    if (loading) {
-      this.loader = await this.creator.createLoader('md', 'Cargando', true, true, 'crescent', false, 'ion-loader');
-      this.loader.present();
-    } else {
-      await this.loader.dismiss();
-      this.loader = null;
-    }
   }
 }

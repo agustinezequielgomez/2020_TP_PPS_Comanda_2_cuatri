@@ -81,6 +81,10 @@
     --padding-start: 0;
 }
 
+.form-field-invalid {
+    --highlight-color-focused: red;
+}
+
 .scroll-content {
     display: flex;
     flex-direction: column;

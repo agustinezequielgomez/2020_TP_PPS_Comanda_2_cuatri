@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { pluck, map } from 'rxjs/operators';
 import { Client } from '../Models/Classes/client';
 import { DBUserDocument } from '../Models/Classes/user';
 import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum';
@@ -11,6 +12,8 @@ import { DataStoreService } from './data-store.service';
 import { DatabaseService } from './database.service';
 import { NotificationService } from './notification.service';
 import { StorageService } from './storage.service';
+import { DocumentData, QuerySnapshot, QueryDocumentSnapshot } from '@angular/fire/firestore';
+
 
 
 @Injectable({
@@ -59,9 +62,10 @@ export class AuthService {
           DataStoreService.Various.CapturedPhotos[0].takenBy = email;
           DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]}`;
           const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
-          const client: Client = { email, password, photoUrl, UID, enabled: false, isAnonymous: false, data: { role, DNI, name, lastName,
+          const client: Client = { email, password, photoUrl, UID, enabled: null, isAnonymous: false, data: { role, DNI, name, lastName,
             deviceToken: DataStoreService.Notification.NotificationToken }};
           this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, UID, { user: client });
+          this.sendRegistrationPushNotification();
           break;
       }
       return true;
@@ -83,6 +87,15 @@ export class AuthService {
       await this.notification.presentToast('danger', errorMessage, 0, 'md', 'bottom');
       return false;
     }
+  }
+
+  async sendRegistrationPushNotification() {
+    const deviceTokens: string[] = await this.dataBase.getCollection<DBUserDocument>(DataBaseCollections.users, x => x.where('user.data.role', 'in', ['supervisor', 'dueño']))
+    .get().pipe(pluck<QuerySnapshot<DocumentData>, QueryDocumentSnapshot<DocumentData>[]>('docs'),
+    map(documents => documents.map(doc => (doc.data() as DBUserDocument).user.data.deviceToken)))
+    .toPromise();
+    console.log(`VALID TOKENS: ${JSON.stringify(deviceTokens)}`);
+    await this.notification.sendPushNotification({ registration_ids: deviceTokens, notification: { title: 'Nuevo cliente registrado', body: 'Es necesario que valides el perfil' }, data: { redirectTo: 'userAdmin'} });
   }
 
   async signOut() {

@@ -14,7 +14,11 @@ export class HomeScreenComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.cards = DataStoreService.Cards.GetCards(DataStoreService.User.CurrentUser.data.role);
+    DataStoreService.User.CurrentUserObservable.subscribe(user => {
+      if (user !== null && user.data) {
+        this.cards = DataStoreService.Cards.GetCards();
+      }
+    });
   }
 
 }

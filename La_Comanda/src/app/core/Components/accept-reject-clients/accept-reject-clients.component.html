@@ -1,0 +1,37 @@
+<div *ngIf="this.clientList; else skeleton" id="container">
+    <ng-container *ngIf="this.clientList.length > 0; else noResults">
+        <h2 [ngStyle]="{'margin-left': '10px', 'font-weigth': '700', 'color': 'black'}">Aceptar usuarios</h2>
+
+        <ion-item *ngFor="let client of this.clientList" [lines]="'inlined'">
+            <ion-thumbnail id="thumbnail" slot="start">
+                <img [src]="client.photoUrl">
+            </ion-thumbnail>
+            <ion-label>
+                <h3>
+                    {{client.data.name}} {{client.data.lastName}}
+                </h3>
+                <p>
+                    DNI: {{client.data.DNI}}
+                </p>
+            </ion-label>
+            <ion-button class='action-button' color="success" (click)='this.resolveClient(client, true)'>
+                <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+            <ion-button class='action-button' color="danger" (click)='this.resolveClient(client, false)'>
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-item>
+    </ng-container>
+
+</div>
+<ng-template #skeleton>
+    <app-list-item-skeleton *ngFor="let item of this.dummyArray"></app-list-item-skeleton>
+</ng-template>
+
+<ng-template #noResults>
+    <img [ngStyle]="{'margin-top': '20%'}" src="assets/undraw_No_data_re_kwbl.png" alt="">
+    <h3 class="ion-text-center" [ngStyle]="{'color': 'black'}">No hay usuarios pendientes de aprobación</h3>
+    <ion-button [ngStyle]="{'width': '75%', 'margin': '0 auto'}" (click)="this.nav.navigateBack('home')" color="secondary" [expand]='"block"'>
+        Volver al inicio
+    </ion-button>
+</ng-template>

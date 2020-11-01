@@ -5,7 +5,7 @@ import {
   PushNotification,
   PushNotificationActionPerformed
 } from '@capacitor/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, NavController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { SendNotificationRequest, SendNotificationResponse } from '../Models/Classes/send-notification-request';
 import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum';
@@ -22,7 +22,7 @@ const { PushNotifications } = Plugins;
 export class NotificationService {
 
   constructor(private toast: ToastController, private alertController: AlertController, private http: HttpClient,
-              private dataBase: DatabaseService) { }
+              private dataBase: DatabaseService, private nav: NavController) { }
 
   async presentToast(color: 'success' | 'warning' | 'danger', message: string, duration: number = 0,
                      mode: 'ios' | 'md' = 'md', position: 'bottom' | 'middle' | 'top' = 'bottom', header?: string, cssClass?: string) {
@@ -85,14 +85,15 @@ export class NotificationService {
       });
 
       PushNotifications.addListener('pushNotificationReceived',
-      (notification: PushNotification) => {
-        alert('Push received: ' + JSON.stringify(notification));
+      async (notification: PushNotification) => {
+        await this.presentToast('warning', notification.body, 0, 'md', 'middle', notification.title);
       }
     );
 
       PushNotifications.addListener('pushNotificationActionPerformed',
       (notification: PushNotificationActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
+        console.log(notification.notification.data.redirectTo);
+        this.nav.navigateForward(notification.notification.data.redirectTo);
       }
     );
       await PushNotifications.register();
@@ -105,7 +106,7 @@ export class NotificationService {
                                                 (environment.FCM_URL, request, { headers: {Authorization: `key=${environment.FCM_SERVER_KEY}`, 'Content-Type': 'application/json'}}).toPromise();
       return (response.success === 1) ? true : false;
     } catch (error) {
-      console.log(`ERROR: ${error}`);
+      console.log(`ERROR: ${JSON.stringify(error)}`);
     }
   }
 

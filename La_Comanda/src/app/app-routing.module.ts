@@ -3,20 +3,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'access',
     loadChildren: () => import('./access/access.module').then(m => m.AccessModule)
   },
   {
-    path: 'alta',
-    loadChildren: () => import('./altas/altas-routing.module').then(m => m.AltasRoutingModule)
+    path: 'core',
+    loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
   },
   {
-    path: 'core',
-    loadChildren: () => import('./core/core-routing.module').then(m => m.CoreRoutingModule)
+    path: 'alta',
+    loadChildren: () => import('./altas/altas.module').then(m => m.AltasModule)
   },
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'access',
     pathMatch: 'full'
   },
 ];
