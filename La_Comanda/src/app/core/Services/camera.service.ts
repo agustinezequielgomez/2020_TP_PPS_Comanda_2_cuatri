@@ -59,11 +59,15 @@ export class CameraService {
   }
 
   async scanBarCode() {
-    const data = (await this.scanner.scan({ formats: 'PDF_417', showFlipCameraButton: true, prompt: 'Por favor, situa el código del DNI en el centro de la pantalla.', resultDisplayDuration: 0})).text.split('@');
-    if (data.length === 17) {
-      DataStoreService.User.ScannedUser = { DNI: parseInt(data[1], 10), name: data[5], lastName: data[4] };
-    } else {
-      DataStoreService.User.ScannedUser = { DNI: parseInt(data[4], 10), name: data[2], lastName: data[1] };
+    try {
+      const data = (await this.scanner.scan({ formats: 'PDF_417', showFlipCameraButton: true, prompt: 'Por favor, situa el código del DNI en el centro de la pantalla.', resultDisplayDuration: 0})).text.split('@');
+      if (data.length === 17) {
+        DataStoreService.User.ScannedUser = { DNI: parseInt(data[1], 10), name: data[5], lastName: data[4] };
+      } else {
+        DataStoreService.User.ScannedUser = { DNI: parseInt(data[4], 10), name: data[2], lastName: data[1] };
+      }
+    } catch (err) {
+      console.log(`scan error ${err}`);
     }
   }
 }

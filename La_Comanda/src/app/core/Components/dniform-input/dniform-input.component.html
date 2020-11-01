@@ -1,4 +1,4 @@
-<ion-item mode="md" class='form-field'>
+<ion-item mode="md" class='form-field' [ngClass]="{'form-field-invalid': (this.dni && this.dni.toString().length > 8)}">
     <ion-label color="primary" class="input-label" position="floating">Documento
         <ion-text color="danger">*</ion-text>
     </ion-label>

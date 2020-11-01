@@ -20,6 +20,11 @@ import { PhotoPreviewComponent } from './Components/photo-preview/photo-preview.
 import { QRScannerComponent } from './Components/qrscanner/qrscanner.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { HomeScreenCardComponent } from './Components/home-screen-card/home-screen-card.component';
+import { SideMenuComponent } from './Components/side-menu/side-menu.component';
+import { SideMenuItemComponent } from './Components/side-menu-item/side-menu-item.component';
+import { MenuButtonComponent } from './Components/menu-button/menu-button.component';
+import { UserProfileComponent } from './Components/user-profile/user-profile.component';
+import { AcceptRejectClientsComponent } from './Components/accept-reject-clients/accept-reject-clients.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,12 @@ import { HomeScreenCardComponent } from './Components/home-screen-card/home-scre
     PasswordInputComponent,
     DNIFormInputComponent,
     HomeScreenComponent,
-    HomeScreenCardComponent
+    HomeScreenCardComponent,
+    SideMenuComponent,
+    SideMenuItemComponent,
+    MenuButtonComponent,
+    UserProfileComponent,
+    AcceptRejectClientsComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +70,8 @@ import { HomeScreenCardComponent } from './Components/home-screen-card/home-scre
     AvatarUploaderComponent,
     PasswordInputComponent,
     DNIFormInputComponent,
+    SideMenuComponent,
+    MenuButtonComponent
   ]
 })
 export class CoreModule { }

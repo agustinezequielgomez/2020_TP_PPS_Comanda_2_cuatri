@@ -11,14 +11,14 @@ export class StorageService {
   constructor(private storage: Storage, private crypto: CryptoService) { }
 
   async setStorage(key: StorageKeys, data: any): Promise<void> {
-    await this.storage.set(this.crypto.hashString(key), this.crypto.encryptObject(data));
+    await this.storage.set(key, this.crypto.encryptObject(data));
   }
 
   async getStorage<T>(key: StorageKeys): Promise<T | null> {
     if (!this.storageIsSet(key)) {
       return null;
     }
-    return (this.crypto.decryptObect(await this.storage.get(this.crypto.hashString(key))) as T);
+    return (this.crypto.decryptObect(await this.storage.get(key)) as T);
   }
 
   async deleteStorage(key: StorageKeys): Promise<void> {
@@ -26,7 +26,7 @@ export class StorageService {
   }
 
   async storageIsSet(key: StorageKeys): Promise<boolean> {
-    return (await this.storage.keys()).includes(this.crypto.hashString(key));
+    return (await this.storage.keys()).includes(key);
   }
 
   async clearStorage(): Promise<void> {

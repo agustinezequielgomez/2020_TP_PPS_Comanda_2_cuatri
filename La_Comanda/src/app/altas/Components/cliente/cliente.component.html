@@ -21,7 +21,7 @@
             <ion-input class="input" formControlName='email' required [type]="'email'" inputmode="email"></ion-input>
         </ion-item>
         <p id='errorMessage' [ngStyle]="{'justify-self': 'start'}" *ngIf='!this.form.get("email").valid && this.form.get("email").value.length > 0'>El correo electrónico ingresado no es válido.</p>
-        <app-password-input [password]='this.form.get("password").value' (passwordChange)='this.form.get("password").setValue($event)' [ngStyle]="{width: '100%'}"></app-password-input>
+        <app-password-input [password]='this.form.get("password").value' [login]='false' (passwordChange)='this.form.get("password").setValue($event)' [ngStyle]="{width: '100%'}"></app-password-input>
     </div>
     <ion-button [disabled]='!this.enabled' (click)="this.signUp()" [ngStyle]="{'margin-top': '10%'}" expand="block" fill="solid" color="secondary">
         Registrarse

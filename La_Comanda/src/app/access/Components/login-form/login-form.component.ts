@@ -1,24 +1,27 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavController, Platform } from '@ionic/angular';
 import { Client } from 'src/app/core/Models/Classes/client';
-import { TestUser } from 'src/app/core/Models/Classes/test-user';
 import { UserRoles } from 'src/app/core/Models/Enums/user-roles.enum';
+import { environment } from 'src/environments/environment';
+import { Employee } from '../../../core/Models/Classes/employee';
 import { DBUserDocument, User } from '../../../core/Models/Classes/user';
 import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collections.enum';
 import { StorageKeys } from '../../../core/Models/Enums/storage-keys.enum';
 import { AuthService } from '../../../core/Services/auth.service';
+import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
 import { DataStoreService } from '../../../core/Services/data-store.service';
 import { DatabaseService } from '../../../core/Services/database.service';
 import { NotificationService } from '../../../core/Services/notification.service';
 import { StorageService } from '../../../core/Services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
 
   public loginForm: FormGroup;
   public rememberUser = false;
@@ -27,13 +30,13 @@ export class LoginFormComponent implements OnInit {
   @Output() logingIn = new EventEmitter<boolean>();
   public set SetUser(user: User) {
     this.loginForm.setValue({
-      userName: user.email,
-      password: user.password
+      userName: user.email.trim(),
+      password: user.password.trim()
     });
   }
 
-  constructor(private auth: AuthService, private dataBase: DatabaseService, private router: Router,
-              private notification: NotificationService, private storage: StorageService) { }
+  constructor(private auth: AuthService, private dataBase: DatabaseService, private nav: Router,
+              private notification: NotificationService, private storage: StorageService, private creator: ComponentCreatorService) { }
 
   async ngOnInit() {
     this.loginForm = new FormGroup({
@@ -58,30 +61,61 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.loginForm.reset( { userName: '', password: '' });
+    DataStoreService.Access.QuickUser = null;
+  }
+
   toggleRememberUser(): void {
     this.rememberUser = !this.rememberUser;
   }
 
   public async login() {
-    this.logingIn.emit(true);
+    const loader = await this.creator.createLoader('md', 'Iniciando sesión', true, true, 'crescent', false, 'ion-loader');
     try {
+      await loader.present();
       const USER = await this.auth.signInWithEmail(this.loginForm.controls['userName'].value,
                          this.loginForm.controls['password'].value.toString());
 
       const userData = DataStoreService.User.CurrentUser = (await this.dataBase.getDocumentData<DBUserDocument>
                                                             (DataBaseCollections.users, USER.uid)).user;
+      if (userData.data.role === UserRoles.CLIENTE && (userData as Client).enabled === null) {
+        await this.notification.presentToast('danger', 'Lo sentimos, pero tu usuario aún no fue aprobado por nuestros supervisores.', 8000, 'md', 'bottom', 'Error al hacer login');
+        await loader.dismiss();
+        return null;
+      }
+
+      if (userData.data.role === UserRoles.CLIENTE && (userData as Client).enabled === false) {
+        await this.notification.presentToast('danger', 'Lo sentimos, pero tu usuario fué rechazado. Agradecemos el interés en utilizar nuestros servicios', 8000, 'md', 'bottom', 'Error al hacer login');
+        await loader.dismiss();
+        return null;
+      }
+
       if (this.rememberUser) {
         await this.storage.setStorage(StorageKeys.TOKEN, USER.refreshToken);
         await this.storage.setStorage(StorageKeys.UID, USER.uid);
       }
-      await this.notification.pushNotificationsInit();
+      // await this.notification.pushNotificationsInit();
       switch (userData.data.role) {
         case UserRoles.CLIENTE:
-          DataStoreService.Client.RegisteredClient = userData as Client;
+          DataStoreService.Client.CurrentClient = userData as Client;
           break;
+
+          default:
+            DataStoreService.Employee.CurrentEmployee = userData as Employee;
+      }
+
+      // Si es ambiente de desarrollo seteo los datos del usuario en un storage mas permanente
+      // para tenerlo disponbile cada vez que hacemos refresh de la app
+      if (!environment.production) {
+        await this.storage.setStorage(StorageKeys.USER, userData);
+        if (userData.data.role === UserRoles.CLIENTE) {
+          await this.storage.setStorage(StorageKeys.CLIENT, userData as Client);
+        } else {
+          await this.storage.setStorage(StorageKeys.EMPLOYEE, userData as Employee);
         }
-      this.router.navigate(['home']);
-      this.logingIn.emit(false);
+      }
+      this.nav.navigate(['home']);
     } catch (ex) {
       this.logingIn.emit(false);
       console.log(ex);
@@ -101,7 +135,8 @@ export class LoginFormComponent implements OnInit {
           errorMessage = 'Contraseña incorrecta. Por favor, inténtelo nuevamente';
           break;
       }
-      this.notification.presentToast('danger', errorMessage, 8000, 'ios', 'bottom', 'Error al hacer login');
+      this.notification.presentToast('danger', errorMessage, 8000, 'md', 'bottom', 'Error al hacer login');
     }
+    await loader.dismiss();
   }
 }

@@ -13,7 +13,6 @@ export interface UserInformation {
     DNI: number;
     name: string;
     lastName: string;
-    CUIL?: number;
     role: UserRoles;
     deviceToken: string;
 }

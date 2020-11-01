@@ -9,6 +9,8 @@ import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collec
 import { DBUserDocument } from '../../../core/Models/Classes/user';
 import { UserRoles } from 'src/app/core/Models/Enums/user-roles.enum';
 import { NavController } from '@ionic/angular';
+import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
+import { NotificationService } from '../../../core/Services/notification.service';
 
 @Component({
   selector: 'app-cliente-anonimo',
@@ -20,7 +22,8 @@ export class ClienteAnonimoComponent implements OnInit {
   public enabled: boolean;
   public name: string;
   @Output() toLogin = new EventEmitter<void>();
-  constructor(private camera: CameraService, private dataBase: DatabaseService, private nav: NavController) { }
+  constructor(private camera: CameraService, private dataBase: DatabaseService, private nav: NavController,
+              private creator: ComponentCreatorService, private notif: NotificationService) { }
 
   ngOnInit() {
     DataStoreService.Various.CapturedPhotosObservable.subscribe(photos => this.enabled = (photos.length > 0 && this.name.length > 0));
@@ -32,7 +35,9 @@ export class ClienteAnonimoComponent implements OnInit {
   }
 
   async logIn() {
+    const loader = await this.creator.createLoader('md', 'Ingresando anónimamente', true, true, 'crescent', false, 'ion-loader');
     try {
+      await loader.present();
       const photoUrl =  (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
       const client: Client = {
         UID: Guid.raw(),
@@ -50,8 +55,13 @@ export class ClienteAnonimoComponent implements OnInit {
         }
       };
       this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
-      this.nav.navigateForward('home')
+      DataStoreService.User.CurrentUser = DataStoreService.Client.CurrentClient = client;
+      this.name = '';
+      this.nav.navigateForward('home');
     } catch (err) {
+      console.log(`anonimous error ${err}`);
+      await this.notif.presentToast('danger', 'Error al ingresar anonimamente', 10000, 'md', 'bottom');
     }
+    await loader.dismiss();
   }
 }

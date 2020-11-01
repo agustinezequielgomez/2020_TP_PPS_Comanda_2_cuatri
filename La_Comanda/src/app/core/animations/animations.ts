@@ -11,7 +11,6 @@ export const routingAnimation = (baseEl: HTMLElement, opts?: any): Animation => 
             {offset: 1, opacity: 1},
         ], 'normal', 'cubic-bezier', [0.390, 0.575, 0.565, 1.000]);
 
-        console.log(opts);
         const LEAVE_ANIMATION = AnimationService.
         createKeyFramedAnimation(opts.leavingEl, 900, 1, [
             {offset: 0, transform: 'translateX(0%)'},
@@ -29,7 +28,6 @@ export const routingAnimation = (baseEl: HTMLElement, opts?: any): Animation => 
             {offset: 1, opacity: 1},
         ], 'normal', 'cubic-bezier', [0.390, 0.575, 0.565, 1.000]);
 
-        console.log(opts);
         const LEAVE_ANIMATION = AnimationService.
         createKeyFramedAnimation(opts.leavingEl, 900, 1, [
             {offset: 0, transform: 'translateX(0%)'},
