@@ -52,9 +52,9 @@ Bebidas:
 | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/agua_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/cerveza_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/coca_cola_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/vino_qr.png) |
 
 Mesas:
-| Mesa 1 | Mesa 2 | Mesa 3 | Mesa 4 |
-|:--: | :--: | :--: | :--: |
-| ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_1_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_2_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_3_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_4_qr.png) |
+| Mesa 1 | Mesa 2 | Mesa 3 | Mesa 4 | Lista de espera |
+|:--: | :--: | :--: | :--: | :--: |
+| ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_1_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_2_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_3_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_4_qr.png) | ![description](https://github.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/blob/main/QRs/listado_espera_qr.png) |
 
 Propinas:
 | Propina 0% | Propina 5% | Propina 10% | Poopina 15% |
