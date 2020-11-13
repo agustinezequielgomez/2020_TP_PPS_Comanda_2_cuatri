@@ -7,7 +7,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { } from '@ionic/angular/';
+import {} from '@ionic/angular/';
 import { IonicStorageModule } from '@ionic/storage';
 import { environment } from 'src/environments/environment';
 import { AccessModule } from './access/access.module';
@@ -18,13 +18,8 @@ import { MaterialModule } from './material.module';
 import { AltasModule } from './altas/altas.module';
 import { TitleCasePipe } from '@angular/common';
 
-
-
-
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -37,14 +32,9 @@ import { TitleCasePipe } from '@angular/common';
     AngularFireModule.initializeApp(environment.firebase),
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(),
-    AltasModule
+    AltasModule,
   ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    TitleCasePipe,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
-  bootstrap: [AppComponent]
+  providers: [StatusBar, SplashScreen, TitleCasePipe, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

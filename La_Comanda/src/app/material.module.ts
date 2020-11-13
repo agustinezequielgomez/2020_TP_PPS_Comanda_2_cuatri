@@ -6,17 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
-  imports: [
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule
-  ],
-  exports: [
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule
-  ]
+  imports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  exports: [MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule],
 })
-export class MaterialModule { }
+export class MaterialModule {}

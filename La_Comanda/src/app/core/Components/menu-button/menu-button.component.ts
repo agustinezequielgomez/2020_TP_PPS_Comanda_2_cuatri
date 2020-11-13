@@ -7,11 +7,10 @@ import { DataStoreService } from '../../Services/data-store.service';
   styleUrls: ['./menu-button.component.scss'],
 })
 export class MenuButtonComponent implements OnInit {
-
   public displayHeader = false;
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    DataStoreService.SideMenu.DisplayMenuObservable.subscribe(display => this.displayHeader = display);
+    DataStoreService.SideMenu.DisplayMenuObservable.subscribe((display) => (this.displayHeader = display));
   }
 }

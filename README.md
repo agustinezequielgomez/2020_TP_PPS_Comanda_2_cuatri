@@ -1,13 +1,14 @@
 
 # La Comanda - The Developers
 
-![enter image description here](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/WhatsApp%20Image%202020-10-26%20at%2022.44.01.jpeg?alt=media&token=c71c16b2-7967-42b7-8fdc-0fa519c99955)
+![Logo de la aplicacion](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/WhatsApp%20Image%202020-10-26%20at%2022.44.01.jpeg?alt=media&token=c71c16b2-7967-42b7-8fdc-0fa519c99955)
+![Logo de la aplicacion](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/splash.png?alt=media&token=943b5b62-8630-40ab-bc45-4ecbc6d3834e)
 
 **Integrantes** 👨🏻‍💻👨🏻‍💻:
 Agustín Gómez - Alpha
 Nicolas Ferrero - Beta
 
-**Metodología de trabajo**
+**Metodología de trabajo**:
 División de las tareas con multiples check-in del progreso realizado a través de Google Meet.
 
 ## Sprint 1 (24/10 - 31/10) 📋
@@ -24,6 +25,20 @@ División de las tareas con multiples check-in del progreso realizado a través 
 | Creación de Splash Screen animado | Nicolas Ferrero | Completado ✅ |
 | Creación de mesas | Nicolas Ferrero | Completado ✅ |
 | Creación de comidas y bebidas | Nicolas Ferrero | Completado ✅ |
+
+
+## Sprint 2 (31/10 - 07/11) 📋
+| Característica | Integrante | Estado |
+|:--|:--:|:--:|
+| Creación de usuarios en la base de datos | Agustín Gómez | Completado ✅ |
+| Creación del side menu | Agustín Gómez | Completado ✅ |
+| Creación Home Screen para todos los usuarios| Agustín Gómez | Completado ✅ |
+| Aprobación/Rechazo de usuarios por parte de dueño o supervisor* | Agustín Gómez | Completado ✅ |
+| Ingreso a la lista de espera (cliente anónimo y registrado)* | Agustín Gómez | Completado ✅ |
+| Asignación de mesas por parte del metre | Agustín Gómez | Completado ✅ |
+| Listado de productos | Agustín Gómez | En progreso 🚧 |
+
+***Integración de push notification y/o mail**
 
 ## Códigos QR utilizados
 

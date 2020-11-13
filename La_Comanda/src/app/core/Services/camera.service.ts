@@ -9,10 +9,9 @@ import { DatabaseService } from './database.service';
 const { Camera } = Plugins;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CameraService {
-
   private static readonly CAMERA_OPTIONS: CameraOptions = {
     allowEditing: false,
     correctOrientation: true,
@@ -20,9 +19,9 @@ export class CameraService {
     quality: 20,
     resultType: CameraResultType.Base64,
     saveToGallery: false,
-    source: CameraSource.Camera
+    source: CameraSource.Camera,
   };
-  constructor(private fireStore: AngularFireStorage, private scanner: BarcodeScanner) { }
+  constructor(private fireStore: AngularFireStorage, private scanner: BarcodeScanner) {}
 
   async takePicture(multiplePhotos: boolean) {
     try {
@@ -30,12 +29,16 @@ export class CameraService {
       const photoTaken = await Camera.getPhoto(CameraService.CAMERA_OPTIONS);
       const photoObject: Photo = {
         photoUrl: `data:image/${photoTaken.format};base64, ${photoTaken.base64String}`,
-        fileName: (DataStoreService.User.CurrentUser) ? `${DataStoreService.User.CurrentUser.email}_${new Date().toISOString()}` : `anonymous_${new Date().toISOString()}`,
-        takenBy: (DataStoreService.User.CurrentUser) ? `${DataStoreService.User.CurrentUser.email}` : 'anonymous',
+        fileName: DataStoreService.User.CurrentUser
+          ? `${DataStoreService.User.CurrentUser.email}_${new Date().toISOString()}`
+          : `anonymous_${new Date().toISOString()}`,
+        takenBy: DataStoreService.User.CurrentUser ? `${DataStoreService.User.CurrentUser.email}` : 'anonymous',
         takenAt: new Date(),
       };
       console.log(`photo captured: ${JSON.stringify(photoObject)}`);
-      (multiplePhotos) ? DataStoreService.Various.AddCapturedPhoto =  photoObject : DataStoreService.Various.CapturedPhotos = [photoObject];
+      multiplePhotos
+        ? (DataStoreService.Various.AddCapturedPhoto = photoObject)
+        : (DataStoreService.Various.CapturedPhotos = [photoObject]);
     } catch (err) {
       console.log(`photo captured err: ${err}`);
     }
@@ -46,13 +49,13 @@ export class CameraService {
       for (const photo of DataStoreService.Various.CapturedPhotos) {
         const fileName = `${folder}/${photo.fileName}`;
         const ref = this.fireStore.ref(fileName);
-        await ref.putString(photo.photoUrl, 'data_url', {contentType: 'image/jpeg'});
+        await ref.putString(photo.photoUrl, 'data_url', { contentType: 'image/jpeg' });
         photo.photoUrl = await ref.getDownloadURL().toPromise();
       }
-      const photoUrls = DataStoreService.Various.CapturedPhotos.map(x => x.photoUrl);
+      const photoUrls = DataStoreService.Various.CapturedPhotos.map((x) => x.photoUrl);
       DataStoreService.Various.CapturedPhotos = [];
       return photoUrls;
-    }catch (ex) {
+    } catch (ex) {
       console.log(ex);
       // console.log(`upload error ${{...ex}}`);
     }
@@ -60,7 +63,14 @@ export class CameraService {
 
   async scanBarCode() {
     try {
-      const data = (await this.scanner.scan({ formats: 'PDF_417', showFlipCameraButton: true, prompt: 'Por favor, situa el código del DNI en el centro de la pantalla.', resultDisplayDuration: 0})).text.split('@');
+      const data = (
+        await this.scanner.scan({
+          formats: 'PDF_417',
+          showFlipCameraButton: true,
+          prompt: 'Por favor, situa el código del DNI en el centro de la pantalla.',
+          resultDisplayDuration: 0,
+        })
+      ).text.split('@');
       if (data.length === 17) {
         DataStoreService.User.ScannedUser = { DNI: parseInt(data[1], 10), name: data[5], lastName: data[4] };
       } else {
@@ -68,6 +78,22 @@ export class CameraService {
       }
     } catch (err) {
       console.log(`scan error ${err}`);
+    }
+  }
+
+  async scanQrCode() {
+    try {
+      return (
+        await this.scanner.scan({
+          formats: 'QR_CODE',
+          showFlipCameraButton: true,
+          prompt: 'Por favor, situa el código QR en el centro de la pantalla.',
+          resultDisplayDuration: 0,
+        })
+      ).text;
+    } catch (err) {
+      console.log(`scan error ${err}`);
+      throw err;
     }
   }
 }

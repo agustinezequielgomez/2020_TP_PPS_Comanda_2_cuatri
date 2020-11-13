@@ -9,8 +9,8 @@ describe('BarCodeScannerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarCodeScannerComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [BarCodeScannerComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BarCodeScannerComponent);

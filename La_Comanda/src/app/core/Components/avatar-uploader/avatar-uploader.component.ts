@@ -9,9 +9,8 @@ import { CameraService } from '../../Services/camera.service';
   styleUrls: ['./avatar-uploader.component.scss'],
 })
 export class AvatarUploaderComponent implements OnInit {
-
   public photoString: SafeResourceUrl = null;
-  constructor(public sanitizer: DomSanitizer, private camera: CameraService) { }
+  constructor(public sanitizer: DomSanitizer, private camera: CameraService) {}
 
   ngOnInit() {
     DataStoreService.Various.CapturedPhotosObservable.subscribe((photos) => {
@@ -26,5 +25,4 @@ export class AvatarUploaderComponent implements OnInit {
   async click() {
     await this.camera.takePicture(false);
   }
-
 }

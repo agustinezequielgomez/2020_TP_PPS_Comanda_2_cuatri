@@ -1,6 +1,6 @@
-<ion-item [lines]="'inlined'" button (click)="this.onClickEvent()">
+<ion-item [lines]="'inlined'" button (click)="this.onClickEvent()" [detail]='true'>
     <ion-thumbnail id="thumbnail" slot="start">
-        <img [src]="this.photoUrl">
+        <img [src]="this.sanitizer.bypassSecurityTrustUrl(this.photoUrl)">
     </ion-thumbnail>
     <ion-label>
         <h3>

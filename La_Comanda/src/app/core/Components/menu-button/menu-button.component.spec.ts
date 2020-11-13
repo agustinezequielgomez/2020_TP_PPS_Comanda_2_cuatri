@@ -9,8 +9,8 @@ describe('MenuButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MenuButtonComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [MenuButtonComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MenuButtonComponent);

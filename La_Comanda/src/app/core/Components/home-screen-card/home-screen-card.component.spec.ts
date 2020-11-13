@@ -9,8 +9,8 @@ describe('HomeScreenCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeScreenCardComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [HomeScreenCardComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeScreenCardComponent);

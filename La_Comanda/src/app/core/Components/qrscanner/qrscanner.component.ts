@@ -8,14 +8,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./qrscanner.component.scss'],
 })
 export class QRScannerComponent implements OnInit {
-
   @Output() qrScanned = new EventEmitter<string>();
   private qrScannerSubscription: Subscription;
-  constructor(private qrScanner: BarcodeScanner) { }
+  constructor(private qrScanner: BarcodeScanner) {}
 
   async ngOnInit() {
-    const qr = (await this.qrScanner.scan({ formats: 'QR_CODE', showFlipCameraButton: true, prompt: 'Por favor, situa el código QR en el centro de la pantalla.', resultDisplayDuration: 0})).text;
+    const qr = (
+      await this.qrScanner.scan({
+        formats: 'QR_CODE',
+        showFlipCameraButton: true,
+        prompt: 'Por favor, situa el código QR en el centro de la pantalla.',
+        resultDisplayDuration: 0,
+      })
+    ).text;
     this.qrScanned.emit(qr);
   }
-
 }

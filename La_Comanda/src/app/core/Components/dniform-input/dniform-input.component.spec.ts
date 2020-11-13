@@ -9,8 +9,8 @@ describe('DNIFormInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DNIFormInputComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [DNIFormInputComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DNIFormInputComponent);

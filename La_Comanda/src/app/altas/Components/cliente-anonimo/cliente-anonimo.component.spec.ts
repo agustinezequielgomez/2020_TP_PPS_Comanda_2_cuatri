@@ -9,8 +9,8 @@ describe('ClienteAnonimoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClienteAnonimoComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ClienteAnonimoComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ClienteAnonimoComponent);

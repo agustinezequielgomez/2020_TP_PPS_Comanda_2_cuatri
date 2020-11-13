@@ -3,7 +3,7 @@ import { DataStoreService } from '../../../core/Services/data-store.service';
 import { CameraService } from '../../../core/Services/camera.service';
 import { FirebaseStorageFolders } from 'src/app/core/Models/Enums/firebase-storage-folders.enum';
 import { Guid } from 'guid-typescript';
-import { Client } from 'src/app/core/Models/Classes/client';
+import { Client, ClientState } from 'src/app/core/Models/Classes/client';
 import { DatabaseService } from '../../../core/Services/database.service';
 import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collections.enum';
 import { DBUserDocument } from '../../../core/Models/Classes/user';
@@ -18,27 +18,41 @@ import { NotificationService } from '../../../core/Services/notification.service
   styleUrls: ['./cliente-anonimo.component.scss'],
 })
 export class ClienteAnonimoComponent implements OnInit {
-
   public enabled: boolean;
   public name: string;
   @Output() toLogin = new EventEmitter<void>();
-  constructor(private camera: CameraService, private dataBase: DatabaseService, private nav: NavController,
-              private creator: ComponentCreatorService, private notif: NotificationService) { }
+  constructor(
+    private camera: CameraService,
+    private dataBase: DatabaseService,
+    private nav: NavController,
+    private creator: ComponentCreatorService,
+    private notif: NotificationService
+  ) {}
 
   ngOnInit() {
-    DataStoreService.Various.CapturedPhotosObservable.subscribe(photos => this.enabled = (photos.length > 0 && this.name.length > 0));
+    DataStoreService.Various.CapturedPhotosObservable.subscribe(
+      (photos) => (this.enabled = photos.length > 0 && this.name.length > 0)
+    );
   }
 
   onChange(name: string) {
     this.name = name;
-    this.enabled = (DataStoreService.Various.CapturedPhotos.length > 0 && name.length > 0);
+    this.enabled = DataStoreService.Various.CapturedPhotos.length > 0 && name.length > 0;
   }
 
   async logIn() {
-    const loader = await this.creator.createLoader('md', 'Ingresando anónimamente', true, true, 'crescent', false, 'ion-loader');
+    const loader = await this.creator.createLoader(
+      'md',
+      'Ingresando anónimamente',
+      true,
+      true,
+      'crescent',
+      false,
+      'ion-loader'
+    );
     try {
       await loader.present();
-      const photoUrl =  (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
+      const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
       const client: Client = {
         UID: Guid.raw(),
         email: null,
@@ -51,10 +65,11 @@ export class ClienteAnonimoComponent implements OnInit {
           lastName: null,
           role: UserRoles.CLIENTE,
           DNI: null,
-          deviceToken: null
-        }
+          deviceToken: null,
+        },
+        state: ClientState.NULO,
       };
-      this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
+      await this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
       DataStoreService.User.CurrentUser = DataStoreService.Client.CurrentClient = client;
       this.name = '';
       this.nav.navigateForward('home');

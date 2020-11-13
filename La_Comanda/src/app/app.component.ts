@@ -23,10 +23,9 @@ const { SplashScreen } = Plugins;
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  animations: []
+  animations: [],
 })
 export class AppComponent implements OnInit {
-
   public hideSplashAnimation = false;
   public routerMargin: boolean;
   public get RoutingAnimation() {
@@ -48,8 +47,8 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     // COMENTAR CUANDO NO SE ESTE EN MODO LIVE-RELOAD
     DataStoreService.SideMenu.DisplayMenuHeader = this.routerMargin = !(this.location.path() === '');
-    if (!environment.production && await this.storage.storageIsSet(StorageKeys.USER)) {
-      const user = DataStoreService.User.CurrentUser = await this.storage.getStorage<User>(StorageKeys.USER);
+    if (!environment.production && (await this.storage.storageIsSet(StorageKeys.USER))) {
+      const user = (DataStoreService.User.CurrentUser = await this.storage.getStorage<User>(StorageKeys.USER));
       if (user.data.role === UserRoles.CLIENTE) {
         DataStoreService.Client.CurrentClient = await this.storage.getStorage<Client>(StorageKeys.CLIENT);
       } else {
@@ -60,14 +59,18 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(async () => {
-      if (await this.storage.storageIsSet(StorageKeys.UID) && await this.storage.storageIsSet(StorageKeys.TOKEN)) {
-        DataStoreService.User.CurrentUser = (await this.database.getDocumentData<DBUserDocument>(DataBaseCollections.users,
-                                             await this.storage.getStorage(StorageKeys.UID))).user;
+      if ((await this.storage.storageIsSet(StorageKeys.UID)) && (await this.storage.storageIsSet(StorageKeys.TOKEN))) {
+        DataStoreService.User.CurrentUser = (
+          await this.database.getDocumentData<DBUserDocument>(
+            DataBaseCollections.users,
+            await this.storage.getStorage(StorageKeys.UID)
+          )
+        ).user;
 
         // this.router.navigate(['home']);
       }
 
-      this.router.events.subscribe(event => {
+      this.router.events.subscribe((event) => {
         DataStoreService.SideMenu.DisplayMenuHeader = this.routerMargin = !(this.location.path() === '');
       });
 

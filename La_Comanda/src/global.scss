@@ -92,3 +92,32 @@
         display: flex;
     }
 }
+
+.assing-table-modal {
+    --min-width: 75%;
+}
+
+.assing-table-modal-confirm {
+    color: var(--ion-color-secondary) !important;
+    // color: white !important;
+    margin-left: auto !important;
+}
+
+.assing-table-modal-close {
+    color: var(--ion-color-danger) !important;
+    // color: white !important;
+}
+
+.food-modal {
+    --height: 90vh;
+}
+
+.modal-wrapper {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+#thumbnail {
+    --border-radius: 43px;
+    --size: 50px;
+}

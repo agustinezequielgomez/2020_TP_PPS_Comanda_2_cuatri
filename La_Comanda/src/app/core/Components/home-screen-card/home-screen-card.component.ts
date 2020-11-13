@@ -8,10 +8,8 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./home-screen-card.component.scss'],
 })
 export class HomeScreenCardComponent implements OnInit {
-
   @Input() card: HomeScreenCard;
-  constructor(public nav: NavController) { }
+  constructor(public nav: NavController) {}
 
   ngOnInit() {}
-
 }

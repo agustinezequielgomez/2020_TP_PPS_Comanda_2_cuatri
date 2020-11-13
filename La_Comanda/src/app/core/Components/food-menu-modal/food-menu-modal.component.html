@@ -1,0 +1,14 @@
+<ion-card>
+    <ion-slides mode="md" #slides>
+        <ion-slide *ngFor="let foto of this.food.fotos">
+            <img [src]="this.sanitizer.bypassSecurityTrustUrl(foto)" alt="">
+        </ion-slide>
+    </ion-slides>
+    <ion-card-header>
+        <ion-card-subtitle>Precio: {{food.precio | currency}}</ion-card-subtitle>
+        <ion-card-title>{{food.nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        {{food.descripcion}}
+    </ion-card-content>
+</ion-card>

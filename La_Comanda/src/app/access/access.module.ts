@@ -10,14 +10,8 @@ import { AccessRoutingModule } from './access-routing.module';
 import { CoreModule } from '../core/core.module';
 import { AltasModule } from '../altas/altas.module';
 
-
-
 @NgModule({
-  declarations: [
-    SplashScreenComponent,
-    LoginScreenComponent,
-    LoginFormComponent
-  ],
+  declarations: [SplashScreenComponent, LoginScreenComponent, LoginFormComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -26,10 +20,8 @@ import { AltasModule } from '../altas/altas.module';
     IonicModule.forRoot(),
     AccessRoutingModule,
     CoreModule,
-    AltasModule
+    AltasModule,
   ],
-  exports: [
-    SplashScreenComponent
-  ]
+  exports: [SplashScreenComponent],
 })
-export class AccessModule { }
+export class AccessModule {}

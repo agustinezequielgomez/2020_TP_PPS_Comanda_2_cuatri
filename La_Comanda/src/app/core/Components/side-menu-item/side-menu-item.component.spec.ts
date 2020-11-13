@@ -9,8 +9,8 @@ describe('SideMenuItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SideMenuItemComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SideMenuItemComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SideMenuItemComponent);

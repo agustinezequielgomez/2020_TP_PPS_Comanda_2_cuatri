@@ -9,8 +9,8 @@ describe('LoginScreenComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginScreenComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [LoginScreenComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginScreenComponent);

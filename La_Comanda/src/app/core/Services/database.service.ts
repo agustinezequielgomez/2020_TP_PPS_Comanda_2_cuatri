@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, DocumentChangeType, DocumentData, QueryFn } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument,
+  DocumentChangeType,
+  DocumentData,
+  QueryFn,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DatabaseService {
-
-  constructor(private store: AngularFirestore) { }
+  constructor(private store: AngularFirestore) {}
 
   /**
    * Retrieves an AngularFirestoreCollection
@@ -34,7 +39,10 @@ export class DatabaseService {
    * @param collectionName Name of the collection
    * @param documentId ID of the document to query
    */
-  private async getDocument<T>(collection: string, documentId: string): Promise<firebase.firestore.DocumentSnapshot<DocumentData>> {
+  private async getDocument<T>(
+    collection: string,
+    documentId: string
+  ): Promise<firebase.firestore.DocumentSnapshot<DocumentData>> {
     return this.getCollection<T[]>(collection).doc<T>(documentId).get().toPromise();
   }
 
@@ -65,11 +73,28 @@ export class DatabaseService {
    * @param collectionName Name of the collection to query
    * @param query Query to execute on the collection
    */
-  public async queryCollection<T>(collectionName: DataBaseCollections, query: QueryFn): Promise<{id: string, data: T}[]> {
+  public async queryCollection<T>(
+    collectionName: DataBaseCollections,
+    query: QueryFn
+  ): Promise<{ id: string; data: T }[]> {
     const queryResult = await this.getCollection<T>(collectionName, query).get().toPromise();
-    const result: {id: string, data: T}[] = [];
+    const result: { id: string; data: T }[] = [];
     for (const document of queryResult.docs) {
-      result.push({id: document.id, data: document.data() as T});
+      result.push({ id: document.id, data: document.data() as T });
+    }
+
+    return result;
+  }
+
+  /**
+   * Gets every ddocument data for every document on the collection
+   * @param collectionName Name of the collection to query
+   */
+  public async getCollectionData<T>(collectionName: DataBaseCollections): Promise<T[]> {
+    const queryResult = await this.getCollection<T>(collectionName).get().toPromise();
+    const result: T[] = [];
+    for (const document of queryResult.docs) {
+      result.push(document.data() as T);
     }
 
     return result;
@@ -81,13 +106,22 @@ export class DatabaseService {
    * @param changeType Optional type of change to query
    * @param query Optional query for the collection
    */
-  public getComplexDataStream<T>(collectionName: string, changeType: DocumentChangeType[] = [], query?: QueryFn): Observable<T[]> {
-    return this.getCollection<T>(collectionName, query).snapshotChanges(changeType).pipe(
-      map(data => data.map((val) => {
-        const DATA: T = val.payload.doc.data() as T;
-        const ID = val.payload.doc.id;
-        return { ID, ...DATA };
-      })));
+  public getComplexDataStream<T>(
+    collectionName: string,
+    changeType: DocumentChangeType[] = [],
+    query?: QueryFn
+  ): Observable<{ ID: string; DATA: T }[]> {
+    return this.getCollection<T>(collectionName, query)
+      .snapshotChanges(changeType)
+      .pipe(
+        map((data) =>
+          data.map((val) => {
+            const DATA: T = val.payload.doc.data() as T;
+            const ID = val.payload.doc.id;
+            return { ID, DATA };
+          })
+        )
+      );
   }
 
   /** Retrieves specific document data within a collection
@@ -112,13 +146,15 @@ export class DatabaseService {
    * @param documentId ID of the document to query
    */
   public getDocumentComplexDataStream<T>(collection: string, documentId: string): Observable<T> {
-    return this.getDocumentStream<T>(collection, documentId).snapshotChanges().pipe(
-      map((document) => {
-        const DATA = document.payload.data() as T;
-        const ID = document.payload.id;
-        return {ID, ...DATA };
-      })
-    );
+    return this.getDocumentStream<T>(collection, documentId)
+      .snapshotChanges()
+      .pipe(
+        map((document) => {
+          const DATA = document.payload.data() as T;
+          const ID = document.payload.id;
+          return { ID, ...DATA };
+        })
+      );
   }
 
   public async saveDocument<T>(collection: string, documentId: string, object: T): Promise<void> {
@@ -133,4 +169,3 @@ export class DatabaseService {
     return await this.getDocumentStream(collection, documentId).delete();
   }
 }
-

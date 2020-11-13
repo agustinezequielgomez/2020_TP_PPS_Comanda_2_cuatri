@@ -9,8 +9,8 @@ describe('AcceptRejectClientsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AcceptRejectClientsComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AcceptRejectClientsComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AcceptRejectClientsComponent);

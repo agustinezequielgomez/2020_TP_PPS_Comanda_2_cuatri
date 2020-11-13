@@ -9,13 +9,12 @@ import { CameraService } from '../../Services/camera.service';
   styleUrls: ['./dniform-input.component.scss'],
 })
 export class DNIFormInputComponent implements OnInit {
-
   @Input() dni: number;
   @Output() dniRegistered = new EventEmitter<number>();
-  constructor(public camera: CameraService) { }
+  constructor(public camera: CameraService) {}
 
   ngOnInit() {
-    DataStoreService.User.ScannedUserObservable.subscribe(user => {
+    DataStoreService.User.ScannedUserObservable.subscribe((user) => {
       if (user !== null) {
         console.log(`DNI ${user.DNI}`);
         this.dni = user.DNI;

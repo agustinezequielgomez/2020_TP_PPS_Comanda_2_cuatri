@@ -9,8 +9,8 @@ describe('PasswordInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PasswordInputComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [PasswordInputComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PasswordInputComponent);

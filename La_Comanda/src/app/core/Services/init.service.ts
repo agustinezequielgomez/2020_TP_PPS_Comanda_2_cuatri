@@ -9,12 +9,15 @@ import { StorageService } from './storage.service';
 const packageJson = require('../../../../package.json');
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class InitService {
-
-  constructor(private storage: StorageService, private dataBase: DatabaseService, private app: AppVersion,
-              private factory: ConfigFactoryService) { }
+  constructor(
+    private storage: StorageService,
+    private dataBase: DatabaseService,
+    private app: AppVersion,
+    private factory: ConfigFactoryService
+  ) {}
 
   async init() {
     try {

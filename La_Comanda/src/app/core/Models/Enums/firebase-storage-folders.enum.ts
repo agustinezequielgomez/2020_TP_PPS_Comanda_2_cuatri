@@ -1,3 +1,3 @@
 export enum FirebaseStorageFolders {
-    client = 'client/'
+  client = 'client/',
 }
