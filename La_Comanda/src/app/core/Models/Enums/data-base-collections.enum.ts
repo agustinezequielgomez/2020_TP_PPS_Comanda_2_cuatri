@@ -6,5 +6,7 @@ export enum DataBaseCollections {
   comidas = 'comidas',
   bebidas = 'bebidas',
   waiting_list = 'waiting_list',
+  questions = 'questions',
   orders = 'orders',
+  clientReview = 'client_review',
 }

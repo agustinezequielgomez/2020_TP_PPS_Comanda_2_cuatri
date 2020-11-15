@@ -7,7 +7,7 @@ import { ScannedUser } from '../../Models/Classes/user';
 import { timer } from 'rxjs';
 
 @Component({
-  selector: 'app-bar-code-scanner',
+  selector: 'core-bar-code-scanner',
   templateUrl: './bar-code-scanner.component.html',
   styleUrls: ['./bar-code-scanner.component.scss'],
 })

@@ -1,13 +1,28 @@
-<ion-item [lines]="'inlined'">
+<ng-container *ngIf="this.singleItem; else list">
+  <ion-item [lines]="'inlined'">
     <ion-thumbnail id="thumbnail" slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
     </ion-thumbnail>
     <ion-label>
-        <h3>
-            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-        </h3>
-        <p>
-            <ion-skeleton-text animated></ion-skeleton-text>
-        </p>
-    </ion-label>
-</ion-item>
+      <h3>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </p>
+    </ion-label> </ion-item
+></ng-container>
+<ng-template #list>
+  <ion-item *ngFor="let item of this.dummyArray" [lines]="'inlined'">
+    <ion-thumbnail id="thumbnail" slot="start">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-label>
+      <h3>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </h3>
+      <p>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </p>
+    </ion-label> </ion-item
+></ng-template>

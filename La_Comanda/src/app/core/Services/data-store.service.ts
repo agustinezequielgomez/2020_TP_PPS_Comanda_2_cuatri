@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Client, ClientState } from '../Models/Classes/client';
+import { Employee } from '../Models/Classes/employee';
 import { HomeScreenCards } from '../Models/Classes/home-screen-card';
 import { Photo, Photos } from '../Models/Classes/photo';
+import { SideMenuItems } from '../Models/Classes/side-menu-item';
 import { ScannedUser, User } from '../Models/Classes/user';
 import { UserRoles } from '../Models/Enums/user-roles.enum';
-import { Employee } from '../Models/Classes/employee';
-import { SideMenuItems } from '../Models/Classes/side-menu-item';
 
 @Injectable({
   providedIn: 'root',
@@ -156,6 +156,21 @@ export class DataStoreService {
       },
     ];
 
+    private MozoCards: HomeScreenCards = [
+      {
+        title: 'Confirmar pedido',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/confirmar_pedido.png',
+        redirectTo: 'reviewOrder',
+      },
+      {
+        title: 'Contestar consultas',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/consulta.png',
+        redirectTo: 'waiterQuestion',
+      },
+    ];
+
     private ClientCardsNulo: HomeScreenCards = [
       {
         title: 'Entrar a lista de espera',
@@ -191,7 +206,34 @@ export class DataStoreService {
         title: 'Consulta al mozo',
         color: 'primary',
         imgPath: 'assets/home-screen-cards/consulta.png',
-        redirectTo: 'waitingListEnter',
+        redirectTo: 'clientTable?question=true',
+      },
+    ];
+
+    private ClientCardsEsperandoPedido: HomeScreenCards = [
+      {
+        title: 'Ver menu',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/hamburguer.png',
+        redirectTo: 'foodMenu',
+      },
+      {
+        title: 'Consultá el estado del pedido',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/time.png',
+        redirectTo: 'clientTable?orderState=true',
+      },
+      {
+        title: 'Consultá al mozo',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/consulta.png',
+        redirectTo: 'clientTable?question=true',
+      },
+      {
+        title: 'Encuesta de satisfacción',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/review.png',
+        redirectTo: 'clientTable?review=true',
       },
     ];
 
@@ -201,6 +243,24 @@ export class DataStoreService {
         color: 'primary',
         imgPath: 'assets/home-screen-cards/table.png',
         redirectTo: 'assingTable',
+      },
+    ];
+
+    private CocineroCards: HomeScreenCards = [
+      {
+        title: 'Preparar comidas',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/prepare_food.png',
+        redirectTo: 'prepareFood',
+      },
+    ];
+
+    private BartenderCards: HomeScreenCards = [
+      {
+        title: 'Preparar bebida',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/prepare_drinks.png',
+        redirectTo: 'prepareFood',
       },
     ];
 
@@ -220,20 +280,23 @@ export class DataStoreService {
 
             case ClientState.EN_MESA:
               return this.ClientCardsEnMesa;
+
+            case ClientState.ESPERANDO_PEDIDO:
+              return this.ClientCardsEsperandoPedido;
           }
           break;
 
         case UserRoles.BARTENDER:
-          break;
+          return this.BartenderCards;
 
         case UserRoles.MOZO:
-          break;
+          return this.MozoCards;
 
         case UserRoles.METRE:
           return this.MetreCards;
 
         case UserRoles.COCINERO:
-          break;
+          return this.CocineroCards;
 
         case UserRoles.DUEÑO:
           return this.DueñoCards;
@@ -316,6 +379,45 @@ export class DataStoreService {
         redirectTo: 'clientTable',
         icon: 'restaurant',
       },
+      {
+        id: 3,
+        label: 'Consulta al mozo',
+        redirectTo: 'clientTable?question=true',
+        icon: 'chatbubbles',
+      },
+    ];
+
+    private ClientSideMenuEsperandoPedido: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home',
+      },
+      {
+        id: 1,
+        label: 'Ver menu',
+        redirectTo: 'foodMenu',
+        icon: 'fast-food',
+      },
+      {
+        id: 2,
+        label: 'Estado del pedido',
+        redirectTo: 'clientTable?orderState=true',
+        icon: 'timer',
+      },
+      {
+        id: 3,
+        label: 'Consulta al mozo',
+        redirectTo: 'clientTable?question=true',
+        icon: 'chatbubbles',
+      },
+      {
+        id: 4,
+        label: 'Encuesta',
+        redirectTo: 'clientTable?review=true',
+        icon: 'star-half',
+      },
     ];
 
     private BartenderSideMenu: SideMenuItems = [
@@ -325,6 +427,12 @@ export class DataStoreService {
         redirectTo: 'home',
         icon: 'home',
       },
+      {
+        id: 1,
+        label: 'Preparar bebidas',
+        redirectTo: 'prepareFood',
+        icon: 'wine',
+      },
     ];
 
     private MozoSideMenu: SideMenuItems = [
@@ -333,6 +441,12 @@ export class DataStoreService {
         label: 'Inicio',
         redirectTo: 'home',
         icon: 'home',
+      },
+      {
+        id: 1,
+        label: 'Contestar consultas',
+        redirectTo: 'waiterQuestion',
+        icon: 'chatbubbles',
       },
     ];
 
@@ -357,6 +471,12 @@ export class DataStoreService {
         label: 'Inicio',
         redirectTo: 'home',
         icon: 'home',
+      },
+      {
+        id: 1,
+        label: 'Preparar comidas',
+        redirectTo: 'prepareFood',
+        icon: 'pizza',
       },
     ];
 
@@ -391,6 +511,9 @@ export class DataStoreService {
 
             case ClientState.EN_MESA:
               return this.ClientSideMenuEnMesa;
+
+            case ClientState.ESPERANDO_PEDIDO:
+              return this.ClientSideMenuEsperandoPedido;
           }
           break;
 

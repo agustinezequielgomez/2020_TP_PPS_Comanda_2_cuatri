@@ -179,17 +179,17 @@
             <ion-card-content>
               <ion-slides mode="md" #slider>
                 <ion-slide>
-                  <app-cliente-anonimo (toLogin)="this.toLogIn()"></app-cliente-anonimo>
+                  <alta-cliente-anonimo (toLogin)="this.toLogIn()"></alta-cliente-anonimo>
                 </ion-slide>
                 <ion-slide>
-                  <app-login-form
+                  <access-login-form
                     (logingIn)="this.loading($event)"
                     (toSignUp)="this.toSignUp()"
                     (toSignAnonymousLogIn)="this.toAnonymousLogin()"
-                  ></app-login-form>
+                  ></access-login-form>
                 </ion-slide>
                 <ion-slide>
-                  <app-cliente [isAccess]="true" (toLogin)="toLogIn()"></app-cliente>
+                  <alta-cliente [isAccess]="true" (toLogin)="toLogIn()"></alta-cliente>
                 </ion-slide>
               </ion-slides>
             </ion-card-content>

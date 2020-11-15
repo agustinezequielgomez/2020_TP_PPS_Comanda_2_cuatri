@@ -14,7 +14,7 @@ import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 const packageJson = require('../../../../../package.json');
 
 @Component({
-  selector: 'app-login-screen',
+  selector: 'access-login-screen',
   templateUrl: './login-screen.component.html',
   styleUrls: ['./login-screen.component.scss'],
 })

@@ -8,11 +8,11 @@
         </ion-label>
         <ion-input required formControlName="userName" type="email" mode="md"></ion-input>
       </ion-item>
-      <app-password-input
+      <core-password-input
         [password]="this.loginForm.get('password').value"
         [login]="true"
         (passwordChange)="this.loginForm.get('password').setValue($event)"
-      ></app-password-input>
+      ></core-password-input>
     </form>
   </ion-col>
 </ion-row>

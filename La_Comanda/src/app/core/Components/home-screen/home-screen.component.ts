@@ -8,7 +8,7 @@ import { DBUserDocument } from '../../Models/Classes/user';
 import { Client } from '../../Models/Classes/client';
 
 @Component({
-  selector: 'app-home-screen',
+  selector: 'core-home-screen',
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss'],
 })

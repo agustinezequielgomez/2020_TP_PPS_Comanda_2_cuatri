@@ -5,6 +5,7 @@ export interface Client extends User {
   isAnonymous: boolean;
   tableId?: number;
   state: ClientState;
+  orderId?: string;
 }
 
 export enum ClientState {

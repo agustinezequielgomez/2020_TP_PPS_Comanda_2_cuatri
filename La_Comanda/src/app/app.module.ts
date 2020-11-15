@@ -17,6 +17,7 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material.module';
 import { AltasModule } from './altas/altas.module';
 import { TitleCasePipe } from '@angular/common';
+import { GestionModule } from './gestion/gestion.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { TitleCasePipe } from '@angular/common';
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(),
     AltasModule,
+    GestionModule,
   ],
   providers: [StatusBar, SplashScreen, TitleCasePipe, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

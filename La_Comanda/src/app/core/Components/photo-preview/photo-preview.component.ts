@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-photo-preview',
+  selector: 'core-photo-preview',
   templateUrl: './photo-preview.component.html',
   styleUrls: ['./photo-preview.component.scss'],
 })

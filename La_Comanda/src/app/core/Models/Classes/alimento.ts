@@ -16,6 +16,6 @@ export enum TipoAlimento {
 
 export enum FoodState {
   TODO = 'Por hacer',
-  IN_PROGRESS = 'En progreso',
-  COMPLETED = 'Completado',
+  IN_PROGRESS = 'in_progress',
+  COMPLETED = 'completed',
 }

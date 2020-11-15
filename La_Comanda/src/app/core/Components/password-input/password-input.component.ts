@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { DataStoreService } from '../../Services/data-store.service';
 
 @Component({
-  selector: 'app-password-input',
+  selector: 'core-password-input',
   templateUrl: './password-input.component.html',
   styleUrls: ['./password-input.component.scss'],
 })

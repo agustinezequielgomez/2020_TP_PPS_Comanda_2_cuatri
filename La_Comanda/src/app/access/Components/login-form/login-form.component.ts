@@ -16,7 +16,7 @@ import { DatabaseService } from '../../../core/Services/database.service';
 import { NotificationService } from '../../../core/Services/notification.service';
 import { StorageService } from '../../../core/Services/storage.service';
 @Component({
-  selector: 'app-login-form',
+  selector: 'access-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })

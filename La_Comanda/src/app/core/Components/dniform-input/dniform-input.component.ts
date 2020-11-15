@@ -4,7 +4,7 @@ import { DataStoreService } from '../../Services/data-store.service';
 import { CameraService } from '../../Services/camera.service';
 
 @Component({
-  selector: 'app-dniform-input',
+  selector: 'core-dniform-input',
   templateUrl: './dniform-input.component.html',
   styleUrls: ['./dniform-input.component.scss'],
 })

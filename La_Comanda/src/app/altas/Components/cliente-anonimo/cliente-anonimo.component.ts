@@ -13,7 +13,7 @@ import { ComponentCreatorService } from '../../../core/Services/component-creato
 import { NotificationService } from '../../../core/Services/notification.service';
 
 @Component({
-  selector: 'app-cliente-anonimo',
+  selector: 'alta-cliente-anonimo',
   templateUrl: './cliente-anonimo.component.html',
   styleUrls: ['./cliente-anonimo.component.scss'],
 })

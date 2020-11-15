@@ -1,0 +1,41 @@
+<div *ngIf="this.waitingClients !== null; else skeleton" id="container" [ngStyle]="{ color: 'black' }">
+  <ng-container *ngIf="this.waitingClients.length > 0; else noResults">
+    <core-page-container [title]="'Asignar mesa a cliente'">
+      <div class="page-content">
+        <ng-template #actionItem let-client="item">
+          <ion-button
+            (click)="
+              this.availableTables !== null && this.availableTables.length > 0
+                ? this.createModal(client)
+                : this.noTables()
+            "
+            expand="block"
+            fill="outline"
+            color="secondary"
+          >
+            Asignar mesa
+          </ion-button>
+        </ng-template>
+        <core-list-item-photo
+          *ngFor="let client of this.waitingClients"
+          [title]="client.data.name + ' ' + client.data.lastName ? client.data.lastName : ''"
+          [content]="'DNI: ' + client.data.DNI"
+          [photoUrl]="client.photoUrl"
+          [listValue]="client"
+          [actionItem]="actionItem"
+          [detail]="false"
+        ></core-list-item-photo>
+      </div>
+    </core-page-container>
+  </ng-container>
+
+  <ng-template #noResults>
+    <img [ngStyle]="{ 'margin-top': '10%' }" src="assets/undraw_No_data_re_kwbl.png" alt="" />
+    <h3 class="ion-text-center" [ngStyle]="{ color: 'black' }">No hay usuarios pendientes de ser asignados</h3>
+    <core-go-to-home-menu-button></core-go-to-home-menu-button>
+  </ng-template>
+</div>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>

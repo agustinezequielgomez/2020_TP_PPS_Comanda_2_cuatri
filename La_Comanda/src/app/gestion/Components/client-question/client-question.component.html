@@ -1,0 +1,49 @@
+<div class="ion-text-center" *ngIf="this.clientQuestions !== null; else skeleton">
+  <div *ngIf="this.clientQuestions.length > 0; else noQuestions">
+    <mat-accordion>
+      <mat-expansion-panel [ngStyle]="{ 'margin-top': '5%' }" *ngFor="let question of this.clientQuestions">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Pregunta</mat-panel-title>
+          <mat-panel-description>{{ question.answer ? 'Contestada ✔' : 'No contestada ❌' }}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <ion-item>
+          <ion-label>
+            <p [ngStyle]="{ 'font-size': '10px', 'font-weight': '800' }">Preguntaste:</p>
+            <p>{{ question.question }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="question.answer">
+          <ion-label>
+            <p [ngStyle]="{ 'font-size': '10px', 'font-weight': '800' }">{{ question.answeredBy }} contestó:</p>
+            <p>{{ question.answer }}</p>
+          </ion-label>
+        </ion-item>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <ion-button
+      class="ion-text-center"
+      (click)="this.questionModal()"
+      [ngStyle]="{ width: '75%', margin: '5% auto' }"
+      expand="block"
+      color="secondary"
+    >
+      Hacer otra pregunta
+    </ion-button>
+  </div>
+</div>
+
+<ng-template #noQuestions>
+  <img
+    [ngStyle]="{ 'margin-top': '10%' }"
+    src="assets/home-screen-cards/consulta.png"
+    alt=""
+    (click)="this.questionModal()"
+  />
+  <p [ngStyle]="{ margin: '10% 5%', 'font-size': '18px' }">
+    Aún no hiciste consultas, hace click en la imagen para hacerle una pregunta a los mozos
+  </p>
+</ng-template>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>

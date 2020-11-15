@@ -4,7 +4,7 @@ import { DataStoreService } from '../../Services/data-store.service';
 import { CameraService } from '../../Services/camera.service';
 
 @Component({
-  selector: 'app-avatar-uploader',
+  selector: 'core-avatar-uploader',
   templateUrl: './avatar-uploader.component.html',
   styleUrls: ['./avatar-uploader.component.scss'],
 })

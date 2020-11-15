@@ -1,21 +1,40 @@
 <form>
-    <div id="container">
-        <app-avatar-uploader [ngStyle]="{'grid-area': 'avatar'}"></app-avatar-uploader>
-        <ion-item mode="md" class='form-field'>
-            <ion-label color="primary" class="input-label" position="floating">Nombre
-                <ion-text color="danger">*</ion-text>
-            </ion-label>
-            <ion-input class="input" [value]='this.name' required [type]="'text'" inputmode="text" [maxlength]='25' (ionChange)="this.onChange($event.detail.value)"></ion-input>
-        </ion-item>
-        <ion-button [disabled]='!this.enabled' (click)="this.logIn()" [ngStyle]="{'margin-top': '10%', 'width': '100%'}" expand="block" fill="solid" color="secondary" mode='md'>
-            Ingresar
-        </ion-button>
-    </div>
+  <div id="container">
+    <core-avatar-uploader [ngStyle]="{ 'grid-area': 'avatar' }"></core-avatar-uploader>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Nombre
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        [value]="this.name"
+        required
+        [type]="'text'"
+        inputmode="text"
+        [maxlength]="25"
+        (ionChange)="this.onChange($event.detail.value)"
+      ></ion-input>
+    </ion-item>
+    <ion-button
+      [disabled]="!this.enabled"
+      (click)="this.logIn()"
+      [ngStyle]="{ 'margin-top': '10%', width: '100%' }"
+      expand="block"
+      fill="solid"
+      color="secondary"
+      mode="md"
+    >
+      Ingresar
+    </ion-button>
+  </div>
 </form>
 <ion-row class="ion-text-center ion-padding-top">
-    <ion-col size="12">
-        <ion-text color="primary">
-            <p [ngStyle]="{'font-size': '15px', 'margin': 0}" (click)='this.toLogin.emit()'>¿Ya tenés usuario? Inicia sesión</p>
-        </ion-text>
-    </ion-col>
+  <ion-col size="12">
+    <ion-text color="primary">
+      <p [ngStyle]="{ 'font-size': '15px', margin: 0 }" (click)="this.toLogin.emit()">
+        ¿Ya tenés usuario? Inicia sesión
+      </p>
+    </ion-text>
+  </ion-col>
 </ion-row>

@@ -10,14 +10,9 @@ import { NavigationBar } from '@ionic-native/navigation-bar/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { IonicModule } from '@ionic/angular';
 import { ChartsModule } from 'ng2-charts';
-import { AcceptRejectClientsComponent } from './Components/accept-reject-clients/accept-reject-clients.component';
-import { AssingTableToClientComponent } from './Components/assing-table-to-client/assing-table-to-client.component';
 import { AvatarUploaderComponent } from './Components/avatar-uploader/avatar-uploader.component';
 import { BarChartComponent } from './Components/bar-chart/bar-chart.component';
-import { ClientTableComponent } from './Components/client-table/client-table.component';
 import { DNIFormInputComponent } from './Components/dniform-input/dniform-input.component';
-import { FoodMenuComponent } from './Components/food-menu/food-menu.component';
-import { GoIntoWaitingListComponent } from './Components/go-into-waiting-list/go-into-waiting-list.component';
 import { HomeScreenCardComponent } from './Components/home-screen-card/home-screen-card.component';
 import { HomeScreenComponent } from './Components/home-screen/home-screen.component';
 import { ListItemPhotoComponent } from './Components/list-item-photo/list-item-photo.component';
@@ -30,9 +25,8 @@ import { SideMenuItemComponent } from './Components/side-menu-item/side-menu-ite
 import { SideMenuComponent } from './Components/side-menu/side-menu.component';
 import { UserProfileComponent } from './Components/user-profile/user-profile.component';
 import { CoreRoutingModule } from './core-routing.module';
-import { FoodMenuModalComponent } from './Components/food-menu-modal/food-menu-modal.component';
-import { OrderFoodComponent } from './Components/order-food/order-food.component';
-import { OrderFoodItemComponent } from './Components/order-food-item/order-food-item.component';
+import { GoToHomeMenuButtonComponent } from './Components/go-to-home-menu-button/go-to-home-menu-button.component';
+import { PageContainerComponent } from './Components/page-container/page-container.component';
 
 @NgModule({
   declarations: [
@@ -51,14 +45,8 @@ import { OrderFoodItemComponent } from './Components/order-food-item/order-food-
     SideMenuItemComponent,
     MenuButtonComponent,
     UserProfileComponent,
-    AcceptRejectClientsComponent,
-    GoIntoWaitingListComponent,
-    AssingTableToClientComponent,
-    ClientTableComponent,
-    FoodMenuComponent,
-    FoodMenuModalComponent,
-    OrderFoodComponent,
-    OrderFoodItemComponent,
+    GoToHomeMenuButtonComponent,
+    PageContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -82,6 +70,8 @@ import { OrderFoodItemComponent } from './Components/order-food-item/order-food-
     DNIFormInputComponent,
     SideMenuComponent,
     MenuButtonComponent,
+    GoToHomeMenuButtonComponent,
+    PageContainerComponent,
   ],
 })
 export class CoreModule {}

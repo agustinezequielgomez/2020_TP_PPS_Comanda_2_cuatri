@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataStoreService } from '../../Services/data-store.service';
 
 @Component({
-  selector: 'app-menu-button',
+  selector: 'core-menu-button',
   templateUrl: './menu-button.component.html',
   styleUrls: ['./menu-button.component.scss'],
 })

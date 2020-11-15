@@ -8,7 +8,7 @@ import { NotificationService } from '../../../core/Services/notification.service
 import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
 
 @Component({
-  selector: 'app-cliente',
+  selector: 'alta-cliente',
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.scss'],
 })

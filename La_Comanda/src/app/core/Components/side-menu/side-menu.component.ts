@@ -13,7 +13,7 @@ import { DataBaseCollections } from '../../Models/Enums/data-base-collections.en
 import { Client } from '../../Models/Classes/client';
 
 @Component({
-  selector: 'app-side-menu',
+  selector: 'core-side-menu',
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.scss'],
 })

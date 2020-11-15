@@ -3,7 +3,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-qrscanner',
+  selector: 'core-qrscanner',
   templateUrl: './qrscanner.component.html',
   styleUrls: ['./qrscanner.component.scss'],
 })

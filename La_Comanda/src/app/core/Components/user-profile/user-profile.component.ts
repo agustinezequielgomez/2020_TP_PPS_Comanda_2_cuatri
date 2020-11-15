@@ -4,7 +4,7 @@ import { DataStoreService } from '../../Services/data-store.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-user-profile',
+  selector: 'core-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })

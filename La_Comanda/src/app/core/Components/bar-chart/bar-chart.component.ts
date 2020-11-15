@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChartOptions } from 'chart.js';
 
 @Component({
-  selector: 'app-bar-chart',
+  selector: 'core-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
 })

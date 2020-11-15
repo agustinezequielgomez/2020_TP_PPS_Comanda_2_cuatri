@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-side-menu-item',
+  selector: 'core-side-menu-item',
   templateUrl: './side-menu-item.component.html',
   styleUrls: ['./side-menu-item.component.scss'],
 })
