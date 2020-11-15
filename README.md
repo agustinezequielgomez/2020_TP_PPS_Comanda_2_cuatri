@@ -3,11 +3,12 @@
 
 ![Logo de la aplicacion](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/WhatsApp%20Image%202020-10-26%20at%2022.44.01.jpeg?alt=media&token=c71c16b2-7967-42b7-8fdc-0fa519c99955)
 ![Logo de la aplicacion](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/splash.png?alt=media&token=943b5b62-8630-40ab-bc45-4ecbc6d3834e)
+
 **Integrantes** 👨🏻‍💻👨🏻‍💻:
 Agustín Gómez - Alpha
 Nicolas Ferrero - Beta
 
-**Metodología de trabajo**
+**Metodología de trabajo**:
 División de las tareas con multiples check-in del progreso realizado a través de Google Meet.
 
 ## Sprint 1 (24/10 - 31/10) 📋
@@ -37,6 +38,18 @@ División de las tareas con multiples check-in del progreso realizado a través 
 | Asignación de mesas por parte del metre | Agustín Gómez | Completado ✅ |
 | Listado de productos | Agustín Gómez | En progreso 🚧 |
 
+## Sprint 3 (07/11 - 14/11) 📋
+| Característica | Integrante | Estado |
+|:--|:--:|:--:|
+| Listado de productos | Agustín Gómez | Completado ✅ |
+| Hacer pedido* | Agustín Gómez | Completado ✅ |
+| Consultas al mozo*| Agustín Gómez | Completado ✅ |
+| Encuesta de satisfación* | Agustín Gómez | Completado ✅ |
+| Confirmación de pedido por parte del mozo | Agustín Gómez | Completado ✅ |
+| Consulta de estado del pedido| Agustín Gómez | Completado ✅ |
+| Recepción de las comidas/bebidas a realizar por los empleados correspondientes | Agustín Gómez | Completado ✅ |
+| Preparación del pedido por parte de los empleados* | Agustín Gómez | Completado ✅ |
+
 ***Integración de push notification y/o mail**
 
 ## Códigos QR utilizados
@@ -51,10 +64,11 @@ Bebidas:
 |:--: | :--: | :--: | :--: |
 | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/agua_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/cerveza_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/coca_cola_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/vino_qr.png) |
 
+
 Mesas:
 | Mesa 1 | Mesa 2 | Mesa 3 | Mesa 4 | Lista de espera |
 |:--: | :--: | :--: | :--: | :--: |
-| ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_1_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_2_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_3_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_4_qr.png) | ![description](https://github.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/blob/main/QRs/listado_espera_qr.png) |
+| ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_1_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_2_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_3_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/mesa_4_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/listado_espera_qr.png) |
 
 Propinas:
 | Propina 0% | Propina 5% | Propina 10% | Poopina 15% |
