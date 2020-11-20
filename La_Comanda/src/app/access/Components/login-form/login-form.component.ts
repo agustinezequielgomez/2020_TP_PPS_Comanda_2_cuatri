@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController, Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 import { Client } from 'src/app/core/Models/Classes/client';
 import { UserRoles } from 'src/app/core/Models/Enums/user-roles.enum';
 import { environment } from 'src/environments/environment';
@@ -14,15 +15,12 @@ import { DataStoreService } from '../../../core/Services/data-store.service';
 import { DatabaseService } from '../../../core/Services/database.service';
 import { NotificationService } from '../../../core/Services/notification.service';
 import { StorageService } from '../../../core/Services/storage.service';
-import { Router } from '@angular/router';
-
 @Component({
-  selector: 'app-login-form',
+  selector: 'access-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit, OnDestroy {
-
   public loginForm: FormGroup;
   public rememberUser = false;
   @Output() toSignUp = new EventEmitter<void>();
@@ -31,17 +29,24 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   public set SetUser(user: User) {
     this.loginForm.setValue({
       userName: user.email.trim(),
-      password: user.password.trim()
+      password: user.password.trim(),
     });
   }
 
-  constructor(private auth: AuthService, private dataBase: DatabaseService, private nav: Router,
-              private notification: NotificationService, private storage: StorageService, private creator: ComponentCreatorService) { }
+  constructor(
+    private auth: AuthService,
+    private dataBase: DatabaseService,
+    private nav: Router,
+    private platform: Platform,
+    private notification: NotificationService,
+    private storage: StorageService,
+    private creator: ComponentCreatorService
+  ) {}
 
   async ngOnInit() {
     this.loginForm = new FormGroup({
       userName: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required),
     });
     try {
       if (await this.storage.storageIsSet(StorageKeys.UID)) {
@@ -62,7 +67,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loginForm.reset( { userName: '', password: '' });
+    this.loginForm.reset({ userName: '', password: '' });
     DataStoreService.Access.QuickUser = null;
   }
 
@@ -71,22 +76,47 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   }
 
   public async login() {
-    const loader = await this.creator.createLoader('md', 'Iniciando sesión', true, true, 'crescent', false, 'ion-loader');
+    const loader = await this.creator.createLoader(
+      'md',
+      'Iniciando sesión',
+      true,
+      true,
+      'crescent',
+      false,
+      'ion-loader'
+    );
     try {
       await loader.present();
-      const USER = await this.auth.signInWithEmail(this.loginForm.controls['userName'].value,
-                         this.loginForm.controls['password'].value.toString());
+      const USER = await this.auth.signInWithEmail(
+        this.loginForm.controls['userName'].value,
+        this.loginForm.controls['password'].value.toString()
+      );
 
-      const userData = DataStoreService.User.CurrentUser = (await this.dataBase.getDocumentData<DBUserDocument>
-                                                            (DataBaseCollections.users, USER.uid)).user;
+      const userData = (DataStoreService.User.CurrentUser = (
+        await this.dataBase.getDocumentData<DBUserDocument>(DataBaseCollections.users, USER.uid)
+      ).user);
       if (userData.data.role === UserRoles.CLIENTE && (userData as Client).enabled === null) {
-        await this.notification.presentToast('danger', 'Lo sentimos, pero tu usuario aún no fue aprobado por nuestros supervisores.', 8000, 'md', 'bottom', 'Error al hacer login');
+        await this.notification.presentToast(
+          'danger',
+          'Lo sentimos, pero tu usuario aún no fue aprobado por nuestros supervisores.',
+          8000,
+          'md',
+          'bottom',
+          'Error al hacer login'
+        );
         await loader.dismiss();
         return null;
       }
 
       if (userData.data.role === UserRoles.CLIENTE && (userData as Client).enabled === false) {
-        await this.notification.presentToast('danger', 'Lo sentimos, pero tu usuario fué rechazado. Agradecemos el interés en utilizar nuestros servicios', 8000, 'md', 'bottom', 'Error al hacer login');
+        await this.notification.presentToast(
+          'danger',
+          'Lo sentimos, pero tu usuario fué rechazado. Agradecemos el interés en utilizar nuestros servicios',
+          8000,
+          'md',
+          'bottom',
+          'Error al hacer login'
+        );
         await loader.dismiss();
         return null;
       }
@@ -95,14 +125,17 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         await this.storage.setStorage(StorageKeys.TOKEN, USER.refreshToken);
         await this.storage.setStorage(StorageKeys.UID, USER.uid);
       }
-      // await this.notification.pushNotificationsInit();
+
+      if (!this.platform.is('desktop')) {
+        await this.notification.pushNotificationsInit();
+      }
       switch (userData.data.role) {
         case UserRoles.CLIENTE:
           DataStoreService.Client.CurrentClient = userData as Client;
           break;
 
-          default:
-            DataStoreService.Employee.CurrentEmployee = userData as Employee;
+        default:
+          DataStoreService.Employee.CurrentEmployee = userData as Employee;
       }
 
       // Si es ambiente de desarrollo seteo los datos del usuario en un storage mas permanente
@@ -119,7 +152,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     } catch (ex) {
       this.logingIn.emit(false);
       console.log(ex);
-      const ERROR: {a: any, code: string, message: string, stack: string} = ex;
+      const ERROR: { a: any; code: string; message: string; stack: string } = ex;
       let errorMessage = '';
       switch (ERROR.code) {
         case 'auth/invalid-email':

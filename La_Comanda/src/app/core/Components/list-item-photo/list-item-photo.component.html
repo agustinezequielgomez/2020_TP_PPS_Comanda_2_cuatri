@@ -1,13 +1,19 @@
-<ion-item [lines]="'inlined'" button (click)="this.onClickEvent()">
-    <ion-thumbnail id="thumbnail" slot="start">
-        <img [src]="this.photoUrl">
-    </ion-thumbnail>
-    <ion-label>
-        <h3>
-            {{this.title}}
-        </h3>
-        <p>
-            {{this.content}}
-        </p>
-    </ion-label>
+<ion-item [lines]="this.lines" button (click)="this.onClickEvent()" [detail]="this.detail">
+  <ion-thumbnail id="thumbnail" slot="start">
+    <img [src]="this.sanitizer.bypassSecurityTrustUrl(this.photoUrl)" />
+  </ion-thumbnail>
+  <ion-label>
+    <h3>
+      {{ this.title }}
+    </h3>
+    <p>
+      {{ this.content }}
+    </p>
+  </ion-label>
+  <ng-template
+    [ngTemplateOutlet]="this.actionItem || defaultActionItem"
+    [ngTemplateOutletContext]="{ item: listValue }"
+  ></ng-template>
 </ion-item>
+
+<ng-template #defaultActionItem></ng-template>

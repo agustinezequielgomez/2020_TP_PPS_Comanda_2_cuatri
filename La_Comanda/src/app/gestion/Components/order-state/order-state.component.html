@@ -1,0 +1,26 @@
+<div class="ion-text-center" [ngSwitch]="this.orderState">
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'PEDIDO'">
+    <img src="/assets/home-screen-cards/confirmar_pedido.png" alt="" />
+    <p>Tu pedido ya fue recibido por nuestro mozo y está a la espera de ser confirmado</p>
+  </div>
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'CONFIRMADO'">
+    <img src="/assets/home-screen-cards/time.png" alt="" />
+    <p>Tu pedido ya fue confirmado por nuestro mozo y en breve empezará a prepararse</p>
+  </div>
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'EN_PROGRESO'">
+    <img src="/assets/home-screen-cards/time.png" alt="" />
+    <p>
+      Tu pedido ya comenzó a prepararse en la cocina. Va a estar listo en {{ this.remainingTime }} minutos
+      aproximadamente.
+    </p>
+  </div>
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'TERMINADO'">
+    <img src="/assets/home-screen-cards/table.png" alt="" />
+    <p>Tu pedido ya fue finalizado. El mozo te lo va a entregar en unos momentos</p>
+  </div>
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'ENTREGADO'">
+    <img src="/assets/home-screen-cards/confirmar_pedido.png" alt="" />
+    <p>Pedido entregado. ¡Que lo disfrutes!</p>
+  </div>
+  <core-go-to-home-menu-button></core-go-to-home-menu-button>
+</div>

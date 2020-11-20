@@ -14,12 +14,11 @@ import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 const packageJson = require('../../../../../package.json');
 
 @Component({
-  selector: 'app-login-screen',
+  selector: 'access-login-screen',
   templateUrl: './login-screen.component.html',
   styleUrls: ['./login-screen.component.scss'],
 })
 export class LoginScreenComponent implements OnInit, AfterViewInit {
-
   public author: string = packageJson.author;
   public appName: string = packageJson.name;
   public version: string = packageJson.version;
@@ -32,21 +31,31 @@ export class LoginScreenComponent implements OnInit, AfterViewInit {
   @ViewChild('slider') slider: IonSlides;
   public index: number;
   private loader: HTMLIonLoadingElement;
-  constructor(private creator: ComponentCreatorService, private dataBase: DatabaseService) { }
+  constructor(private creator: ComponentCreatorService, private dataBase: DatabaseService) {}
 
   async ngOnInit() {
-    this.users = (await this.dataBase.getCollection<DBUserDocument>(DataBaseCollections.users).get().pipe(
-        pluck('docs'),
-        map<QueryDocumentSnapshot<DocumentData>[], User[]>(docs => docs.map(doc => (doc.data() as DBUserDocument).user)))
-      .toPromise())
-    .filter(user => user.data.role !== UserRoles.CLIENTE ||
-    (user.data.role === UserRoles.CLIENTE && ((user as Client).enabled && !(user as Client).isAnonymous)))
+    this.users = (
+      await this.dataBase
+        .getCollection<DBUserDocument>(DataBaseCollections.users)
+        .get()
+        .pipe(
+          pluck('docs'),
+          map<QueryDocumentSnapshot<DocumentData>[], User[]>((docs) =>
+            docs.map((doc) => (doc.data() as DBUserDocument).user)
+          )
+        )
+        .toPromise()
+    ).filter(
+      (user) =>
+        user.data.role !== UserRoles.CLIENTE ||
+        (user.data.role === UserRoles.CLIENTE && (user as Client).enabled && !(user as Client).isAnonymous)
+    );
   }
 
   async ngAfterViewInit() {
     this.slider.options = {
       autoHeight: true,
-      initialSlide: 1
+      initialSlide: 1,
     };
     this.index = await this.slider.getActiveIndex();
   }

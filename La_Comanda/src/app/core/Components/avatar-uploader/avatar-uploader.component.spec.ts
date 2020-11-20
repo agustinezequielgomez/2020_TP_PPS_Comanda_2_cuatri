@@ -9,8 +9,8 @@ describe('AvatarUploaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AvatarUploaderComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AvatarUploaderComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AvatarUploaderComponent);

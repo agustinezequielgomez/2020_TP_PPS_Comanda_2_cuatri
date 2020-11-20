@@ -1,0 +1,15 @@
+<core-page-container [title]="'Menú de cliente'">
+  <ng-container class="page-content" *ngIf="this.foods; else skeleton">
+    <core-list-item-photo
+      *ngFor="let food of this.foods"
+      [title]="food.nombre"
+      [content]="'Precio: $' + food.precio"
+      [photoUrl]="food.fotos[0]"
+      (click)="this.openModal(food)"
+    ></core-list-item-photo>
+  </ng-container>
+</core-page-container>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>

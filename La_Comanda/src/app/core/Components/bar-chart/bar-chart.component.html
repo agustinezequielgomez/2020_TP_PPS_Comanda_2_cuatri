@@ -1,11 +1,28 @@
 <div id="container">
-    <h3 *ngIf="this.data === null" [ngStyle]="{'grid-area': 'title', 'padding-bottom': '30px', 'color': 'black', 'margin-left': '10px'}">
-        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-    </h3>
-    <h3 *ngIf="!this.data === null" [ngStyle]="{'grid-area': 'title', 'padding-bottom': '30px', 'color': 'black', 'margin-left': '10px'}">{{title}}</h3>
-    <div [ngStyle]="{'grid-area': 'chart', 'height': '400px', 'padding': '0 10px'}" *ngIf="this.data === null">
-        <ion-skeleton-text animated></ion-skeleton-text>
-    </div>
-    <canvas *ngIf="!this.data === null" [ngStyle]="{'grid-area': 'chart'}" baseChart [datasets]="this.data" [labels]="this.labels" [chartType]="'bar'" [options]="this.chartOptions" [colors]='this.colors'>
-</canvas>
+  <h3
+    *ngIf="this.data === null"
+    [ngStyle]="{ 'grid-area': 'title', 'padding-bottom': '30px', color: 'black', 'margin-left': '10px' }"
+  >
+    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+  </h3>
+  <h3
+    *ngIf="!this.data === null"
+    [ngStyle]="{ 'grid-area': 'title', 'padding-bottom': '30px', color: 'black', 'margin-left': '10px' }"
+  >
+    {{ title }}
+  </h3>
+  <div [ngStyle]="{ 'grid-area': 'chart', height: '400px', padding: '0 10px' }" *ngIf="this.data === null">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </div>
+  <canvas
+    *ngIf="!this.data === null"
+    [ngStyle]="{ 'grid-area': 'chart' }"
+    baseChart
+    [datasets]="this.data"
+    [labels]="this.labels"
+    [chartType]="'bar'"
+    [options]="this.chartOptions"
+    [colors]="this.colors"
+  >
+  </canvas>
 </div>

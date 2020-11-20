@@ -7,6 +7,6 @@ export const environment = {
     projectId: 'pps-2020',
     storageBucket: 'pps-2020.appspot.com',
     messagingSenderId: '772020630866',
-    appId: '1:772020630866:web:92169bca8934eaf18eb68b'
-  }
+    appId: '1:772020630866:web:92169bca8934eaf18eb68b',
+  },
 };

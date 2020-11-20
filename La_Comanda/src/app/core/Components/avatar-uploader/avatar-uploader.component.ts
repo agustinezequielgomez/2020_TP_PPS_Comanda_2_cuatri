@@ -4,14 +4,13 @@ import { DataStoreService } from '../../Services/data-store.service';
 import { CameraService } from '../../Services/camera.service';
 
 @Component({
-  selector: 'app-avatar-uploader',
+  selector: 'core-avatar-uploader',
   templateUrl: './avatar-uploader.component.html',
   styleUrls: ['./avatar-uploader.component.scss'],
 })
 export class AvatarUploaderComponent implements OnInit {
-
   public photoString: SafeResourceUrl = null;
-  constructor(public sanitizer: DomSanitizer, private camera: CameraService) { }
+  constructor(public sanitizer: DomSanitizer, private camera: CameraService) {}
 
   ngOnInit() {
     DataStoreService.Various.CapturedPhotosObservable.subscribe((photos) => {
@@ -26,5 +25,4 @@ export class AvatarUploaderComponent implements OnInit {
   async click() {
     await this.camera.takePicture(false);
   }
-
 }

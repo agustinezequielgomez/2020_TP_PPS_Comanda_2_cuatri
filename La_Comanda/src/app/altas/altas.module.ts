@@ -8,13 +8,8 @@ import { AltasRoutingModule } from './altas-routing.module';
 import { ClienteComponent } from './Components/cliente/cliente.component';
 import { ClienteAnonimoComponent } from './Components/cliente-anonimo/cliente-anonimo.component';
 
-
-
 @NgModule({
-  declarations: [
-    ClienteComponent,
-    ClienteAnonimoComponent
-  ],
+  declarations: [ClienteComponent, ClienteAnonimoComponent],
   imports: [
     CommonModule,
     AltasRoutingModule,
@@ -24,9 +19,6 @@ import { ClienteAnonimoComponent } from './Components/cliente-anonimo/cliente-an
     CoreModule,
     IonicModule.forRoot(),
   ],
-  exports: [
-    ClienteComponent,
-    ClienteAnonimoComponent
-  ]
+  exports: [ClienteComponent, ClienteAnonimoComponent],
 })
-export class AltasModule { }
+export class AltasModule {}

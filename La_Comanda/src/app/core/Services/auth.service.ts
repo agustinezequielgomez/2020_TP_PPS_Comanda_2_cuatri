@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { pluck, map } from 'rxjs/operators';
-import { Client } from '../Models/Classes/client';
+import { Client, ClientState } from '../Models/Classes/client';
 import { DBUserDocument } from '../Models/Classes/user';
 import { DataBaseCollections } from '../Models/Enums/data-base-collections.enum';
 import { FirebaseStorageFolders } from '../Models/Enums/firebase-storage-folders.enum';
@@ -14,15 +14,17 @@ import { NotificationService } from './notification.service';
 import { StorageService } from './storage.service';
 import { DocumentData, QuerySnapshot, QueryDocumentSnapshot } from '@angular/fire/firestore';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor(private auth: AngularFireAuth, private storage: StorageService, private dataBase: DatabaseService,
-              private camera: CameraService, private notification: NotificationService) { }
+  constructor(
+    private auth: AngularFireAuth,
+    private storage: StorageService,
+    private dataBase: DatabaseService,
+    private camera: CameraService,
+    private notification: NotificationService
+  ) {}
 
   async signInWithEmail(email: string, password: string): Promise<firebase.User> {
     try {
@@ -37,7 +39,7 @@ export class AuthService {
         password,
         // token: await USER.getIdToken(),
         // refreshToken: USER.refreshToken,
-        photoUrl: ''
+        photoUrl: '',
       };
       return USER;
     } catch (error) {
@@ -46,13 +48,27 @@ export class AuthService {
     }
   }
 
-  async signUp(userData: {email: string, password: string, DNI: number, role: UserRoles,
-                          name: string, lastName: string, CUIL?: number}): Promise<boolean> {
+  async signUp(userData: {
+    email: string;
+    password: string;
+    DNI: number;
+    role: UserRoles;
+    name: string;
+    lastName: string;
+    CUIL?: number;
+  }): Promise<boolean> {
     try {
-      const existingDni = await this.dataBase.queryCollection<DBUserDocument>(DataBaseCollections.users, x =>
-                                                                              x.where('user.data.DNI', '==', userData.DNI));
+      const existingDni = await this.dataBase.queryCollection<DBUserDocument>(DataBaseCollections.users, (x) =>
+        x.where('user.data.DNI', '==', userData.DNI)
+      );
       if (existingDni.length > 0) {
-        await this.notification.presentToast('danger', 'Lo sentimos, pero ya hay un usuario registrado con ese DNI.', 0, 'md', 'bottom');
+        await this.notification.presentToast(
+          'danger',
+          'Lo sentimos, pero ya hay un usuario registrado con ese DNI.',
+          0,
+          'md',
+          'bottom'
+        );
         return false;
       }
       const { email, password, role, DNI, name, lastName } = userData;
@@ -60,10 +76,20 @@ export class AuthService {
       switch (role) {
         case UserRoles.CLIENTE:
           DataStoreService.Various.CapturedPhotos[0].takenBy = email;
-          DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]}`;
+          DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${
+            DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]
+          }`;
           const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
-          const client: Client = { email, password, photoUrl, UID, enabled: null, isAnonymous: false, data: { role, DNI, name, lastName,
-            deviceToken: DataStoreService.Notification.NotificationToken }};
+          const client: Client = {
+            email,
+            password,
+            photoUrl,
+            UID,
+            enabled: null,
+            isAnonymous: false,
+            data: { role, DNI, name, lastName, deviceToken: DataStoreService.Notification.NotificationToken },
+            state: ClientState.NULO,
+          };
           this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, UID, { user: client });
           this.sendRegistrationPushNotification();
           break;
@@ -71,7 +97,7 @@ export class AuthService {
       return true;
     } catch (ex) {
       console.log(ex);
-      const err: {a: any, code: string, message: string, stack: string} = ex;
+      const err: { a: any; code: string; message: string; stack: string } = ex;
       let errorMessage: string;
       switch (err.code) {
         case 'auth/email-already-in-use':
@@ -90,12 +116,21 @@ export class AuthService {
   }
 
   async sendRegistrationPushNotification() {
-    const deviceTokens: string[] = await this.dataBase.getCollection<DBUserDocument>(DataBaseCollections.users, x => x.where('user.data.role', 'in', ['supervisor', 'dueño']))
-    .get().pipe(pluck<QuerySnapshot<DocumentData>, QueryDocumentSnapshot<DocumentData>[]>('docs'),
-    map(documents => documents.map(doc => (doc.data() as DBUserDocument).user.data.deviceToken)))
-    .toPromise();
-    console.log(`VALID TOKENS: ${JSON.stringify(deviceTokens)}`);
-    await this.notification.sendPushNotification({ registration_ids: deviceTokens, notification: { title: 'Nuevo cliente registrado', body: 'Es necesario que valides el perfil' }, data: { redirectTo: 'userAdmin'} });
+    const deviceTokens: string[] = await this.dataBase
+      .getCollection<DBUserDocument>(DataBaseCollections.users, (x) =>
+        x.where('user.data.role', 'in', ['supervisor', 'dueño'])
+      )
+      .get()
+      .pipe(
+        pluck<QuerySnapshot<DocumentData>, QueryDocumentSnapshot<DocumentData>[]>('docs'),
+        map((documents) => documents.map((doc) => (doc.data() as DBUserDocument).user.data.deviceToken))
+      )
+      .toPromise();
+    await this.notification.sendPushNotification({
+      registration_ids: deviceTokens,
+      notification: { title: 'Nuevo cliente registrado', body: 'Es necesario que valides el perfil' },
+      data: { redirectTo: 'userAdmin' },
+    });
   }
 
   async signOut() {

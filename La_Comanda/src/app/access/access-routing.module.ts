@@ -4,19 +4,19 @@ import { LoginScreenComponent } from './Components/login-screen/login-screen.com
 import { QRScannerComponent } from '../core/Components/qrscanner/qrscanner.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: LoginScreenComponent,
-    },
-    {
-        path: '',
-        redirectTo: '',
-        pathMatch: 'full'
-    }
+  {
+    path: '',
+    component: LoginScreenComponent,
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class AccessRoutingModule { }
+export class AccessRoutingModule {}

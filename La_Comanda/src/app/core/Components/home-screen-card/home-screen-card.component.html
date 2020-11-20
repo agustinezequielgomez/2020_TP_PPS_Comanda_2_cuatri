@@ -1,6 +1,6 @@
-<ion-card button [color]='this.card.color' (click)="this.nav.navigateForward(this.card.redirectTo)">
-    <ion-card-header>
-        <ion-card-title class='ion-text-center'>{{this.card.title}}</ion-card-title>
-    </ion-card-header>
-    <img class="card-img" [src]="this.card.imgPath">
+<ion-card button [color]="this.card.color" (click)="this.nav.navigateForward(this.card.redirectTo)">
+  <ion-card-header>
+    <ion-card-title class="ion-text-center">{{ this.card.title }}</ion-card-title>
+  </ion-card-header>
+  <img class="card-img" [src]="this.card.imgPath" />
 </ion-card>

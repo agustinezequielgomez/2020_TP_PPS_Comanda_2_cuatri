@@ -1,0 +1,51 @@
+<core-page-container title="Contestar consultas">
+  <div class="page-content" *ngIf="this.questionDocuments !== null; else skeleton">
+    <mat-accordion *ngIf="this.questionDocuments.length > 0; else noQuestions">
+      <ng-container *ngFor="let document of this.questionDocuments">
+        <mat-expansion-panel
+          *ngFor="let question of document.questions.questions; let index = index"
+          [ngStyle]="{ 'margin-top': '5%' }"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title>Pregunta</mat-panel-title>
+            <mat-panel-description>{{ question.answer ? 'Contestada ✔' : 'No contestada ❌' }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <ion-item>
+            <ion-label>
+              <p [ngStyle]="{ 'font-size': '10px', 'font-weight': '800' }">{{ question.askedBy }} preguntó:</p>
+              <p>{{ question.question }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item *ngIf="question.answer !== null">
+            <ion-label>
+              <p [ngStyle]="{ 'font-size': '10px', 'font-weight': '800' }">
+                {{ question.answeredBy === this.waiterName ? 'Contestaste:' : question.answeredBy + ' contestó:' }}
+              </p>
+              <p>{{ question.answer }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-button
+            *ngIf="question.answer === null"
+            class="ion-text-center"
+            (click)="this.questionModal(document.ID, index)"
+            [ngStyle]="{ width: '75%', margin: '5% auto' }"
+            expand="block"
+            color="secondary"
+          >
+            Contestar pregunta
+          </ion-button>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-accordion>
+  </div>
+</core-page-container>
+
+<ng-template #noQuestions>
+  <img [ngStyle]="{ 'margin-top': '10%' }" src="assets/home-screen-cards/consulta.png" alt="" />
+  <p class="ion-text-center" [ngStyle]="{ margin: '10% 5%', 'font-size': '18px' }">Ningun cliente hizo preguntas aún</p>
+  <core-go-to-home-menu-button></core-go-to-home-menu-button>
+</ng-template>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>

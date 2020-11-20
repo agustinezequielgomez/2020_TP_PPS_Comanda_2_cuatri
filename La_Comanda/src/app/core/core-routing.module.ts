@@ -5,22 +5,18 @@ import { QRScannerComponent } from './Components/qrscanner/qrscanner.component';
 import { AcceptRejectClientsComponent } from './Components/accept-reject-clients/accept-reject-clients.component';
 
 const routes: Routes = [
-    {
-        path: 'userAdmin',
-        component: AcceptRejectClientsComponent
-    },
-    {
-        path: 'home',
-        component: HomeScreenComponent
-    },
-    {
-        path: 'qr',
-        component: QRScannerComponent
-    }
+  {
+    path: 'home',
+    component: HomeScreenComponent,
+  },
+  {
+    path: 'qr',
+    component: QRScannerComponent,
+  },
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class CoreRoutingModule {}

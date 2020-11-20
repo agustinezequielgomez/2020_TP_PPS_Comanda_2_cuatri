@@ -1,0 +1,86 @@
+<form [formGroup]="this.reviewForm">
+  <div [ngStyle]="{ 'margin-bottom': '18px', display: 'flex', 'flex-direction': 'column' }">
+    <ion-label class="label">¿El mozo fue amable al atenderte?</ion-label>
+    <ion-list>
+      <ion-radio-group formControlName="waiterKidness" [allowEmptySelection]="false">
+        <!-- <ion-list-header>
+        </ion-list-header> -->
+        <ion-item [lines]="'none'">
+          <ion-label>Si</ion-label>
+          <ion-radio color="secondary" value="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>No</ion-label>
+          <ion-radio color="secondary" value="false"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </div>
+  <div [ngStyle]="{ 'margin-bottom': '18px', display: 'flex', 'flex-direction': 'column' }">
+    <ion-label class="label">¿Cómo calificarías la presentación del plato?</ion-label>
+    <ion-item>
+      <ion-label>Presentación</ion-label>
+      <ion-select formControlName="platePresentation" multiple="false" [interface]="'popover'">
+        <ion-select-option value="Muy mala">Muy mala</ion-select-option>
+        <ion-select-option value="Mala">Mala</ion-select-option>
+        <ion-select-option value="Buena">Buena</ion-select-option>
+        <ion-select-option value="Muy buena">Muy buena</ion-select-option>
+        <ion-select-option value="Excelente">Excelente</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div [ngStyle]="{ 'margin-bottom': '18px', display: 'flex', 'flex-direction': 'column' }">
+    <ion-label class="label">¿Cual de las comidas/bebidas te gustó más?</ion-label>
+    <ion-item *ngFor="let food of this.orderedFood; let last = last" [lines]="last ? 'inline' : 'none'">
+      <ion-label>{{ food }}</ion-label>
+      <ion-checkbox color="secondary" (ionChange)="this.setOrderedFood(food)"></ion-checkbox>
+    </ion-item>
+  </div>
+  <div [ngStyle]="{ 'margin-bottom': '18px', display: 'flex', 'flex-direction': 'column' }">
+    <ion-label class="label">¿Cómo calificarias tu experiencia en nuestro restaurant?</ion-label>
+    <ion-item>
+      <ion-range
+        formControlName="overallSatisfaction"
+        min="0"
+        max="10"
+        dualKnobs="false"
+        pin="true"
+        step="1"
+        value="0"
+        color="primary"
+      >
+        <ion-icon size="small" slot="start" name="star" color="secondary"></ion-icon>
+        <ion-icon size="large" slot="end" name="star" color="secondary"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </div>
+  <div [ngStyle]="{ 'margin-bottom': '18px', display: 'flex', 'flex-direction': 'column' }">
+    <ion-label class="label">¿Cómo podemos mejorar nuestro servicio?</ion-label>
+    <ion-item>
+      <ion-textarea formControlName="comments" [autoGrow]="true" [inputmode]="'text'" [mode]="'md'"></ion-textarea>
+    </ion-item>
+  </div>
+</form>
+<div [ngStyle]="{ 'margin-bottom': '18px', display: 'flex', 'flex-direction': 'column' }">
+  <ion-label class="label">Adjuntá fotos de tu experiencia</ion-label>
+  <div id="photo-container">
+    <div class="photo-item" *ngFor="let photo of this.photos">
+      <ng-container *ngIf="photo !== null; else icon">
+        <img [src]="this.sanitizer.bypassSecurityTrustResourceUrl(photo.photoUrl)" alt="" />
+      </ng-container>
+      <ng-template #icon>
+        <ion-icon id="photo-icon" (click)="this.camera.takePicture(true)" name="camera"></ion-icon>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<ion-button
+  class="ion-text-center"
+  [ngStyle]="{ margin: '0 auto 15px', width: '90%' }"
+  (click)="this.sendReview()"
+  expand="block"
+  color="primary"
+  [disabled]="!this.reviewForm.valid"
+>
+  Enviar
+</ion-button>
