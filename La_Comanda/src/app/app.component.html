@@ -1,14 +1,6 @@
 <ion-app>
-  <core-menu-button></core-menu-button>
-  <core-side-menu></core-side-menu>
-  <access-splash-screen
-    *ngIf="!this.hideSplashAnimation"
-    (destroyComponent)="this.hideSplashAnimation = true"
-  ></access-splash-screen>
-  <ion-router-outlet
-    [ngClass]="{ router: this.routerMargin }"
-    id="content"
-    main
-    [animation]="this.RoutingAnimation"
-  ></ion-router-outlet>
+    <core-menu-button></core-menu-button>
+    <core-side-menu></core-side-menu>
+    <access-splash-screen *ngIf="!this.hideSplashAnimation" (destroyComponent)="this.hideSplashAnimation = true"></access-splash-screen>
+    <ion-router-outlet [ngClass]="{ router: this.routerMargin }" id="content" main [animation]="this.RoutingAnimation"></ion-router-outlet>
 </ion-app>

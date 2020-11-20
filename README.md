@@ -53,6 +53,32 @@ División de las tareas con multiples check-in del progreso realizado a través 
 
 **\*Integración de push notification y/o mail**
 
+
+## Sprint 2 (31/10 - 07/11) 📋
+| Característica | Integrante | Estado |
+|:--|:--:|:--:|
+| Creación de usuarios en la base de datos | Agustín Gómez | Completado ✅ |
+| Creación del side menu | Agustín Gómez | Completado ✅ |
+| Creación Home Screen para todos los usuarios| Agustín Gómez | Completado ✅ |
+| Aprobación/Rechazo de usuarios por parte de dueño o supervisor* | Agustín Gómez | Completado ✅ |
+| Ingreso a la lista de espera (cliente anónimo y registrado)* | Agustín Gómez | Completado ✅ |
+| Asignación de mesas por parte del metre | Agustín Gómez | Completado ✅ |
+| Listado de productos | Agustín Gómez | En progreso 🚧 |
+
+## Sprint 3 (07/11 - 14/11) 📋
+| Característica | Integrante | Estado |
+|:--|:--:|:--:|
+| Listado de productos | Agustín Gómez | Completado ✅ |
+| Hacer pedido* | Agustín Gómez | Completado ✅ |
+| Consultas al mozo*| Agustín Gómez | Completado ✅ |
+| Encuesta de satisfación* | Agustín Gómez | Completado ✅ |
+| Confirmación de pedido por parte del mozo | Agustín Gómez | Completado ✅ |
+| Consulta de estado del pedido| Agustín Gómez | Completado ✅ |
+| Recepción de las comidas/bebidas a realizar por los empleados correspondientes | Agustín Gómez | Completado ✅ |
+| Preparación del pedido por parte de los empleados* | Agustín Gómez | Completado ✅ |
+
+***Integración de push notification y/o mail**
+
 ## Códigos QR utilizados
 
 Cómidas:
@@ -64,6 +90,7 @@ Bebidas:
 | Agua | Cerveza | Coca-Cola | Vino |
 |:--: | :--: | :--: | :--: |
 | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/agua_qr.png) | ![enter image description here](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/cerveza_qr.png)| ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/coca_cola_qr.png) | ![](https://raw.githubusercontent.com/agustinezequielgomez/2020_TP_PPS_Comanda_2_cuatri/main/QRs/vino_qr.png) |
+
 
 Mesas:
 | Mesa 1 | Mesa 2 | Mesa 3 | Mesa 4 | Lista de espera |

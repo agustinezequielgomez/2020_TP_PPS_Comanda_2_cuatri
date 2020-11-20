@@ -7,6 +7,8 @@ import { Photo, Photos } from '../Models/Classes/photo';
 import { SideMenuItems } from '../Models/Classes/side-menu-item';
 import { ScannedUser, User } from '../Models/Classes/user';
 import { UserRoles } from '../Models/Enums/user-roles.enum';
+import { Employee } from '../Models/Classes/employee';
+import { SideMenuItems } from '../Models/Classes/side-menu-item';
 
 @Injectable({
   providedIn: 'root',

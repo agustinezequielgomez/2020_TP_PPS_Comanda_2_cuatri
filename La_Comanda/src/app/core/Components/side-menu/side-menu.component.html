@@ -1,35 +1,19 @@
-<ion-menu
-  #menu
-  [contentId]="'content'"
-  [menuId]="'main-menu'"
-  [side]="'start'"
-  [maxEdgeStart]="50"
-  [swipeGesture]="true"
-  [type]="'overlay'"
->
-  <ion-header class="ion-no-border">
-    <ion-toolbar id="header">
-      <ion-title>Menú</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content id="menu-content">
-    <core-user-profile></core-user-profile>
-    <core-side-menu-item
-      *ngFor="let item of this.sideMenuItems"
-      (clicked)="this.selectItem(item)"
-      [id]="item.id"
-      [label]="item.label"
-      [href]="item.redirectTo"
-      [icon]="item.icon"
-      [selected]="item.id === this.selectedMenuItem.id"
-    ></core-side-menu-item>
-  </ion-content>
-  <ion-footer class="ion-no-border">
-    <ion-toolbar id="toolbar">
-      <ion-item id="item" [lines]="'inset'" button (click)="this.logOut()">
-        <ion-label>Salir</ion-label>
-        <ion-icon name="log-out-sharp" slot="start" [color]="'secondary'"></ion-icon>
-      </ion-item>
-    </ion-toolbar>
-  </ion-footer>
+<ion-menu #menu [contentId]="'content'" [menuId]="'main-menu'" [side]="'start'" [maxEdgeStart]="50" [swipeGesture]="true" [type]="'overlay'">
+    <ion-header class="ion-no-border">
+        <ion-toolbar id="header">
+            <ion-title>Menú</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content id="menu-content">
+        <core-user-profile></core-user-profile>
+        <core-side-menu-item *ngFor="let item of this.sideMenuItems" (clicked)="this.selectItem(item)" [id]="item.id" [label]="item.label" [href]="item.redirectTo" [icon]="item.icon" [selected]="item.id === this.selectedMenuItem.id"></core-side-menu-item>
+    </ion-content>
+    <ion-footer class="ion-no-border">
+        <ion-toolbar id="toolbar">
+            <ion-item id="item" [lines]="'inset'" button (click)="this.logOut()">
+                <ion-label>Salir</ion-label>
+                <ion-icon name="log-out-sharp" slot="start" [color]="'secondary'"></ion-icon>
+            </ion-item>
+        </ion-toolbar>
+    </ion-footer>
 </ion-menu>
