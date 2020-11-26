@@ -1,9 +1,12 @@
 #item {
     --ripple-color: var(--ion-color-primary);
+    background-color: white;
+    --background: white;
 }
 
 .activated {
-    --background: rgba(3, 153, 226, 0.9);
+    --background: rgba(3, 153, 226, 0.9) !important;
+    background-color: rgba(3, 153, 226, 0.9) !important;
     color: white;
 }
 
