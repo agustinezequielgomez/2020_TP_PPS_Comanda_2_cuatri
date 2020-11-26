@@ -1,0 +1,60 @@
+<form [formGroup]="form">
+  <div id="container">
+    <core-avatar-uploader [ngStyle]="{ 'grid-area': 'avatar' }"></core-avatar-uploader>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Cantidad comensales
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        formControlName="cantidad_comensales"
+        required
+        [type]="'number'"
+        inputmode="number"
+      ></ion-input>
+    </ion-item>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Numero de mesa
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input class="input" formControlName="numero" required [type]="'number'" inputmode="number"></ion-input>
+    </ion-item>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Codigo QR
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        formControlName="qr"
+        required
+        [type]="'text'"
+        inputmode="text"
+        required
+        (keyup)="actualizarQR($event)"
+      ></ion-input>
+    </ion-item>
+    <ion-text color="primary" [ngStyle]="{ 'margin-top': '5%' }" *ngIf="qr !== ''"
+      ><p>Preview de Codigo QR</p></ion-text
+    >
+    <ngx-qrcode
+      *ngIf="qr !== ''"
+      elementType="canvas"
+      [value]="this.qr"
+      cssClass="aclass"
+      errorCorrectionLevel="L"
+    ></ngx-qrcode>
+  </div>
+  <ion-button
+    [disabled]="!this.enabled"
+    (click)="this.altaMesa()"
+    [ngStyle]="{ 'margin-top': '10%' }"
+    expand="block"
+    fill="solid"
+    color="secondary"
+  >
+    Crear usuario
+  </ion-button>
+</form>

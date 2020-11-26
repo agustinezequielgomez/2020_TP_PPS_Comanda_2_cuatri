@@ -1,0 +1,131 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+
+@import '~@ionic/angular/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+.baseAlertClass {
+  --background: red;
+  .alert-title {
+    color: greenyellow !important;
+  }
+  .alert-head {
+    background: blueviolet !important;
+  }
+  .alert-message {
+    background: coral;
+  }
+  .alert-button-group {
+    background: cyan;
+  }
+}
+
+.baseToastClass {
+  --border-color: yellow;
+  --border-style: 'dotted';
+  --border-radius: 1.5rem;
+  --border-width: thick;
+  // --end: 15rem;
+  // --start: 15rem;
+  --color: red;
+}
+
+.ion-users-popover {
+  --background: var(--ion-color-primary);
+}
+
+.ion-loader {
+  --background: var(--ion-color-primary);
+  --spinner-color: var(--ion-color-secondary);
+  color: white;
+}
+
+#errorMessage {
+  color: var(--ion-color-danger);
+  font-weight: 700;
+  font-size: 10px;
+  margin: 0;
+  text-align: left !important;
+}
+
+.form-field {
+  width: 100%;
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  --highlight-color-valid: var(--ion-color-secondary-shade);
+  --highlight-color-invalid: red;
+  --padding-start: 0;
+}
+
+.form-field-invalid {
+  --highlight-color-focused: red;
+}
+
+.form-field-invalid {
+    --highlight-color-focused: red;
+}
+
+.scroll-content {
+  display: flex;
+  flex-direction: column;
+  ion-slides {
+    display: flex;
+  }
+}
+
+.assing-table-modal {
+  --min-width: 75%;
+}
+
+.assing-table-modal-confirm {
+  color: var(--ion-color-secondary) !important;
+  // color: white !important;
+  margin-left: auto !important;
+}
+
+.assing-table-modal-close {
+  color: var(--ion-color-danger) !important;
+  // color: white !important;
+}
+
+.food-modal {
+  --height: 90vh;
+}
+
+.modal-wrapper {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#thumbnail {
+  --border-radius: 43px;
+  --size: 50px;
+}
+
+.mat-expansion-panel-header,
+.mat-expansion-panel-content {
+  font-family: 'Montserrat', sans-serif !important;
+}

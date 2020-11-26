@@ -1,0 +1,18 @@
+.form-field {
+    width: 100%;
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    --highlight-color-valid: var(--ion-color-secondary-shade);
+    --highlight-color-invalid: red;
+    --padding-start: 0;
+}
+
+.input-label {
+    --color: black;
+}
+
+#icon {
+    margin-top: 26px;
+    cursor: pointer;
+    color: var(--ion-color-primary-shade);
+}

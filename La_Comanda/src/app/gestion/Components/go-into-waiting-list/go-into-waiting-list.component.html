@@ -1,0 +1,16 @@
+<div id="container" [ngStyle]="{ color: 'black' }">
+  <h2 [ngStyle]="{ 'margin-left': '10px', 'font-weigth': '700' }">Entrar a lista de espera</h2>
+  <ng-container *ngIf="this.success === null; else onResult">
+    <ion-skeleton-text class="ion-text-center" animated [ngStyle]="{ width: '90%', height: '90%' }"></ion-skeleton-text>
+  </ng-container>
+  <ng-template #onResult>
+    <img
+      [ngStyle]="{ 'margin-top': '10%' }"
+      [src]="this.success === true ? 'assets/undraw_confirmed_81ex.png' : 'assets/404.png'"
+      alt=""
+    />
+    <p class="ion-text-center" [ngStyle]="{ margin: '10% 0%' }">{{ this.message }}</p>
+
+    <core-go-to-home-menu-button></core-go-to-home-menu-button>
+  </ng-template>
+</div>

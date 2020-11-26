@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "comanda-pps"
+  },
+  "targets": {
+    "comanda-pps": {
+      "hosting": {
+        "app": [
+          "functions"
+        ]
+      }
+    }
+  }
+}

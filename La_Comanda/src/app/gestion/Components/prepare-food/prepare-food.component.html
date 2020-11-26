@@ -1,0 +1,65 @@
+<core-page-container [title]="'Preparar' + (this.employeeRole === 'cocinero' ? ' comidas:' : ' bebidas:')">
+  <div class="page-content" *ngIf="this.anyPendingFood || this.anyInProgressFood; else noResults">
+    <ng-container *ngIf="this.anyPendingFood">
+      <p [ngStyle]="{ 'font-size': '18px', 'margin-left': '12px' }">
+        {{ this.employeeRole === 'cocinero' ? 'Comida' : 'Bebida' }} pendiente
+      </p>
+      <ng-container *ngFor="let pendingOrders of this.pendingFood">
+        <core-list-item-photo
+          *ngFor="let pendingItem of pendingOrders.food"
+          [title]="pendingItem.nombre"
+          [content]="'Mesa N°' + pendingOrders.order.tableId"
+          [photoUrl]="pendingItem.fotos[0]"
+          [detail]="false"
+          [listValue]="{ food: pendingItem, orderId: pendingOrders.order.orderId }"
+          [actionItem]="inProgressActionItem"
+        ></core-list-item-photo>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="this.anyInProgressFood">
+      <p [ngStyle]="{ 'font-size': '18px', 'margin-left': '12px' }">
+        {{ this.employeeRole === 'cocinero' ? 'Comida' : 'Bebida' }} en progreso
+      </p>
+      <ng-container *ngFor="let inProgressOrders of this.inProgressFood">
+        <core-list-item-photo
+          *ngFor="let inProgressItem of inProgressOrders.food"
+          [title]="inProgressItem.nombre"
+          [content]="'Mesa N°' + inProgressOrders.order.tableId"
+          [photoUrl]="inProgressItem.fotos[0]"
+          [detail]="false"
+          [listValue]="{ food: inProgressItem, orderId: inProgressOrders.order.orderId }"
+          [actionItem]="completeActionItem"
+        ></core-list-item-photo>
+      </ng-container>
+    </ng-container>
+  </div>
+</core-page-container>
+<ng-template #inProgressActionItem let-inProgress="item">
+  <ion-button
+    (click)="this.foodInProgress(inProgress.food, inProgress.orderId)"
+    expand="block"
+    fill="outline"
+    color="secondary"
+  >
+    Comenzar a preparar
+  </ion-button>
+</ng-template>
+
+<ng-template #completeActionItem let-complete="item">
+  <ion-button
+    (click)="this.foodCompleted(complete.food, complete.orderId)"
+    expand="block"
+    fill="outline"
+    color="secondary"
+  >
+    Terminar de preparar
+  </ion-button>
+</ng-template>
+
+<ng-template #noResults>
+  <img [ngStyle]="{ 'margin-top': '10%' }" src="assets/undraw_No_data_re_kwbl.png" alt="" />
+  <h3 class="ion-text-center" [ngStyle]="{ color: 'black' }">
+    No hay {{ this.employeeRole === 'cocinero' ? 'comidas' : 'bebidas' }} pendientes preparación
+  </h3>
+  <core-go-to-home-menu-button></core-go-to-home-menu-button>
+</ng-template>

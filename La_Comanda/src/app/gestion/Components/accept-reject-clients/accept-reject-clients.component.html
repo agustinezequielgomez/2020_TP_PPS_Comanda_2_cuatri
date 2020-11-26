@@ -1,0 +1,35 @@
+<div *ngIf="this.clientList; else skeleton" id="container">
+  <ng-container *ngIf="this.clientList.length > 0; else noResults">
+    <core-page-container [title]="'Aceptar usuarios'">
+      <div class="page-content">
+        <ng-template #actionItems let-client="item">
+          <ion-button class="action-button" color="success" (click)="this.resolveClient(client, true)">
+            <ion-icon name="checkmark"></ion-icon>
+          </ion-button>
+          <ion-button class="action-button" color="danger" (click)="this.resolveClient(client, false)">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ng-template>
+        <core-list-item-photo
+          *ngFor="let client of this.clientList"
+          [title]="client.data.name + ' ' + client.data.lastName"
+          [content]="'DNI: ' + client.data.DNI"
+          [photoUrl]="client.photoUrl"
+          [actionItem]="actionItems"
+          [listValue]="client"
+          [detail]="false"
+        >
+        </core-list-item-photo>
+      </div>
+    </core-page-container>
+  </ng-container>
+</div>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>
+
+<ng-template #noResults>
+  <img [ngStyle]="{ 'margin-top': '20%' }" src="assets/undraw_No_data_re_kwbl.png" alt="" />
+  <h3 class="ion-text-center" [ngStyle]="{ color: 'black' }">No hay usuarios pendientes de aprobación</h3>
+</ng-template>

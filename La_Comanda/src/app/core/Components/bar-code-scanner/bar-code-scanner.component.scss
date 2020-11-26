@@ -1,0 +1,18 @@
+#scanner {
+    clip-path: polygon(0% 0%, 0% 100%, 11% 100%, 11% 40%, 90% 40%, 90% 66%, 10% 66%, 0% 100%, 100% 100%, 100% 0%);
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+#scan-bar {
+    position: absolute;
+    bottom: 34%;
+    height: 26%;
+    width: 1.5%;
+    background-color: var(--ion-color-primary-shade);
+    left: 11%;
+    z-index: 999;
+}

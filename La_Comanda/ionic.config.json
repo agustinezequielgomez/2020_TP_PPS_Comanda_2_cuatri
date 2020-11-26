@@ -1,0 +1,9 @@
+{
+    "name": "La Comanda",
+    "integrations": {
+        "capacitor": {},
+        "cordova": {}
+    },
+    "type": "angular",
+    "id": "d05042d4"
+}

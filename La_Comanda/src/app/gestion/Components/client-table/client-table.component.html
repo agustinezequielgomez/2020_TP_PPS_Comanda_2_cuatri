@@ -1,0 +1,69 @@
+<div id="container" [ngStyle]="{ color: 'black' }">
+  <span [ngSwitch]="this.clientState">
+    <h2 [ngStyle]="{ 'margin-left': '10px', 'font-weigth': '700' }">{{ this.title }}</h2>
+    <div *ngSwitchCase="'en_lista_de_espera'">
+      <img src="assets/home-screen-cards/queue.png" alt="" />
+      <p class="ion-text-center" [ngStyle]="{ 'margin-top': '45px', 'font-size': '20px' }">
+        Aun estás en lista de espera y no posees una mesa asignada
+      </p>
+      <core-go-to-home-menu-button></core-go-to-home-menu-button>
+    </div>
+    <div class="ion-text-center" *ngIf="!this.invalidQr; else invalidQrTemplate">
+      <div *ngSwitchCase="'mesa_asginada'">
+        <img [ngStyle]="{ 'margin-top': '60px' }" src="assets/undraw_confirmed_81ex.png" alt="" />
+        <p [ngStyle]="{ 'margin-top': '30px', 'font-size': '20px' }">¡Vinculación realizada con éxito!</p>
+        <p [ngStyle]="{ 'margin-top': '10px', 'font-size': '13px' }">
+          Ya tenés disponible la carta y la posibilidad de realizar pedidos. ¡Que disfrutes la experiencia!
+        </p>
+        <core-go-to-home-menu-button></core-go-to-home-menu-button>
+        <p [ngStyle]="{ margin: '5px 0' }">O</p>
+        <ion-button
+          [ngStyle]="{ width: '75%', margin: '0 auto' }"
+          (click)="this.nav.navigateForward('foodMenu')"
+          color="secondary"
+          [expand]="'block'"
+        >
+          Ver menú
+        </ion-button>
+      </div>
+      <div *ngSwitchCase="'en_mesa'">
+        <div [ngSwitch]="this.specialComponent">
+          <div *ngSwitchCase="'question'">
+            <gestion-client-question></gestion-client-question>
+          </div>
+          <div *ngSwitchDefault>
+            <gestion-order-food></gestion-order-food>
+          </div>
+        </div>
+      </div>
+      <div *ngSwitchCase="'esperando_pedido'">
+        <div [ngSwitch]="this.specialComponent">
+          <div *ngSwitchCase="'order_state'">
+            <gestion-order-state></gestion-order-state>
+          </div>
+          <div *ngSwitchCase="'client_review'">
+            <gestion-client-review></gestion-client-review>
+          </div>
+          <div *ngSwitchCase="'question'">
+            <gestion-client-question></gestion-client-question>
+          </div>
+        </div>
+      </div>
+    </div>
+  </span>
+</div>
+
+<ng-template #invalidQrTemplate>
+  <img [ngStyle]="{ 'margin-top': '60px' }" src="assets/404.png" alt="" />
+  <p class="ion-text-center" [ngStyle]="{ 'margin-top': '45px', 'margin-bottom': '30px', 'font-size': '20px' }">
+    {{ this.errorMessage }}
+  </p>
+  <ion-button
+    [ngStyle]="{ width: '75%', margin: '0 auto' }"
+    (click)="this.scanQrCode()"
+    color="secondary"
+    [expand]="'block'"
+  >
+    Intentar nuevamente
+  </ion-button>
+</ng-template>

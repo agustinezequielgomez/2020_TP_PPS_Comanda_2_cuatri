@@ -1,0 +1,39 @@
+#loginForm {
+    width: 100%;
+}
+
+.form-field {
+    width: 100%;
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    --highlight-color-valid: var(--ion-color-secondary-shade);
+    --highlight-color-invalid: red;
+    --padding-start: 0;
+}
+
+.input-label {
+    --color: black;
+}
+
+#submitButton {
+    width: 100%;
+}
+
+#toggle {
+    margin-left: 15%;
+}
+
+#labelCheck {
+    margin-left: 12px;
+}
+
+#loginCard {
+    margin: 16px 0;
+    --background: rgba(255, 255, 255, 0.732);
+}
+
+#icon {
+    margin-top: 26px;
+    cursor: pointer;
+    color: var(--ion-color-primary-shade);
+}

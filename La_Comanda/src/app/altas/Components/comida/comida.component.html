@@ -1,0 +1,108 @@
+<form [formGroup]="form">
+  <div id="container">
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Nombre
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        formControlName="name"
+        required
+        [type]="'text'"
+        inputmode="text"
+        [maxlength]="50"
+      ></ion-input>
+    </ion-item>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Descripcion
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-textarea
+        class="input"
+        formControlName="descripcion"
+        required
+        inputmode="text"
+        [maxlength]="100"
+        autoGrow="true"
+      ></ion-textarea>
+    </ion-item>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Precio
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input class="input" formControlName="precio" required [type]="'number'" inputmode="number"></ion-input>
+    </ion-item>
+    <p
+      id="errorMessage"
+      [ngStyle]="{ 'justify-self': 'start' }"
+      *ngIf="!this.form.get('precio').valid && this.form.get('precio').value < 1"
+    >
+      El precio ingresado no es válido.
+    </p>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Tiempo de elaboracion
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input class="input" formControlName="tiempo" required [type]="'number'" inputmode="number"></ion-input>
+    </ion-item>
+    <p
+      id="errorMessage"
+      [ngStyle]="{ 'justify-self': 'start' }"
+      *ngIf="!this.form.get('tiempo').valid && this.form.get('tiempo').value < 1"
+    >
+      El tiempo de elaboracion ingresado no es válido.
+    </p>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Codigo QR
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        formControlName="qr"
+        required
+        [type]="'text'"
+        inputmode="text"
+        required
+        [maxlength]="30"
+        (keyup)="actualizarQR($event)"
+      ></ion-input>
+    </ion-item>
+    <ion-text color="primary" [ngStyle]="{ 'margin-top': '5%' }" *ngIf="qr !== ''"
+      ><p>Preview de Codigo QR</p></ion-text
+    >
+    <ngx-qrcode
+      *ngIf="qr !== ''"
+      elementType="canvas"
+      [value]="this.qr"
+      cssClass="aclass"
+      errorCorrectionLevel="L"
+    ></ngx-qrcode>
+    <ion-button
+      (click)="tomarFotos()"
+      [ngStyle]="{ 'margin-top': '5%' }"
+      expand="block"
+      fill="solid"
+      [disabled]="fotos.length > 2"
+      color="tertiary"
+      >Sacar foto a comida</ion-button
+    >
+    <ion-text color="primary"
+      ><p>Fotos sacadas: {{ fotos.length }}</p></ion-text
+    >
+  </div>
+  <ion-button
+    [disabled]="!this.enabled"
+    (click)="this.altaComida()"
+    [ngStyle]="{ 'margin-top': '0%' }"
+    expand="block"
+    fill="solid"
+    color="secondary"
+  >
+    Crear Comida
+  </ion-button>
+</form>
