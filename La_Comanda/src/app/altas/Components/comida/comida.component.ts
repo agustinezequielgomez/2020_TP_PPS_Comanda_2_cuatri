@@ -1,22 +1,19 @@
-import { TitleCasePipe } from '@angular/common';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DataStoreService } from '../../../core/Services/data-store.service';
-import { AuthService } from '../../../core/Services/auth.service';
-import { UserRoles } from 'src/app/core/Models/Enums/user-roles.enum';
-import { NotificationService } from '../../../core/Services/notification.service';
-import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatabaseService } from 'src/app/core/Services/database.service';
-import { CameraService } from 'src/app/core/Services/camera.service';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { Alimento, TipoAlimento } from 'src/app/core/Models/Classes/alimento';
 import { DataBaseCollections } from 'src/app/core/Models/Enums/data-base-collections.enum';
 import { FirebaseStorageFolders } from 'src/app/core/Models/Enums/firebase-storage-folders.enum';
+import { CameraService } from 'src/app/core/Services/camera.service';
+import { DatabaseService } from 'src/app/core/Services/database.service';
+import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
+import { DataStoreService } from '../../../core/Services/data-store.service';
+import { NotificationService } from '../../../core/Services/notification.service';
 
 @Component({
-  selector: 'app-comida',
+  selector: 'alta-comida',
   templateUrl: './comida.component.html',
   styleUrls: ['./comida.component.scss'],
 })
@@ -29,8 +26,6 @@ export class ComidaComponent implements OnInit {
   @Input() isAccess: boolean;
   @Output() toLogin = new EventEmitter<void>();
   constructor(
-    private pipe: TitleCasePipe,
-    private auth: AuthService,
     private notification: NotificationService,
     private creator: ComponentCreatorService,
     private router: Router,
