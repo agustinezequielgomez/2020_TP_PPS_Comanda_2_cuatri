@@ -6,4 +6,8 @@ export interface Mesa {
   cliente?: string;
 }
 
+export interface DBMesaDocument {
+  mesa: Mesa;
+}
+
 export type Mesas = Mesa[];

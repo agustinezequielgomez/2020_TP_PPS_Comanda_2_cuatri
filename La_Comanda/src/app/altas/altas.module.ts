@@ -7,9 +7,23 @@ import { MaterialModule } from '../material.module';
 import { AltasRoutingModule } from './altas-routing.module';
 import { ClienteComponent } from './Components/cliente/cliente.component';
 import { ClienteAnonimoComponent } from './Components/cliente-anonimo/cliente-anonimo.component';
+import { EmpleadoComponent } from './Components/empleado/empleado.component';
+import { MesaComponent } from './Components/mesa/mesa.component';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { ComidaComponent } from './Components/comida/comida.component';
+import { BebidaComponent } from './Components/bebida/bebida.component';
 
 @NgModule({
-  declarations: [ClienteComponent, ClienteAnonimoComponent],
+  declarations: [
+    ClienteComponent,
+    ClienteAnonimoComponent,
+    EmpleadoComponent,
+    MesaComponent,
+    ComidaComponent,
+    BebidaComponent,
+  ],
   imports: [
     CommonModule,
     AltasRoutingModule,
@@ -18,7 +32,16 @@ import { ClienteAnonimoComponent } from './Components/cliente-anonimo/cliente-an
     FormsModule,
     CoreModule,
     IonicModule.forRoot(),
+    NgxQRCodeModule,
   ],
-  exports: [ClienteComponent, ClienteAnonimoComponent],
+  providers: [Base64ToGallery, AndroidPermissions],
+  exports: [
+    ClienteComponent,
+    ClienteAnonimoComponent,
+    EmpleadoComponent,
+    MesaComponent,
+    ComidaComponent,
+    BebidaComponent,
+  ],
 })
 export class AltasModule {}

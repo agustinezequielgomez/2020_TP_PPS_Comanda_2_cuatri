@@ -18,6 +18,7 @@ import { MaterialModule } from './material.module';
 import { AltasModule } from './altas/altas.module';
 import { TitleCasePipe } from '@angular/common';
 import { GestionModule } from './gestion/gestion.module';
+// import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +37,13 @@ import { GestionModule } from './gestion/gestion.module';
     AltasModule,
     GestionModule,
   ],
-  providers: [StatusBar, SplashScreen, TitleCasePipe, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    TitleCasePipe,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // Base64ToGallery
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

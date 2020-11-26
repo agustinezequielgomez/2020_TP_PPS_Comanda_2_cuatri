@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Client, ClientState } from '../Models/Classes/client';
-import { Employee } from '../Models/Classes/employee';
+// import { Employee } from '../Models/Classes/employee';
 import { HomeScreenCards } from '../Models/Classes/home-screen-card';
 import { Photo, Photos } from '../Models/Classes/photo';
-import { SideMenuItems } from '../Models/Classes/side-menu-item';
+// import { SideMenuItems } from '../Models/Classes/side-menu-item';
 import { ScannedUser, User } from '../Models/Classes/user';
 import { UserRoles } from '../Models/Enums/user-roles.enum';
 import { Employee } from '../Models/Classes/employee';
@@ -147,6 +147,18 @@ export class DataStoreService {
         imgPath: 'assets/home-screen-cards/accept_user.png',
         redirectTo: 'userAdmin',
       },
+      {
+        title: 'Alta de empleado',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_empleado.png',
+        redirectTo: 'empleado',
+      },
+      {
+        title: 'Alta de mesa',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_mesa.png',
+        redirectTo: 'mesa',
+      },
     ];
 
     private DueñoCards: HomeScreenCards = [
@@ -155,6 +167,12 @@ export class DataStoreService {
         color: 'primary',
         imgPath: 'assets/home-screen-cards/accept_user.png',
         redirectTo: 'userAdmin',
+      },
+      {
+        title: 'Alta de empleado',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_empleado.png',
+        redirectTo: 'empleado',
       },
     ];
 
@@ -255,6 +273,12 @@ export class DataStoreService {
         imgPath: 'assets/home-screen-cards/prepare_food.png',
         redirectTo: 'prepareFood',
       },
+      {
+        title: 'Alta de comida',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_comida.png',
+        redirectTo: 'comida',
+      },
     ];
 
     private BartenderCards: HomeScreenCards = [
@@ -263,6 +287,12 @@ export class DataStoreService {
         color: 'primary',
         imgPath: 'assets/home-screen-cards/prepare_drinks.png',
         redirectTo: 'prepareFood',
+      },
+      {
+        title: 'Alta de bebida',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_bebida.png',
+        redirectTo: 'bebida',
       },
     ];
 
@@ -329,6 +359,18 @@ export class DataStoreService {
         label: 'Aceptar usuarios',
         redirectTo: 'userAdmin',
         icon: 'clipboard',
+      },
+      {
+        id: 2,
+        label: 'Alta de empleado',
+        redirectTo: 'empleado',
+        icon: 'person-add',
+      },
+      {
+        id: 3,
+        label: 'Alta de mesa',
+        redirectTo: 'mesa',
+        icon: 'easel',
       },
     ];
 
@@ -435,6 +477,12 @@ export class DataStoreService {
         redirectTo: 'prepareFood',
         icon: 'wine',
       },
+      {
+        id: 2,
+        label: 'Alta de bebida',
+        redirectTo: 'bebida',
+        icon: 'beer',
+      },
     ];
 
     private MozoSideMenu: SideMenuItems = [
@@ -480,6 +528,12 @@ export class DataStoreService {
         redirectTo: 'prepareFood',
         icon: 'pizza',
       },
+      {
+        id: 2,
+        label: 'Alta de comida',
+        redirectTo: 'comida',
+        icon: 'fast-food',
+      },
     ];
 
     private DueñoSideMenu: SideMenuItems = [
@@ -494,6 +548,12 @@ export class DataStoreService {
         label: 'Aceptar usuarios',
         redirectTo: 'userAdmin',
         icon: 'clipboard',
+      },
+      {
+        id: 2,
+        label: 'Alta de empleado',
+        redirectTo: 'empleado',
+        icon: 'person-add',
       },
     ];
 

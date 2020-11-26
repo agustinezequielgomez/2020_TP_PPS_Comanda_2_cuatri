@@ -13,6 +13,7 @@ import { DatabaseService } from './database.service';
 import { NotificationService } from './notification.service';
 import { StorageService } from './storage.service';
 import { DocumentData, QuerySnapshot, QueryDocumentSnapshot } from '@angular/fire/firestore';
+import { Employee } from '../Models/Classes/employee';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +56,7 @@ export class AuthService {
     role: UserRoles;
     name: string;
     lastName: string;
-    CUIL?: number;
+    CUIL?: string;
   }): Promise<boolean> {
     try {
       const existingDni = await this.dataBase.queryCollection<DBUserDocument>(DataBaseCollections.users, (x) =>
@@ -75,23 +76,49 @@ export class AuthService {
       const UID = (await this.auth.createUserWithEmailAndPassword(email, password)).user.uid;
       switch (role) {
         case UserRoles.CLIENTE:
-          DataStoreService.Various.CapturedPhotos[0].takenBy = email;
-          DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${
-            DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]
-          }`;
-          const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
-          const client: Client = {
-            email,
-            password,
-            photoUrl,
-            UID,
-            enabled: null,
-            isAnonymous: false,
-            data: { role, DNI, name, lastName, deviceToken: DataStoreService.Notification.NotificationToken },
-            state: ClientState.NULO,
-          };
-          this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, UID, { user: client });
-          this.sendRegistrationPushNotification();
+          {
+            DataStoreService.Various.CapturedPhotos[0].takenBy = email;
+            DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${
+              DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]
+            }`;
+            const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
+            const client: Client = {
+              email,
+              password,
+              photoUrl,
+              UID,
+              enabled: null,
+              isAnonymous: false,
+              data: { role, DNI, name, lastName, deviceToken: DataStoreService.Notification.NotificationToken },
+              state: ClientState.NULO,
+            };
+            this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, UID, { user: client });
+            this.sendRegistrationPushNotification();
+          }
+          break;
+        case UserRoles.BARTENDER:
+        case UserRoles.COCINERO:
+        case UserRoles.DUEÑO:
+        case UserRoles.METRE:
+        case UserRoles.MOZO:
+        case UserRoles.SUPERVISOR:
+          {
+            DataStoreService.Various.CapturedPhotos[0].takenBy = email;
+            DataStoreService.Various.CapturedPhotos[0].fileName = `${email}_${
+              DataStoreService.Various.CapturedPhotos[0].fileName.split('_')[1]
+            }`;
+            const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
+            const employee: Employee = {
+              email,
+              password,
+              photoUrl,
+              UID,
+              CUIL: userData.CUIL,
+              enabled: true,
+              data: { role, DNI, name, lastName, deviceToken: null },
+            };
+            this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, UID, { user: employee });
+          }
           break;
       }
       return true;

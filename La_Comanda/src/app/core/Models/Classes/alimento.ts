@@ -1,6 +1,6 @@
 export interface Alimento {
   descripcion: string;
-  fotos: string[3];
+  fotos: Array<string>;
   nombre: string;
   precio: number;
   qr: string;
@@ -18,4 +18,8 @@ export enum FoodState {
   TODO = 'Por hacer',
   IN_PROGRESS = 'in_progress',
   COMPLETED = 'completed',
+}
+
+export interface DBAlimentoDocument {
+  alimento: Alimento;
 }

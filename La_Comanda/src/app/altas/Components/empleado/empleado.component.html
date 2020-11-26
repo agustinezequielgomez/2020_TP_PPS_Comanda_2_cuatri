@@ -1,0 +1,89 @@
+<form [formGroup]="form">
+  <div id="container">
+    <core-avatar-uploader [ngStyle]="{ 'grid-area': 'avatar' }"></core-avatar-uploader>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Nombre
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        formControlName="name"
+        required
+        [type]="'text'"
+        inputmode="text"
+        [maxlength]="25"
+      ></ion-input>
+    </ion-item>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Apellido
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input
+        class="input"
+        formControlName="lastName"
+        required
+        [type]="'text'"
+        inputmode="text"
+        [maxlength]="25"
+      ></ion-input>
+    </ion-item>
+    <core-dniform-input
+      [dni]="this.form.get('dni').value"
+      (dniRegistered)="this.form.get('dni').setValue($event)"
+      [ngStyle]="{ width: '100%' }"
+    ></core-dniform-input>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Correo electrónico
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input class="input" formControlName="email" required [type]="'email'" inputmode="email"></ion-input>
+    </ion-item>
+    <p
+      id="errorMessage"
+      [ngStyle]="{ 'justify-self': 'start' }"
+      *ngIf="!this.form.get('email').valid && this.form.get('email').value.length > 0"
+    >
+      El correo electrónico ingresado no es válido.
+    </p>
+    <core-password-input
+      [password]="this.form.get('password').value"
+      [login]="false"
+      (passwordChange)="this.form.get('password').setValue($event)"
+      [ngStyle]="{ width: '100%' }"
+    ></core-password-input>
+    <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >Rol
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-select formControlName="rol" required>
+        <ion-select-option value="dueño">Dueño</ion-select-option>
+        <ion-select-option value="supervisor">Supervisor</ion-select-option>
+        <ion-select-option value="metre">Metre</ion-select-option>
+        <ion-select-option value="mozo">Mozo</ion-select-option>
+        <ion-select-option value="cocinero">Cocinero</ion-select-option>
+        <ion-select-option value="bartender">Bartender</ion-select-option>
+      </ion-select>
+    </ion-item>
+     <ion-item mode="md" class="form-field">
+      <ion-label color="primary" class="input-label" position="floating"
+        >CUIL
+        <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input class="input" formControlName="cuil" required [type]="'text'" inputmode="text" [maxlength]="11" required></ion-input>
+    </ion-item>
+  </div>
+  <ion-button
+    [disabled]="!this.enabled"
+    (click)="this.signUp()"
+    [ngStyle]="{ 'margin-top': '10%' }"
+    expand="block"
+    fill="solid"
+    color="secondary"
+  >
+    Crear usuario
+  </ion-button>
+</form>
