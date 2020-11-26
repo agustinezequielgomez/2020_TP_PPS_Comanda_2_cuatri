@@ -9,4 +9,8 @@ export interface Mesa {
   reservations?: Reservation[];
 }
 
+export interface DBMesaDocument {
+  mesa: Mesa;
+}
+
 export type Mesas = Mesa[];

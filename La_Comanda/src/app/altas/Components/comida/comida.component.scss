@@ -1,0 +1,13 @@
+#container {
+    display: grid;
+    grid-template-areas: 'avatar';
+    place-items: center;
+}
+
+.input-label {
+    --color: black;
+}
+
+p{
+    margin:0% 0%
+}

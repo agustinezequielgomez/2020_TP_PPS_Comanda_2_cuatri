@@ -167,6 +167,18 @@ export class DataStoreService {
         imgPath: 'assets/home-screen-cards/reservation.png',
         redirectTo: 'confirmReservation',
       },
+      {
+        title: 'Alta de empleado',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_empleado.png',
+        redirectTo: 'empleado',
+      },
+      {
+        title: 'Alta de mesa',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_mesa.png',
+        redirectTo: 'mesa',
+      },
     ];
 
     private DueñoCards: HomeScreenCards = [
@@ -181,6 +193,12 @@ export class DataStoreService {
         color: 'primary',
         imgPath: 'assets/home-screen-cards/reservation.png',
         redirectTo: 'confirmReservation',
+      },
+      {
+        title: 'Alta de empleado',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_empleado.png',
+        redirectTo: 'empleado',
       },
     ];
 
@@ -321,6 +339,12 @@ export class DataStoreService {
         imgPath: 'assets/home-screen-cards/prepare_food.png',
         redirectTo: 'prepareFood',
       },
+      {
+        title: 'Alta de comida',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_comida.png',
+        redirectTo: 'comida',
+      },
     ];
 
     private BartenderCards: HomeScreenCards = [
@@ -329,6 +353,12 @@ export class DataStoreService {
         color: 'primary',
         imgPath: 'assets/home-screen-cards/prepare_drinks.png',
         redirectTo: 'prepareFood',
+      },
+      {
+        title: 'Alta de bebida',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/alta_bebida.png',
+        redirectTo: 'bebida',
       },
     ];
 
@@ -359,6 +389,9 @@ export class DataStoreService {
               return this.ClientCardsComiendo;
           }
           break;
+
+        case UserRoles.BARTENDER:
+          return this.BartenderCards;
 
         case UserRoles.BARTENDER:
           return this.BartenderCards;
@@ -407,6 +440,18 @@ export class DataStoreService {
         label: 'Confirmar reservación',
         redirectTo: 'confirmReservation',
         icon: 'calendar',
+      },
+      {
+        id: 3,
+        label: 'Alta de empleado',
+        redirectTo: 'empleado',
+        icon: 'person-add',
+      },
+      {
+        id: 4,
+        label: 'Alta de mesa',
+        redirectTo: 'mesa',
+        icon: 'easel',
       },
     ];
 
@@ -547,6 +592,12 @@ export class DataStoreService {
         redirectTo: 'prepareFood',
         icon: 'wine',
       },
+      {
+        id: 2,
+        label: 'Alta de bebida',
+        redirectTo: 'bebida',
+        icon: 'beer',
+      },
     ];
 
     private MozoSideMenu: SideMenuItems = [
@@ -604,6 +655,12 @@ export class DataStoreService {
         redirectTo: 'prepareFood',
         icon: 'pizza',
       },
+      {
+        id: 2,
+        label: 'Alta de comida',
+        redirectTo: 'comida',
+        icon: 'fast-food',
+      },
     ];
 
     private DueñoSideMenu: SideMenuItems = [
@@ -624,6 +681,12 @@ export class DataStoreService {
         label: 'Confirmar reservación',
         redirectTo: 'confirmReservation',
         icon: 'calendar',
+      },
+      {
+        id: 3,
+        label: 'Alta de empleado',
+        redirectTo: 'empleado',
+        icon: 'person-add',
       },
     ];
 

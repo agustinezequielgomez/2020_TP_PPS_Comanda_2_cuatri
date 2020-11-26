@@ -9,6 +9,7 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
 
 @import '~@ionic/angular/css/core.css';
@@ -28,120 +29,121 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 .baseAlertClass {
-  --background: red;
-  .alert-title {
-    color: greenyellow !important;
-  }
-  .alert-head {
-    background: blueviolet !important;
-  }
-  .alert-message {
-    background: coral;
-  }
-  .alert-button-group {
-    background: cyan;
-  }
+    --background: red;
+    .alert-title {
+        color: greenyellow !important;
+    }
+    .alert-head {
+        background: blueviolet !important;
+    }
+    .alert-message {
+        background: coral;
+    }
+    .alert-button-group {
+        background: cyan;
+    }
 }
 
 .baseToastClass {
-  --border-color: yellow;
-  --border-style: 'dotted';
-  --border-radius: 1.5rem;
-  --border-width: thick;
-  // --end: 15rem;
-  // --start: 15rem;
-  --color: red;
+    --border-color: yellow;
+    --border-style: 'dotted';
+    --border-radius: 1.5rem;
+    --border-width: thick;
+    // --end: 15rem;
+    // --start: 15rem;
+    --color: red;
 }
 
 .ion-users-popover {
-  --background: var(--ion-color-primary);
+    --background: var(--ion-color-primary);
 }
 
 .ion-loader {
-  --background: var(--ion-color-primary);
-  --spinner-color: var(--ion-color-secondary);
-  color: white;
+    --background: var(--ion-color-primary);
+    --spinner-color: var(--ion-color-secondary);
+    color: white;
 }
 
 #errorMessage {
-  color: var(--ion-color-danger);
-  font-weight: 700;
-  font-size: 10px;
-  margin: 0;
-  text-align: left !important;
+    color: var(--ion-color-danger);
+    font-weight: 700;
+    font-size: 10px;
+    margin: 0;
+    text-align: left !important;
 }
 
 .form-field {
-  width: 100%;
-  --background: transparent;
-  --ion-color-base: transparent !important;
-  --highlight-color-valid: var(--ion-color-secondary-shade);
-  --highlight-color-invalid: red;
-  --padding-start: 0;
+    width: 100%;
+    --background: transparent;
+    --ion-color-base: transparent !important;
+    --highlight-color-valid: var(--ion-color-secondary-shade);
+    --highlight-color-invalid: red;
+    --padding-start: 0;
 }
 
 .form-field-invalid {
-  --highlight-color-focused: red;
+    --highlight-color-focused: red;
 }
 
 .form-field-invalid {
-  --highlight-color-focused: red;
+    --highlight-color-focused: red;
 }
 
 .scroll-content {
-  display: flex;
-  flex-direction: column;
-  ion-slides {
     display: flex;
-  }
+    flex-direction: column;
+    ion-slides {
+        display: flex;
+    }
 }
 
 .assing-table-modal {
-  --min-width: 75%;
+    --min-width: 75%;
 }
 
 .assing-table-modal-confirm {
-  color: var(--ion-color-secondary) !important;
-  margin-left: auto !important;
+    color: var(--ion-color-secondary) !important;
+    <<<<<<< HEAD======= // color: white !important;
+    >>>>>>>origin/main margin-left: auto !important;
 }
 
 .assing-table-modal-close {
-  color: var(--ion-color-danger) !important;
+    color: var(--ion-color-danger) !important;
+    <<<<<<< HEAD======= // color: white !important;
+    >>>>>>>origin/main
 }
 
 .food-modal {
-  --height: 90vh;
+    --height: 90vh;
 }
 
 .modal-wrapper {
-  background: transparent !important;
-  box-shadow: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
 #thumbnail {
-  --border-radius: 43px;
-  --size: 50px;
+    --border-radius: 43px;
+    --size: 50px;
 }
 
 .mat-expansion-panel-header,
 .mat-stepper-vertical,
 .mat-expansion-panel-content {
-  font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
 .mat-step-icon {
-  background-color: var(--ion-color-secondary) !important;
+    background-color: var(--ion-color-secondary) !important;
 }
 
-.mat-datetimepicker-calendar-body-active
-  > .mat-datetimepicker-calendar-body-cell-content:not(.mat-datetimepicker-calendar-body-selected),
-:not(.mat-datetimepicker-calendar-body-disabled):hover
-  > .mat-datetimepicker-calendar-body-cell-content:not(.mat-datetimepicker-calendar-body-selected) {
-  background-color: var(--ion-color-secondary) !important;
+.mat-datetimepicker-calendar-body-active>.mat-datetimepicker-calendar-body-cell-content:not(.mat-datetimepicker-calendar-body-selected),
+:not(.mat-datetimepicker-calendar-body-disabled):hover>.mat-datetimepicker-calendar-body-cell-content:not(.mat-datetimepicker-calendar-body-selected) {
+    background-color: var(--ion-color-secondary) !important;
 }
 
 .mat-datetimepicker-clock-cell.mat-datetimepicker-clock-cell-selected,
 .mat-datetimepicker-clock-center,
 .mat-datetimepicker-clock-hand {
-  background-color: var(--ion-color-secondary) !important;
+    background-color: var(--ion-color-secondary) !important;
 }

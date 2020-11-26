@@ -1,5 +1,5 @@
 <div id="container" [ngStyle]="{ color: 'black' }">
-  <span [ngSwitch]="this.clientState">
+    <span [ngSwitch]="this.clientState">
     <h2 [ngStyle]="{ 'margin-left': '10px', 'font-weigth': '700' }">{{ this.title }}</h2>
     <div *ngSwitchCase="'en_lista_de_espera'">
       <img src="assets/home-screen-cards/queue.png" alt="" />
@@ -67,16 +67,11 @@
 </div>
 
 <ng-template #invalidQrTemplate>
-  <img [ngStyle]="{ 'margin-top': '60px' }" src="assets/404.png" alt="" />
-  <p class="ion-text-center" [ngStyle]="{ 'margin-top': '45px', 'margin-bottom': '30px', 'font-size': '20px' }">
-    {{ this.errorMessage }}
-  </p>
-  <ion-button
-    [ngStyle]="{ width: '75%', margin: '0 auto' }"
-    (click)="this.scanQrCode()"
-    color="secondary"
-    [expand]="'block'"
-  >
-    Intentar nuevamente
-  </ion-button>
+    <img [ngStyle]="{ 'margin-top': '60px' }" src="assets/404.png" alt="" />
+    <p class="ion-text-center" [ngStyle]="{ 'margin-top': '45px', 'margin-bottom': '30px', 'font-size': '20px' }">
+        {{ this.errorMessage }}
+    </p>
+    <ion-button [ngStyle]="{ width: '75%', margin: '0 auto' }" (click)="this.scanQrCode()" color="secondary" [expand]="'block'">
+        Intentar nuevamente
+    </ion-button>
 </ng-template>
