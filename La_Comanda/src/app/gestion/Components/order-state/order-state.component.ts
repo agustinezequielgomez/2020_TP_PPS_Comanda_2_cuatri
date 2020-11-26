@@ -5,6 +5,8 @@ import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collec
 import { DataStoreService } from '../../../core/Services/data-store.service';
 import { map } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ClientState } from 'src/app/core/Models/Classes/client';
+import { DBUserDocument } from '../../../core/Models/Classes/user';
 
 @Component({
   selector: 'gestion-order-state',
@@ -25,6 +27,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class OrderStateComponent implements OnInit {
   public orderState: OrderState;
   public remainingTime: number;
+  private order: Order;
   constructor(private dataBase: DatabaseService) {}
 
   ngOnInit() {
@@ -34,8 +37,23 @@ export class OrderStateComponent implements OnInit {
         DataStoreService.Client.CurrentClient.orderId
       )
       .subscribe((order) => {
+        console.log(order);
+        this.order = order.order;
         this.orderState = order.order.state;
         this.remainingTime = order.order.estimated_time;
       });
+  }
+
+  async confirmReception() {
+    this.order.state = OrderState.ENTREGADO;
+    DataStoreService.Client.CurrentClient.state = ClientState.COMIENDO;
+    await this.dataBase.saveDocument<{ order: Order }>(DataBaseCollections.orders, this.order.orderId, {
+      order: this.order,
+    });
+    await this.dataBase.saveDocument<DBUserDocument>(
+      DataBaseCollections.users,
+      DataStoreService.Client.CurrentClient.UID,
+      { user: DataStoreService.Client.CurrentClient }
+    );
   }
 }

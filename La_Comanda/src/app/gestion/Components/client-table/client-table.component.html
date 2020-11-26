@@ -49,6 +49,19 @@
           </div>
         </div>
       </div>
+      <div *ngSwitchCase="'comiendo'">
+        <div [ngSwitch]="this.specialComponent">
+          <div *ngSwitchCase="'order_state'">
+            <gestion-order-state></gestion-order-state>
+          </div>
+          <div *ngSwitchCase="'client_review'">
+            <gestion-client-review></gestion-client-review>
+          </div>
+          <div *ngSwitchCase="'pay'">
+            <gestion-pay-order></gestion-pay-order>
+          </div>
+        </div>
+      </div>
     </div>
   </span>
 </div>

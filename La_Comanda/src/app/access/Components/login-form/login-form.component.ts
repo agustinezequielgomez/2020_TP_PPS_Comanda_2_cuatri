@@ -148,6 +148,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
           await this.storage.setStorage(StorageKeys.EMPLOYEE, userData as Employee);
         }
       }
+      DataStoreService.Various.PlayLoginSound();
       this.nav.navigate(['home']);
     } catch (ex) {
       this.logingIn.emit(false);

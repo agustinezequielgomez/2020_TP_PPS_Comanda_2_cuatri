@@ -1,0 +1,34 @@
+<core-page-container [title]="'Confirmar reservación'">
+    <div class="page-content">
+        <ng-container *ngIf="this.reservations; else skeleton">
+            <ng-container *ngIf="this.reservations.length > 0; else noResults">
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let reservation of this.reservations">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Reservación</mat-panel-title>
+                            <mat-panel-description>Mesa N°{{ reservation.tableNumber }}</mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <p><strong>Mesa: </strong>Mesa N°{{ reservation.tableNumber }}</p>
+                        <p><strong> Cliente: </strong>{{ reservation.clientName }}</p>
+                        <p><strong> Fecha: </strong>{{ reservation.date }}</p>
+                        <ion-button [ngStyle]="{ width: '48%', float: 'left' }" (click)="cancelReservation(reservation)" expand="block" color="danger">
+                            Cancelar
+                        </ion-button>
+                        <ion-button [ngStyle]="{ width: '48%', float: 'right' }" (click)="confirmReservation(reservation)" expand="block" color="secondary">
+                            Confirmar
+                        </ion-button>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </div>
+</core-page-container>
+
+<ng-template #skeleton>
+    <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>
+
+<ng-template #noResults>
+    <img [ngStyle]="{ 'margin-top': '20%' }" src="assets/undraw_No_data_re_kwbl.png" alt="" />
+    <h3 class="ion-text-center" [ngStyle]="{ color: 'black' }">No hay pagos pendientes de confirmación</h3>
+</ng-template>

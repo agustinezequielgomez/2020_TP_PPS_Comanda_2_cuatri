@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Client, ClientState } from '../Models/Classes/client';
 import { Employee } from '../Models/Classes/employee';
-import { HomeScreenCards } from '../Models/Classes/home-screen-card';
+import { HomeScreenCards, HomeScreenCard } from '../Models/Classes/home-screen-card';
 import { Photo, Photos } from '../Models/Classes/photo';
-import { SideMenuItems } from '../Models/Classes/side-menu-item';
+import { SideMenuItem, SideMenuItems } from '../Models/Classes/side-menu-item';
 import { ScannedUser, User } from '../Models/Classes/user';
 import { UserRoles } from '../Models/Enums/user-roles.enum';
-import { Employee } from '../Models/Classes/employee';
-import { SideMenuItems } from '../Models/Classes/side-menu-item';
 
 @Injectable({
   providedIn: 'root',
@@ -124,6 +122,9 @@ export class DataStoreService {
     private CapturedPhotosSubject: BehaviorSubject<Photos> = new BehaviorSubject([]);
     public CapturedPhotosObservable: Observable<Photos> = this.CapturedPhotosSubject.asObservable();
 
+    private PlaySoundSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
+    public PlaySoundObservable: Observable<boolean> = this.PlaySoundSubject.asObservable();
+
     public set CapturedPhotos(photos: Photos) {
       console.log('photo added');
       this.CapturedPhotosSubject.next(photos);
@@ -137,6 +138,19 @@ export class DataStoreService {
     public get CapturedPhotos(): Photos {
       return this.CapturedPhotosSubject.value;
     }
+
+    public TogglePlaySound() {
+      this.PlaySoundSubject.next(!this.PlaySoundSubject.value);
+    }
+
+    public async PlayLoginSound() {
+      if (this.PlaySoundSubject.value) {
+        const loginSound = new Audio('assets/login.mp3');
+        loginSound.playbackRate = 5;
+        loginSound.load();
+        loginSound.play();
+      }
+    }
   })();
 
   static Cards = new (class {
@@ -147,6 +161,12 @@ export class DataStoreService {
         imgPath: 'assets/home-screen-cards/accept_user.png',
         redirectTo: 'userAdmin',
       },
+      {
+        title: 'Confirmar reservación',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/reservation.png',
+        redirectTo: 'confirmReservation',
+      },
     ];
 
     private DueñoCards: HomeScreenCards = [
@@ -155,6 +175,12 @@ export class DataStoreService {
         color: 'primary',
         imgPath: 'assets/home-screen-cards/accept_user.png',
         redirectTo: 'userAdmin',
+      },
+      {
+        title: 'Confirmar reservación',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/reservation.png',
+        redirectTo: 'confirmReservation',
       },
     ];
 
@@ -171,6 +197,18 @@ export class DataStoreService {
         imgPath: 'assets/home-screen-cards/consulta.png',
         redirectTo: 'waiterQuestion',
       },
+      {
+        title: 'Entregar pedido',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/table.png',
+        redirectTo: 'deliverOrder',
+      },
+      {
+        title: 'Confirmar pago',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/pay.png',
+        redirectTo: 'confirmPayment',
+      },
     ];
 
     private ClientCardsNulo: HomeScreenCards = [
@@ -181,6 +219,13 @@ export class DataStoreService {
         redirectTo: 'waitingListEnter',
       },
     ];
+
+    private ReservationCard: HomeScreenCard = {
+      title: 'Reservar mesa',
+      color: 'primary',
+      imgPath: 'assets/home-screen-cards/reservation.png',
+      redirectTo: 'reserve',
+    };
 
     private ClientCardsListaDeEspera: HomeScreenCards = [
       {
@@ -239,6 +284,27 @@ export class DataStoreService {
       },
     ];
 
+    private ClientCardsComiendo: HomeScreenCards = [
+      {
+        title: 'Consultá el estado del pedido',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/time.png',
+        redirectTo: 'clientTable?orderState=true',
+      },
+      {
+        title: 'Encuesta de satisfacción',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/review.png',
+        redirectTo: 'clientTable?review=true',
+      },
+      {
+        title: 'Pedir cuenta',
+        color: 'primary',
+        imgPath: 'assets/home-screen-cards/pay.png',
+        redirectTo: 'clientTable?pay=true',
+      },
+    ];
+
     private MetreCards: HomeScreenCards = [
       {
         title: 'Asignar mesa a cliente',
@@ -274,6 +340,9 @@ export class DataStoreService {
         case UserRoles.CLIENTE:
           switch (DataStoreService.Client.CurrentClient.state) {
             case ClientState.NULO:
+              if (DataStoreService.Client.CurrentClient.email !== null) {
+                return [...this.ClientCardsNulo, this.ReservationCard];
+              }
               return this.ClientCardsNulo;
 
             case ClientState.EN_LISTA_DE_ESPERA:
@@ -285,6 +354,9 @@ export class DataStoreService {
 
             case ClientState.ESPERANDO_PEDIDO:
               return this.ClientCardsEsperandoPedido;
+
+            case ClientState.COMIENDO:
+              return this.ClientCardsComiendo;
           }
           break;
 
@@ -330,6 +402,12 @@ export class DataStoreService {
         redirectTo: 'userAdmin',
         icon: 'clipboard',
       },
+      {
+        id: 2,
+        label: 'Confirmar reservación',
+        redirectTo: 'confirmReservation',
+        icon: 'calendar',
+      },
     ];
 
     private ClientSideMenuNulo: SideMenuItems = [
@@ -346,6 +424,13 @@ export class DataStoreService {
         icon: 'list',
       },
     ];
+
+    private ClientReservationSideMenuItem: SideMenuItem = {
+      id: 2,
+      label: 'Reservar mesa',
+      redirectTo: 'reserve',
+      icon: 'calendar',
+    };
 
     private ClientSideMenuListaDeEspera: SideMenuItems = [
       {
@@ -422,6 +507,33 @@ export class DataStoreService {
       },
     ];
 
+    private ClientSideMenuComiendo: SideMenuItems = [
+      {
+        id: 0,
+        label: 'Inicio',
+        redirectTo: 'home',
+        icon: 'home',
+      },
+      {
+        id: 1,
+        label: 'Estado del pedido',
+        redirectTo: 'clientTable?orderState=true',
+        icon: 'timer',
+      },
+      {
+        id: 2,
+        label: 'Encuesta',
+        redirectTo: 'clientTable?review=true',
+        icon: 'star-half',
+      },
+      {
+        id: 3,
+        label: 'Pedir cuenta',
+        redirectTo: 'clientTable?pay=true',
+        icon: 'card',
+      },
+    ];
+
     private BartenderSideMenu: SideMenuItems = [
       {
         id: 0,
@@ -449,6 +561,18 @@ export class DataStoreService {
         label: 'Contestar consultas',
         redirectTo: 'waiterQuestion',
         icon: 'chatbubbles',
+      },
+      {
+        id: 2,
+        label: 'Entregar pedido',
+        redirectTo: 'deliverOrder',
+        icon: 'restaurant',
+      },
+      {
+        id: 3,
+        label: 'Confirmar pago',
+        redirectTo: 'confirmPayment',
+        icon: 'card',
       },
     ];
 
@@ -495,6 +619,12 @@ export class DataStoreService {
         redirectTo: 'userAdmin',
         icon: 'clipboard',
       },
+      {
+        id: 2,
+        label: 'Confirmar reservación',
+        redirectTo: 'confirmReservation',
+        icon: 'calendar',
+      },
     ];
 
     public GetSideMenuItems(userRole: UserRoles): SideMenuItems {
@@ -505,6 +635,9 @@ export class DataStoreService {
         case UserRoles.CLIENTE:
           switch (DataStoreService.Client.CurrentClient.state) {
             case ClientState.NULO:
+              if (DataStoreService.Client.CurrentClient.email !== null) {
+                return [...this.ClientSideMenuNulo, this.ClientReservationSideMenuItem];
+              }
               return this.ClientSideMenuNulo;
 
             case ClientState.EN_LISTA_DE_ESPERA:
@@ -516,6 +649,9 @@ export class DataStoreService {
 
             case ClientState.ESPERANDO_PEDIDO:
               return this.ClientSideMenuEsperandoPedido;
+
+            case ClientState.COMIENDO:
+              return this.ClientSideMenuComiendo;
           }
           break;
 

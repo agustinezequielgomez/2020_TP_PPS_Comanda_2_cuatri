@@ -20,6 +20,7 @@ import { Client } from '../../Models/Classes/client';
 export class SideMenuComponent implements OnInit {
   public selectedMenuItem: SideMenuItem;
   public sideMenuItems: SideMenuItems;
+  public volumeIcon: 'volume-high' | 'volume-mute' = 'volume-high';
   private routerSubscription: Subscription;
   @ViewChild('menu') menu: IonMenu;
   constructor(
@@ -52,9 +53,15 @@ export class SideMenuComponent implements OnInit {
         }
       }
     });
+
+    DataStoreService.Various.PlaySoundObservable.subscribe(
+      (play) => (this.volumeIcon = play ? 'volume-high' : 'volume-mute')
+    );
   }
 
   ngOnInit() {}
+
+  volumeToggle = () => DataStoreService.Various.TogglePlaySound();
 
   selectItem(item: SideMenuItem) {
     this.menu.close(true);

@@ -1,4 +1,4 @@
-app-splash-screen {
+access-splash-screen {
     height: 100%;
     z-index: 100;
 }
@@ -7,7 +7,7 @@ app-splash-screen {
     margin-top: 11vh;
 }
 
-@media(min-height: 700px) {
+@media (min-height: 700px) {
     .router {
         margin-top: 7vh;
     }

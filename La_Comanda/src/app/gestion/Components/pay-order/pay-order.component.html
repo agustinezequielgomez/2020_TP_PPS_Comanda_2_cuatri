@@ -1,0 +1,48 @@
+<div id="grid-container" *ngIf="this.order !== null; else skeleton">
+  <div class="ion-text-left" [ngStyle]="{ 'grid-area': 'food', 'margin-left': '10px' }">
+    <ion-text color="primary" [ngStyle]="{ 'font-weight': '800' }">Pedido</ion-text>
+    <p *ngFor="let food of this.order.items">{{ food.nombre }}</p>
+  </div>
+  <div [ngStyle]="{ 'grid-area': 'price' }">
+    <ion-text color="secondary" class="ion-text-center" [ngStyle]="{ 'font-weight': '800' }">Precio</ion-text>
+    <p *ngFor="let food of this.order.items">{{ food.precio | currency }}</p>
+  </div>
+</div>
+<ion-button
+  *ngIf="this.tip == null"
+  class="ion-text-center"
+  [ngStyle]="{ margin: '10% auto', width: '85%' }"
+  (click)="addTip()"
+  expand="block"
+  color="secondary"
+>
+  Agregar propina
+</ion-button>
+<ion-footer [ngStyle]="{ position: 'fixed', bottom: '0', 'padding-top': '5px' }">
+  <ion-toolbar>
+    <ng-container *ngIf="this.tip !== null">
+      <p class="ion-no-margin ion-text-left footer-text">
+        Subtotal
+        <span>{{ this.order.totalPrice | currency }}</span>
+      </p>
+      <p class="footer-border ion-text-left footer-text">
+        Propina {{ this.tip }}%
+        <span>{{ this.totalPrice - this.order.totalPrice | currency }}</span>
+      </p>
+    </ng-container>
+    <ion-title>Total: {{ this.totalPrice | currency }}</ion-title>
+    <ion-button
+      (click)="this.payOrder()"
+      class="ion-text-center"
+      [ngStyle]="{ width: '75%', margin: '10px auto' }"
+      expand="block"
+      color="primary"
+    >
+      Pagar cuenta
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>

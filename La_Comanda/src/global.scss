@@ -85,7 +85,7 @@
 }
 
 .form-field-invalid {
-    --highlight-color-focused: red;
+  --highlight-color-focused: red;
 }
 
 .scroll-content {
@@ -102,13 +102,11 @@
 
 .assing-table-modal-confirm {
   color: var(--ion-color-secondary) !important;
-  // color: white !important;
   margin-left: auto !important;
 }
 
 .assing-table-modal-close {
   color: var(--ion-color-danger) !important;
-  // color: white !important;
 }
 
 .food-modal {
@@ -126,6 +124,24 @@
 }
 
 .mat-expansion-panel-header,
+.mat-stepper-vertical,
 .mat-expansion-panel-content {
   font-family: 'Montserrat', sans-serif !important;
+}
+
+.mat-step-icon {
+  background-color: var(--ion-color-secondary) !important;
+}
+
+.mat-datetimepicker-calendar-body-active
+  > .mat-datetimepicker-calendar-body-cell-content:not(.mat-datetimepicker-calendar-body-selected),
+:not(.mat-datetimepicker-calendar-body-disabled):hover
+  > .mat-datetimepicker-calendar-body-cell-content:not(.mat-datetimepicker-calendar-body-selected) {
+  background-color: var(--ion-color-secondary) !important;
+}
+
+.mat-datetimepicker-clock-cell.mat-datetimepicker-clock-cell-selected,
+.mat-datetimepicker-clock-center,
+.mat-datetimepicker-clock-hand {
+  background-color: var(--ion-color-secondary) !important;
 }

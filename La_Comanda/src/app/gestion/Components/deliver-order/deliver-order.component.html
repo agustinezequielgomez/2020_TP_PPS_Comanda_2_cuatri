@@ -1,0 +1,31 @@
+<core-page-container title="Entregar pedidos">
+  <div class="page-content">
+    <ng-container *ngIf="this.ordersReady !== null; else skeleton">
+      <ng-container *ngIf="this.ordersReady.size > 0; else noResults">
+        <core-list-item-photo
+          *ngFor="let order of this.ordersReadyIterable"
+          [title]="'Pedido Mesa N°'.concat(order.tableId)"
+          [content]="'Precio total: $'.concat(order.totalPrice)"
+          [photoUrl]="this.ordersReady.get(order).foto"
+          [listValue]="order"
+          [actionItem]="actionItem"
+        ></core-list-item-photo>
+      </ng-container>
+    </ng-container>
+  </div>
+</core-page-container>
+
+<ng-template #actionItem let-order="item">
+  <ion-button (click)="this.deliverOrder(order)" expand="block" fill="outline" color="secondary">
+    Entregar pedido
+  </ion-button>
+</ng-template>
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>
+
+<ng-template #noResults>
+  <img [ngStyle]="{ 'margin-top': '10%' }" src="assets/undraw_No_data_re_kwbl.png" alt="" />
+  <h3 class="ion-text-center" [ngStyle]="{ color: 'black' }">No hay pedidos pendientes de ser entregados</h3>
+  <core-go-to-home-menu-button></core-go-to-home-menu-button>
+</ng-template>

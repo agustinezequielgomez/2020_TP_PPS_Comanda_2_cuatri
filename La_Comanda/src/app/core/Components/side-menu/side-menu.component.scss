@@ -1,19 +1,24 @@
 #header {
-    --background: white;
-    --color: black;
-    --padding-top: 10px;
+  --background: white;
+  --color: black;
+  --padding-top: 10px;
 }
 
 #item {
-    --ripple-color: var(--ion-color-primary)
+  --ripple-color: var(--ion-color-primary);
 }
 
 #item::part(native) {
-    border-top-right-radius: 8%;
-    border-bottom-right-radius: 8%;
+  border-top-right-radius: 8%;
+  border-bottom-right-radius: 8%;
 }
 
 #toolbar {
-    --border-width: 9px;
-    --border-color: white;
+  --border-width: 9px;
+  --border-color: white;
+}
+
+#volume-icon {
+  margin-right: 13px;
+  font-size: 30px;
 }

@@ -1,0 +1,63 @@
+<core-page-container [title]="'Confirmar pago'">
+  <div class="page-content">
+    <ng-container *ngIf="this.pendingOrders; else skeleton">
+      <mat-accordion *ngIf="this.pendingOrders.length > 0; else noResults" [togglePosition]="'before'">
+        <mat-expansion-panel *ngFor="let order of this.pendingOrders">
+          <mat-expansion-panel-header>
+            <mat-icon [color]="'accent'">credit_card</mat-icon>
+            <mat-panel-title>Mesa N°{{ order.tableId }}</mat-panel-title>
+            <mat-panel-description>Precio: {{ order.totalPaid | currency }}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <p *ngFor="let item of order.items">
+            <span [ngStyle]="{ color: 'var(--ion-color-primary)' }" class="ion-text-start">{{ item.nombre }}</span>
+            <span
+              [ngStyle]="{
+                position: 'absolute',
+                right: '5%',
+                'font-weight': '800',
+                color: 'var(--ion-color-secondary)'
+              }"
+              class="ion-text-end"
+              >{{ item.precio | currency }}</span
+            >
+          </p>
+          <ng-container *ngIf="order.totalPaid !== order.totalPrice">
+            <p>
+              <span [ngStyle]="{ color: 'var(--ion-color-primary)' }" class="ion-text-start"
+                >Propina del {{ (order.totalPaid / order.totalPrice - 1) * 100 | number: '1.0-0' }}%</span
+              >
+              <span
+                [ngStyle]="{
+                  position: 'absolute',
+                  right: '5%',
+                  'font-weight': '800',
+                  color: 'var(--ion-color-secondary)'
+                }"
+                class="ion-text-end"
+                >{{ order.totalPaid - order.totalPrice | currency }}</span
+              >
+            </p>
+          </ng-container>
+          <ion-button
+            class="ion-text-center"
+            color="success"
+            [ngStyle]="{ width: '100%' }"
+            (click)="this.confirmPayment(order)"
+          >
+            <ion-icon slot="end" name="checkmark"></ion-icon>
+            Confirmar pago
+          </ion-button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+  </div>
+</core-page-container>
+
+<ng-template #noResults>
+  <img [ngStyle]="{ 'margin-top': '20%' }" src="assets/undraw_No_data_re_kwbl.png" alt="" />
+  <h3 class="ion-text-center" [ngStyle]="{ color: 'black' }">No hay pagos pendientes de confirmación</h3>
+</ng-template>
+
+<ng-template #skeleton>
+  <core-list-item-skeleton [singleItem]="false"></core-list-item-skeleton>
+</ng-template>

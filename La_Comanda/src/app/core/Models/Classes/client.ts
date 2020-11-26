@@ -1,3 +1,4 @@
+import { Reservation } from './reservation';
 import { User } from './user';
 
 export interface Client extends User {
@@ -6,6 +7,7 @@ export interface Client extends User {
   tableId?: number;
   state: ClientState;
   orderId?: string;
+  reservation?: Reservation;
 }
 
 export enum ClientState {

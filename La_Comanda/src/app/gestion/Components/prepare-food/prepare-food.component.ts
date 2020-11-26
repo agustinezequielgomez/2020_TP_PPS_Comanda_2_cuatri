@@ -47,7 +47,6 @@ export class PrepareFoodComponent implements OnInit {
   }
 
   foodInProgress(food: Alimento, orderId: string) {
-    console.log(food, orderId);
     const order = this.orders.find((x) => x.orderId === orderId);
     const foodIndex = order.items.findIndex((x) => x.qr === food.qr && x.estado_preparacion === FoodState.TODO);
     order.items[foodIndex].estado_preparacion = FoodState.IN_PROGRESS;

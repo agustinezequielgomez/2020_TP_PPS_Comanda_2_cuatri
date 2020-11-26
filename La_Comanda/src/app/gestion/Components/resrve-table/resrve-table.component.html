@@ -1,0 +1,95 @@
+<core-page-container [title]="'Hacer reserva'">
+  <ng-container class="page-content">
+    <mat-vertical-stepper *ngIf="this.tablesIterator !== null" [linear]="true" #stepper>
+      <mat-step color="accent" [state]="'table'" [label]="'Elegí una mesa'" [completed]="this.selectedTable !== null">
+        <ng-template matStepperIcon="edit">
+          <mat-icon>restaurant</mat-icon>
+        </ng-template>
+        <ion-list>
+          <ion-radio-group (ionChange)="this.selectedTable = $event.detail.value">
+            <ion-item [ngStyle]="{ 'font-size': '12px' }" *ngFor="let table of this.tablesIterator">
+              <ion-label>Mesa N°{{ table.numero }}</ion-label>
+              <ion-radio color="secondary" [value]="table"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-list>
+        <ion-button (click)="goToCalendarStep()" expand="block" fill="outline" [disabled]="this.selectedTable === null">
+          Siguiente
+        </ion-button>
+      </mat-step>
+      <mat-step
+        color="accent"
+        [state]="'calendar'"
+        [label]="'Elegí una fecha'"
+        [completed]="this.selectedDate !== null"
+      >
+        <ng-template matStepperIcon="edit">
+          <mat-icon>date_range</mat-icon>
+        </ng-template>
+        <mat-datetimepicker-calendar
+          type="datetime"
+          [minDate]="this.minDate"
+          openOnFocus="true"
+          timeInterval="5"
+          (selectedChange)="this.selectedDate = $event"
+        ></mat-datetimepicker-calendar>
+        <div>
+          <ion-button
+            [ngStyle]="{ width: '47%', float: 'left' }"
+            (click)="goToTableStep()"
+            expand="block"
+            fill="outline"
+            color="danger"
+          >
+            Anterior
+          </ion-button>
+          <ion-button
+            [ngStyle]="{ width: '47%', float: 'right' }"
+            (click)="goToCalendarStep()"
+            expand="block"
+            fill="outline"
+            [disabled]="this.selectedDate === null"
+          >
+            Siguiente
+          </ion-button>
+        </div>
+      </mat-step>
+      <mat-step color="accent" [state]="'confirm'" [label]="'Confirmación'">
+        <ng-template matStepperIcon="edit">
+          <mat-icon>check</mat-icon>
+        </ng-template>
+        <ng-container *ngIf="this.selectedTable && this.selectedDate">
+          <ion-card [ngStyle]="{ width: '110%', left: '-34px', color: 'black' }" class="ion-text-center">
+            <h4 [ngStyle]="{ 'font-weigth': 800, 'font-size': '24px' }">Confirmá tu reservación</h4>
+            <p [ngStyle]="{ 'font-size': '14px' }">Mesa elegida: Mesa N°{{ this.selectedTable.numero }}</p>
+            <p [ngStyle]="{ 'font-size': '14px' }">
+              Fecha elegida: {{ this.selectedDate | date: "EEEE',' dd 'de' LLLL 'de' yyyy 'a las' HH':'mm" }}
+            </p>
+
+            <ion-button
+              [ngStyle]="{ 'margin-top': '20px', 'margin-bottom': '15px' }"
+              (click)="confirmReservation()"
+              color="primary"
+            >
+              <ion-icon slot="end" name="checkmark"></ion-icon>
+              Confirmar
+            </ion-button>
+          </ion-card>
+        </ng-container>
+      </mat-step>
+
+      <ng-template matStepperIcon="done">
+        <mat-icon>done_all</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="table">
+        <mat-icon>restaurant</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="calendar">
+        <mat-icon>date_range</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="confirm">
+        <mat-icon>check</mat-icon>
+      </ng-template>
+    </mat-vertical-stepper>
+  </ng-container>
+</core-page-container>

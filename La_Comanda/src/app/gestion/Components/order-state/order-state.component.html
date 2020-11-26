@@ -18,8 +18,20 @@
     <img src="/assets/home-screen-cards/table.png" alt="" />
     <p>Tu pedido ya fue finalizado. El mozo te lo va a entregar en unos momentos</p>
   </div>
-  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'ENTREGADO'">
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'ENTREGADO_CONFIRMACION'">
     <img src="/assets/home-screen-cards/confirmar_pedido.png" alt="" />
+    <p>El mozo acaba de entregar tu pedido. Hace click en el botón para confirmar que lo recibiste</p>
+    <ion-button
+      (click)="this.confirmReception()"
+      expand="block"
+      color="secondary"
+      [ngStyle]="{ width: '75%', margin: '15px auto' }"
+    >
+      Confirmar
+    </ion-button>
+  </div>
+  <div [@switchAnimation]="'fadeIn'" *ngSwitchCase="'ENTREGADO'">
+    <img src="/assets/undraw_eating_together_tjhx.png" alt="" />
     <p>Pedido entregado. ¡Que lo disfrutes!</p>
   </div>
   <core-go-to-home-menu-button></core-go-to-home-menu-button>

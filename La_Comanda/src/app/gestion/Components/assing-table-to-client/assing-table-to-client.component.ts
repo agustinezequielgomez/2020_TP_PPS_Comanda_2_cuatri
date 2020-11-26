@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { AlertInput } from '@ionic/core';
 import { Client, ClientState } from '../../../core/Models/Classes/client';
-import { Mesa, Mesas } from '../../../core/Models/Classes/mesa';
+import { Mesa } from '../../../core/Models/Classes/mesa';
+import { DBUserDocument } from '../../../core/Models/Classes/user';
 import { DataBaseCollections } from '../../../core/Models/Enums/data-base-collections.enum';
 import { DatabaseService } from '../../../core/Services/database.service';
-import { AlertInput } from '@ionic/core';
-import { DBUserDocument } from '../../../core/Models/Classes/user';
-import { DocumentChangeType } from '@angular/fire/firestore';
 import { NotificationService } from '../../../core/Services/notification.service';
+import moment from 'moment-timezone';
+
 @Component({
   selector: 'gestion-assing-table-to-client',
   templateUrl: './assing-table-to-client.component.html',
@@ -44,6 +45,20 @@ export class AssingTableToClientComponent implements OnInit {
     let selectedTable: { ID: string; mesa: Mesa } = null;
     const radioButtons = this.availableTables
       .map<Mesa>((x) => x.mesa)
+      .filter((table) => {
+        if (!table.reservations) {
+          return true;
+        }
+
+        return !table.reservations.some((x) =>
+          moment()
+            .tz('America/Argentina/Buenos_Aires')
+            .isBetween(
+              moment(x.date, 'DD/MM/YYYY HH:mm:ss').tz('America/Argentina/Buenos_Aires').subtract(5, 'minutes'),
+              moment(x.date, 'DD/MM/YYYY HH:mm:ss').tz('America/Argentina/Buenos_Aires').add(5, 'minutes')
+            )
+        );
+      })
       .map<AlertInput>((table) => ({
         type: 'radio',
         name: `Mesa_${table.numero}`,

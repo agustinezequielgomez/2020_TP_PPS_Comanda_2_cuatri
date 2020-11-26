@@ -15,6 +15,7 @@ export class SplashScreenComponent implements OnInit, AfterViewInit {
   }
 
   async ngAfterViewInit() {
+    console.log('splash');
     AnimationService.createAnimation(
       this.container.nativeElement,
       700,
@@ -26,6 +27,7 @@ export class SplashScreenComponent implements OnInit, AfterViewInit {
       .delay(4000)
       .play();
     setTimeout(() => {
+      console.log('destroy');
       this.destroyComponent.emit();
     }, 4700);
   }

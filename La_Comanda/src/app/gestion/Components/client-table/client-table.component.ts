@@ -9,6 +9,7 @@ import { Mesas, Mesa } from '../../../core/Models/Classes/mesa';
 import { Plugins } from '@capacitor/core';
 import { DBUserDocument } from '../../../core/Models/Classes/user';
 import { ActivatedRoute } from '@angular/router';
+import moment from 'moment-timezone';
 const { Haptics } = Plugins;
 @Component({
   selector: 'gestion-client-table',
@@ -21,6 +22,7 @@ export class ClientTableComponent implements OnInit {
   public invalidQr = false;
   public errorMessage: string;
   public specialComponent: string;
+  public hasReservation: boolean;
   private tables: Mesas;
   constructor(
     private camera: CameraService,
@@ -50,20 +52,74 @@ export class ClientTableComponent implements OnInit {
       this.title = 'Código QR inválido';
       return null;
     } else if (
-      this.tables.find((table) => table.cliente && table.cliente === client.UID && table.qr === qrCode) === undefined
+      this.tables.find((table) => table.cliente && table.cliente === client.UID && table.qr === qrCode) === undefined &&
+      client.reservation === null
     ) {
       this.invalidQr = true;
       Haptics.vibrate();
       this.errorMessage = `Lo sentimos, pero la mesa asignada por el metre es la mesa N°${client.tableId}`;
       this.title = 'Mesa inválida';
       return null;
+    } else if (
+      client.reservation !== null &&
+      this.tables.find((table) => table.qr === qrCode).numero !== client.reservation.tableNumber
+    ) {
+      this.invalidQr = true;
+      Haptics.vibrate();
+      this.errorMessage = `Lo sentimos, pero la mesa que reservaste es la mesa N°${client.reservation.tableNumber}`;
+      this.title = 'Mesa inválida';
+      return null;
     }
     switch (client.state) {
       case ClientState.MESA_ASIGNADA:
         this.invalidQr = false;
-        client.state = ClientState.EN_MESA;
-        this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
-        this.title = 'Mesa vinculada con éxito';
+        this.hasReservation = client.reservation !== null;
+        if (this.hasReservation) {
+          const reservationTable = this.tables.find((x) => x.numero === client.reservation.tableNumber);
+          reservationTable.reservations.sort(
+            (r1, r2) => new Date(r1.date as string).getTime() - new Date(r2.date as string).getTime()
+          );
+          if (reservationTable.reservations[0].ID !== client.reservation.ID) {
+            this.title = 'Mesa reservada';
+            this.invalidQr = true;
+            Haptics.vibrate();
+            this.errorMessage = `Lo sentimos, pero la mesa que reservaste esta siendo utilizada por otro comensal en este momento. Por favor escanea el código QR cuando sea la hora de tu reserva.`;
+            return null;
+          }
+          const date = moment(client.reservation.date, 'DD/MM/YYYY HH:mm:ss').tz('America/Argentina/Buenos_Aires');
+          const minusFive = moment(client.reservation.date, 'DD/MM/YYYY HH:mm:ss')
+            .tz('America/Argentina/Buenos_Aires')
+            .subtract(5, 'minutes');
+          const plusFive = moment(client.reservation.date, 'DD/MM/YYYY HH:mm:ss')
+            .tz('America/Argentina/Buenos_Aires')
+            .add(5, 'minutes');
+          if (!moment().tz('America/Argentina/Buenos_Aires').isBetween(minusFive, plusFive, 'minutes')) {
+            this.title = 'Mesa reservada';
+            this.invalidQr = true;
+            Haptics.vibrate();
+            this.errorMessage = `Lo sentimos, pero aun faltan ${date.diff(
+              moment(),
+              'minutes'
+            )} minutos para tu reserva. Por favor escanea el código QR cuando sea la hora de tu reserva.`;
+            return null;
+          } else {
+            this.invalidQr = false;
+            reservationTable.cliente = client.UID;
+            reservationTable.reservations.splice(
+              reservationTable.reservations.findIndex((x) => x.ID === client.reservation.ID),
+              1
+            );
+            this.dataBase.saveDocument<Mesa>(DataBaseCollections.mesas, client.reservation.tableId, reservationTable);
+            client.state = ClientState.EN_MESA;
+            client.reservation = null;
+            this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
+            this.title = 'Mesa vinculada con éxito';
+          }
+        } else {
+          client.state = ClientState.EN_MESA;
+          this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
+          this.title = 'Mesa vinculada con éxito';
+        }
         break;
 
       case ClientState.EN_MESA:
@@ -90,6 +146,25 @@ export class ClientTableComponent implements OnInit {
           this.specialComponent = 'question';
           this.title = 'Consultá al mozo';
         }
+        break;
+
+      case ClientState.COMIENDO:
+        this.invalidQr = false;
+        if (this.route.snapshot.queryParamMap.has('orderState')) {
+          this.specialComponent = 'order_state';
+          this.title = 'Estado del pedido';
+        }
+
+        if (this.route.snapshot.queryParamMap.has('review')) {
+          this.specialComponent = 'client_review';
+          this.title = 'Encuesta de satisfacción';
+        }
+
+        if (this.route.snapshot.queryParamMap.has('pay')) {
+          this.specialComponent = 'pay';
+          this.title = 'Pedir cuenta';
+        }
+        break;
     }
   }
 }
