@@ -2,15 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
 import { Alimento, TipoAlimento } from 'src/app/core/Models/Classes/alimento';
 import { DataBaseCollections } from 'src/app/core/Models/Enums/data-base-collections.enum';
 import { FirebaseStorageFolders } from 'src/app/core/Models/Enums/firebase-storage-folders.enum';
 import { CameraService } from 'src/app/core/Services/camera.service';
 import { DatabaseService } from 'src/app/core/Services/database.service';
-import { ComponentCreatorService } from '../../../core/Services/component-creator.service';
-import { DataStoreService } from '../../../core/Services/data-store.service';
-import { NotificationService } from '../../../core/Services/notification.service';
+import { ComponentCreatorService } from 'src/app/core/Services/component-creator.service';
+import { DataStoreService } from 'src/app/core/Services/data-store.service';
+import { NotificationService } from 'src/app/core/Services/notification.service';
 
 @Component({
   selector: 'alta-comida',
