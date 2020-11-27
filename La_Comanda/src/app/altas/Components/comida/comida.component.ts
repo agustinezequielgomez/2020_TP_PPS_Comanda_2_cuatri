@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
-import { Base64ToGallery } from '@ionic-native/base64-to-gallery';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { Alimento, TipoAlimento } from 'src/app/core/Models/Classes/alimento';
 import { DataBaseCollections } from 'src/app/core/Models/Enums/data-base-collections.enum';
 import { FirebaseStorageFolders } from 'src/app/core/Models/Enums/firebase-storage-folders.enum';

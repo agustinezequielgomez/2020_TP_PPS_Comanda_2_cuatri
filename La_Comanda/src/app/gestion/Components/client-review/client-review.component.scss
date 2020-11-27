@@ -34,7 +34,11 @@ img {
     margin-top: 23%;
 }
 
-ion-item {
-    background-color: white;
-    --background: white;
+ion-item,
+ion-list,
+ion-radio-group,
+ion-select-option,
+.selectClass .select-interface-option {
+    background-color: white !important;
+    --background: white !important;
 }

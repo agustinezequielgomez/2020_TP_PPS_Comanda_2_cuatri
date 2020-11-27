@@ -14,7 +14,7 @@ import { NotificationService } from '../../../core/Services/notification.service
 })
 export class DeliverOrderComponent implements OnInit {
   public ordersReady: Map<Order, Mesa> = null;
-  public ordersReadyIterable: IterableIterator<Order>;
+  public ordersReadyIterable: Order[] = [];
   constructor(private dataBase: DatabaseService, private notification: NotificationService) {}
 
   ngOnInit() {
@@ -24,7 +24,6 @@ export class DeliverOrderComponent implements OnInit {
       )
       .pipe(map((objs) => objs.map((order) => order.order)))
       .subscribe(async (ordersReady) => {
-        console.log(ordersReady);
         this.ordersReady = new Map<Order, Mesa>();
         if (ordersReady.length > 0) {
           for await (const order of ordersReady) {
@@ -34,8 +33,7 @@ export class DeliverOrderComponent implements OnInit {
               )
             )[0].data;
             this.ordersReady.set(order, table);
-            console.log(table, this.ordersReady);
-            this.ordersReadyIterable = this.ordersReady.keys();
+            this.ordersReadyIterable.push(order);
           }
         }
       });

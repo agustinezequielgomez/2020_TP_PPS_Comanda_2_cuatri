@@ -45,7 +45,7 @@ export class ClientTableComponent implements OnInit {
   async scanQrCode() {
     const client = DataStoreService.Client.CurrentClient;
     this.clientState = client.state;
-    const qrCode = await this.camera.scanQrCode();
+    const qrCode = 'zx5yTJm3ztFCB9yZR8djnDjdTyayX3'; //await this.camera.scanQrCode();
     if (this.tables.filter((x) => x.qr === qrCode).length === 0) {
       this.invalidQr = true;
       Haptics.vibrate();

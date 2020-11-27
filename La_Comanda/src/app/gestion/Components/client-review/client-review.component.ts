@@ -23,6 +23,7 @@ export class ClientReviewComponent implements OnInit {
   public reviewForm: FormGroup;
   public orderedFood: string[] = [];
   public photos: [Photo, Photo, Photo] = [null, null, null];
+  public popoverOptions = { cssClass: 'selectClass' };
   constructor(
     private dataBase: DatabaseService,
     public camera: CameraService,
