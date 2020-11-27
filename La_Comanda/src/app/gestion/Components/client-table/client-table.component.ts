@@ -44,6 +44,7 @@ export class ClientTableComponent implements OnInit {
 
   async scanQrCode() {
     const client = DataStoreService.Client.CurrentClient;
+    this.clientState = client.state;
     const qrCode = await this.camera.scanQrCode();
     if (this.tables.filter((x) => x.qr === qrCode).length === 0) {
       this.invalidQr = true;
@@ -53,7 +54,7 @@ export class ClientTableComponent implements OnInit {
       return null;
     } else if (
       this.tables.find((table) => table.cliente && table.cliente === client.UID && table.qr === qrCode) === undefined &&
-      client.reservation === null
+      (client.reservation === null || client.reservation === undefined)
     ) {
       this.invalidQr = true;
       Haptics.vibrate();
@@ -62,6 +63,7 @@ export class ClientTableComponent implements OnInit {
       return null;
     } else if (
       client.reservation !== null &&
+      client.reservation !== undefined &&
       this.tables.find((table) => table.qr === qrCode).numero !== client.reservation.tableNumber
     ) {
       this.invalidQr = true;
@@ -73,7 +75,7 @@ export class ClientTableComponent implements OnInit {
     switch (client.state) {
       case ClientState.MESA_ASIGNADA:
         this.invalidQr = false;
-        this.hasReservation = client.reservation !== null;
+        this.hasReservation = client.reservation !== null && client.reservation !== undefined;
         if (this.hasReservation) {
           const reservationTable = this.tables.find((x) => x.numero === client.reservation.tableNumber);
           reservationTable.reservations.sort(
@@ -109,15 +111,19 @@ export class ClientTableComponent implements OnInit {
               reservationTable.reservations.findIndex((x) => x.ID === client.reservation.ID),
               1
             );
-            this.dataBase.saveDocument<Mesa>(DataBaseCollections.mesas, client.reservation.tableId, reservationTable);
+            await this.dataBase.saveDocument<Mesa>(
+              DataBaseCollections.mesas,
+              client.reservation.tableId,
+              reservationTable
+            );
             client.state = ClientState.EN_MESA;
             client.reservation = null;
-            this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
+            await this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
             this.title = 'Mesa vinculada con éxito';
           }
         } else {
           client.state = ClientState.EN_MESA;
-          this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
+          await this.dataBase.saveDocument<DBUserDocument>(DataBaseCollections.users, client.UID, { user: client });
           this.title = 'Mesa vinculada con éxito';
         }
         break;

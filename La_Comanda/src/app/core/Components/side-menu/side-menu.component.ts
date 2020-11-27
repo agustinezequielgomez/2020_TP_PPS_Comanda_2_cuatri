@@ -30,8 +30,8 @@ export class SideMenuComponent implements OnInit {
     private dataBase: DatabaseService
   ) {
     const processItems = (user: User) => {
-      this.selectedMenuItem = DataStoreService.SideMenu.GetSideMenuItems(user.data.role)[0];
       this.sideMenuItems = DataStoreService.SideMenu.GetSideMenuItems(user.data.role);
+      this.selectedMenuItem = this.sideMenuItems[0];
       this.routerSubscription = this.router.events.subscribe((ev) => {
         if (ev instanceof NavigationEnd) {
           const currentItemIndex = DataStoreService.SideMenu.GetSideMenuItems(user.data.role).findIndex(
@@ -45,8 +45,11 @@ export class SideMenuComponent implements OnInit {
       if (user !== null && user.data) {
         if (user.data.role === UserRoles.CLIENTE) {
           this.dataBase.getDocumentDataStream<DBUserDocument>(DataBaseCollections.users, user.UID).subscribe((user) => {
-            DataStoreService.Client.CurrentClient = user.user as Client;
-            processItems(user.user);
+            if (user.user) {
+              console.log(user.user);
+              DataStoreService.Client.CurrentClient = user.user as Client;
+              processItems(user.user);
+            }
           });
         } else {
           processItems(user);
