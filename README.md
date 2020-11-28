@@ -1,3 +1,4 @@
+
 # La Comanda - The Developers
 
 ![Logo de la aplicacion](https://firebasestorage.googleapis.com/v0/b/comanda-pps.appspot.com/o/WhatsApp%20Image%202020-10-26%20at%2022.44.01.jpeg?alt=media&token=c71c16b2-7967-42b7-8fdc-0fa519c99955)
@@ -11,47 +12,19 @@ Nicolas Ferrero - Beta
 División de las tareas con multiples check-in del progreso realizado a través de Google Meet.
 
 ## Sprint 1 (24/10 - 31/10) 📋
-
-| Característica                                        |   Integrante    |    Estado     |
-| :---------------------------------------------------- | :-------------: | :-----------: |
-| Setup inicial del proyecto                            |  Agustín Gómez  | Completado ✅ |
-| Setup de push notifications                           |  Agustín Gómez  | Completado ✅ |
-| Inicio de sesión                                      |  Agustín Gómez  | Completado ✅ |
-| Registro de usuario                                   |  Agustín Gómez  | Completado ✅ |
-| Ingreso de usuarios anónimos                          |  Agustín Gómez  | Completado ✅ |
-| Creación de Cloud Function para envio de mail         | Nicolas Ferrero | Completado ✅ |
+| Característica | Integrante | Estado |
+|:--|:--:|:--:|
+| Setup inicial del proyecto | Agustín Gómez | Completado ✅ |
+| Setup de push notifications | Agustín Gómez | Completado ✅ |
+| Inicio de sesión | Agustín Gómez | Completado ✅ |
+| Registro de usuario | Agustín Gómez | Completado ✅ |
+| Ingreso de usuarios anónimos | Agustín Gómez | Completado ✅ |
+| Creación de Cloud Function para envio de mail | Nicolas Ferrero | Completado ✅ |
 | Creación de templates de email (aceptación y rechazo) | Nicolas Ferrero | Completado ✅ |
-| Diseño de logo y splash screen                        | Nicolas Ferrero | Completado ✅ |
-| Creación de Splash Screen animado                     | Nicolas Ferrero | Completado ✅ |
-| Creación de mesas                                     | Nicolas Ferrero | Completado ✅ |
-| Creación de comidas y bebidas                         | Nicolas Ferrero | Completado ✅ |
-
-## Sprint 2 (31/10 - 07/11) 📋
-
-| Característica                                                   |  Integrante   |     Estado     |
-| :--------------------------------------------------------------- | :-----------: | :------------: |
-| Creación de usuarios en la base de datos                         | Agustín Gómez | Completado ✅  |
-| Creación del side menu                                           | Agustín Gómez | Completado ✅  |
-| Creación Home Screen para todos los usuarios                     | Agustín Gómez | Completado ✅  |
-| Aprobación/Rechazo de usuarios por parte de dueño o supervisor\* | Agustín Gómez | Completado ✅  |
-| Ingreso a la lista de espera (cliente anónimo y registrado)\*    | Agustín Gómez | Completado ✅  |
-| Asignación de mesas por parte del metre                          | Agustín Gómez | Completado ✅  |
-| Listado de productos                                             | Agustín Gómez | En progreso 🚧 |
-
-## Sprint 3 (07/11 - 14/11) 📋
-
-| Característica                                                                 |  Integrante   |    Estado     |
-| :----------------------------------------------------------------------------- | :-----------: | :-----------: |
-| Listado de productos                                                           | Agustín Gómez | Completado ✅ |
-| Hacer pedido\*                                                                 | Agustín Gómez | Completado ✅ |
-| Consultas al mozo\*                                                            | Agustín Gómez | Completado ✅ |
-| Encuesta de satisfación\*                                                      | Agustín Gómez | Completado ✅ |
-| Confirmación de pedido por parte del mozo                                      | Agustín Gómez | Completado ✅ |
-| Consulta de estado del pedido                                                  | Agustín Gómez | Completado ✅ |
-| Recepción de las comidas/bebidas a realizar por los empleados correspondientes | Agustín Gómez | Completado ✅ |
-| Preparación del pedido por parte de los empleados\*                            | Agustín Gómez | Completado ✅ |
-
-**\*Integración de push notification y/o mail**
+| Diseño de logo y splash screen | Nicolas Ferrero | Completado ✅  |
+| Creación de Splash Screen animado | Nicolas Ferrero | Completado ✅ |
+| Creación de mesas | Nicolas Ferrero | Completado ✅ |
+| Creación de comidas y bebidas | Nicolas Ferrero | Completado ✅ |
 
 
 ## Sprint 2 (31/10 - 07/11) 📋
@@ -76,6 +49,27 @@ División de las tareas con multiples check-in del progreso realizado a través 
 | Consulta de estado del pedido| Agustín Gómez | Completado ✅ |
 | Recepción de las comidas/bebidas a realizar por los empleados correspondientes | Agustín Gómez | Completado ✅ |
 | Preparación del pedido por parte de los empleados* | Agustín Gómez | Completado ✅ |
+
+## Sprint 4 (14/11 - 21/11) 📋
+No se desarrollaron caracteristicas nuevas. Arreglo de bugs
+
+## Sprint 5 (21/11 - 28/11) 📋
+| Característica | Integrante | Estado |
+|:--|:--:|:--:|
+| Finalización de preparacion de pedido | Agustín Gómez | Completado ✅ |
+| Entrega de pedido* | Agustín Gómez | Completado ✅ |
+| Pedir cuenta| Agustín Gómez | Completado ✅ |
+| Agregado de propina | Agustín Gómez | Completado ✅ |
+| Confirmación del pago por parte del mozo | Agustín Gómez | Completado ✅ |
+| Liberación de mesa| Agustín Gómez | Completado ✅ |
+| Reserva agendada por parte del cliente | Agustín Gómez | Completado ✅ |
+| Confirmación de reserva* | Agustín Gómez | Completado ✅ |
+| Flujo de ocupar mesa reservada| Agustín Gómez | Completado ✅ |
+| Arreglo de errores | Agustín Gómez | Completado ✅ |
+| Alta de mesa | Nicolas Ferrero | Completado ✅ |
+| Alta de empleados | Nicolas Ferrero | Completado ✅ |
+| Alta de comida | Nicolas Ferrero | Completado ✅ |
+| Alta de bebida | Nicolas Ferrero | Completado ✅ |
 
 ***Integración de push notification y/o mail**
 
