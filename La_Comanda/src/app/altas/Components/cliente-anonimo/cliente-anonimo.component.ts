@@ -37,6 +37,7 @@ export class ClienteAnonimoComponent implements OnInit {
 
   onChange(name: string) {
     this.name = name;
+    console.log(DataStoreService.Various.CapturedPhotos.length);
     this.enabled = DataStoreService.Various.CapturedPhotos.length > 0 && name.length > 0;
   }
 
@@ -52,12 +53,12 @@ export class ClienteAnonimoComponent implements OnInit {
     );
     try {
       await loader.present();
-      const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
+      // const photoUrl = (await this.camera.uploadPicture(FirebaseStorageFolders.client))[0];
       const client: Client = {
         UID: Guid.raw(),
         email: null,
         password: null,
-        photoUrl,
+        photoUrl: 'https://www.generadormemes.com/media/templates/alf_habla_telefono.jpg',
         isAnonymous: true,
         enabled: true,
         data: {

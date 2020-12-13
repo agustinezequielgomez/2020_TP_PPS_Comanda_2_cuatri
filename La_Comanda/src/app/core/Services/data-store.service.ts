@@ -119,7 +119,14 @@ export class DataStoreService {
   })();
 
   static Various = new (class {
-    private CapturedPhotosSubject: BehaviorSubject<Photos> = new BehaviorSubject([]);
+    private CapturedPhotosSubject: BehaviorSubject<Photos> = new BehaviorSubject([
+      {
+        photoUrl: 'https://www.generadormemes.com/media/templates/alf_habla_telefono.jpg',
+        fileName: 'aaa',
+        takenBy: 'aaaa',
+        takenAt: new Date(),
+      },
+    ]);
     public CapturedPhotosObservable: Observable<Photos> = this.CapturedPhotosSubject.asObservable();
 
     private PlaySoundSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);

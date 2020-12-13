@@ -19,7 +19,7 @@
         <core-list-item-photo
           *ngFor="let client of this.waitingClients"
           [title]="client.data.name + ' ' + client.data.lastName ? client.data.lastName : ''"
-          [content]="'DNI: ' + client.data.DNI"
+          [content]="client.isAnonymous ? 'Nombre: ' + client.data.name : 'DNI: ' + client.data.DNI"
           [photoUrl]="client.photoUrl"
           [listValue]="client"
           [actionItem]="actionItem"

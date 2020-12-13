@@ -29,7 +29,7 @@ export class GoIntoWaitingListComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const qrCode = await this.camera.scanQrCode();
+      const qrCode = this.waitingListQR; // await this.camera.scanQrCode();
       if (qrCode === this.waitingListQR) {
         this.dataBase.saveDocument<Client>(
           DataBaseCollections.waiting_list,
@@ -42,7 +42,7 @@ export class GoIntoWaitingListComponent implements OnInit {
           DataStoreService.Client.CurrentClient.UID,
           { user: DataStoreService.Client.CurrentClient }
         );
-        this.notification.sendPushNotificationToRoles(
+        await this.notification.sendPushNotificationToRoles(
           [UserRoles.METRE],
           { title: 'Nuevo cliente en lista de espera', body: 'Hay un nuevo cliente esperando para ser atendido' },
           'assingTable'
